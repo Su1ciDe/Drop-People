@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2451764766181357188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2451764766181357190}
+  - component: {fileID: 2451764766181357191}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2451764766181357190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2451764766181357188}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2451764766181357191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2451764766181357188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e392744b0eb445eb621164baaa87e0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minPlayingAudioAtATime: 10
+  maxPlayingAudioAtATime: 50
+  tracks:
+  - AudioSourcePrefab: {fileID: 152900401002307180, guid: 865d8dcca00124b79918d00446dc074a, type: 3}
+    ActiveAudioSource: {fileID: 0}
+    CanPlayOver: 1
+    Audios:
+      _serializedList:
+      - Key: 0
+        Value: {fileID: 8300000, guid: f029c0624e3b646fdb02e2eb2cae23f1, type: 3}
+      - Key: 1
+        Value: {fileID: 8300000, guid: d2d20cf3cbff648228be378454d274a1, type: 3}
+      - Key: 5
+        Value: {fileID: 8300000, guid: 374cd4a97e44943a69c371d2c505d9be, type: 3}
+      - Key: 6
+        Value: {fileID: 8300000, guid: 7c3bcc1a68e1c4f5982702d7801f38f3, type: 3}
+      - Key: 7
+        Value: {fileID: 8300000, guid: 7803083cd109e48de892af392f287b15, type: 3}
+      - Key: 2
+        Value: {fileID: 8300000, guid: ea10cf5e8598c466bb5a51fa2a87321e, type: 3}
+      - Key: 3
+        Value: {fileID: 8300000, guid: c4f6a36a176ec48ddbb93176b4ffe484, type: 3}
+      - Key: 4
+        Value: {fileID: 8300000, guid: e516ad2a2ea7946818d5845c0f828e3f, type: 3}
+  - AudioSourcePrefab: {fileID: 5458974145386491207, guid: 9e1ed01cef9ce4a008f7d16af7973136, type: 3}
+    ActiveAudioSource: {fileID: 0}
+    CanPlayOver: 0
+    Audios:
+      _serializedList:
+      - Key: -1
+        Value: {fileID: 0}

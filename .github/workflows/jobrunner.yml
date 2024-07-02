@@ -1,0 +1,18 @@
+name: Job Starter Service
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+#  pull_request:
+#      types:
+#      - closed
+#      branches:
+#      - main
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Jenkins Job Trigger Action
+        run: curl -I -u fiber:11a9b51cd3aa353104a3b78935ff2fc37b 'http://127.0.0.1:8080/job/${{ github.event.repository.name }}/build?token=fiberautopublishingtoken'

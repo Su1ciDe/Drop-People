@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6b0419356bd67469e4a62273fc434f, type: 3}
+  m_Name: Obstacle Group
+  m_EditorClassIdentifier: 
+  groupName: Obstacle Group
+  objectList:
+  - {fileID: 8232946535006205352, guid: e99445af1bbf6d7499106e501860aa31, type: 3}
+  - {fileID: 2908371448418504279, guid: 424286340a567c34bab9c1f06c06a923, type: 3}
+  startOffset: 0
+  placement: 20
+  offsetFromPrev: 2
+  groupCount: {x: 1, y: 1}
+  useRandomX: 0

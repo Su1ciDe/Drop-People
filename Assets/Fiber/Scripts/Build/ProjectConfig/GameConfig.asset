@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 650d238d15caebe44ac4e6e1c7bc1ea3, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: 
+  companyName: Fiber Games
+  productName: Project-Template
+  productIcon: {fileID: 2800000, guid: 0049bd813b4544af79cb4fe539f26a73, type: 3}
+  version: 0.1
+  iOSBundleId: com.fibergames.game
+  teamId: 9JRFGT2VDU
+  iOSBuildNo: 0
+  androidBundleId: com.fibergames.game
+  androidBuildNo: 1
+  facebookId: 0
+  facebookClientToken: 
+  gameId: 
+  gameSecret: 
+  background: {fileID: 0}
+  loadingScreenLogo: {fileID: 0}
+  loadingScreenTitle: {fileID: 0}
