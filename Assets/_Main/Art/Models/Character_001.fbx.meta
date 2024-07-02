@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: M_Character_001.001
-    second: {fileID: 2100000, guid: 03fb15caa64cef24c9ae0b7dafdc509a, type: 2}
+      name: M_Character_001.002
+    second: {fileID: 2100000, guid: 0bbcc24a0692bb24ea4dc5bee6829ee1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -38,40 +38,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: T_pose
-      takeName: T_pose
-      internalID: -3034042193338481443
+      name: t_pose
+      takeName: t_pose
+      internalID: -8968122031198121930
       firstFrame: 1
-      lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: idle
-      takeName: T_pose
-      internalID: 5575435043770108159
-      firstFrame: 5
-      lastFrame: 255
+      lastFrame: 2
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -97,10 +68,10 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: sit
-      takeName: T_pose
-      internalID: 320307419943360733
-      firstFrame: 260
-      lastFrame: 289
+      takeName: t_pose
+      internalID: -2938607938744501198
+      firstFrame: 5
+      lastFrame: 215
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -126,10 +97,39 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: run
-      takeName: T_pose
-      internalID: -6895654369151750164
-      firstFrame: 295
-      lastFrame: 310
+      takeName: t_pose
+      internalID: -6915769827261066533
+      firstFrame: 220
+      lastFrame: 236
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: idle
+      takeName: t_pose
+      internalID: 1939155078445356460
+      firstFrame: 240
+      lastFrame: 537
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
