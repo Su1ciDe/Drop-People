@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FiberGames.LevelGenerator
 {
-    [CreateAssetMenu]
+    // [CreateAssetMenu]
     public class LevelData : ScriptableObject
     {
         [SerializeField] public int minLevelLength = 3;

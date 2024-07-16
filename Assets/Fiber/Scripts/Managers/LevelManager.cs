@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Fiber.Utilities;
 using Fiber.AudioSystem;
 using Fiber.LevelSystem;
+using ScriptableObjects;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Events;
@@ -24,11 +25,14 @@ namespace Fiber.Managers
 		[Tooltip("Randomizes levels after all levels are played.\nIf this is unchecked, levels will be played again in same order.")]
 		[SerializeField] private bool randomizeAfterRotation = true;
 
+		[SerializeField] private Level levelPrefab;
+
 		[Required]
 		[ListDrawerSettings(Draggable = true, HideAddButton = false, HideRemoveButton = false, AlwaysExpanded = false)]
-		public Level[] Levels;
+		public LevelDataSO[] Levels;
 		[Tooltip("If you have tutorial levels add them here to extract them from rotation")]
-		public Level[] TutorialLevels;
+		public LevelDataSO[] TutorialLevels;
+		public LevelDataSO CurrentLevelData { get; private set; }
 		public Level CurrentLevel { get; private set; }
 
 		// Index of the level currently played
@@ -91,8 +95,9 @@ namespace Fiber.Managers
 
 		private void LoadLevel(int index)
 		{
-			CurrentLevel = Instantiate(LevelNo <= TutorialLevels.Length ? TutorialLevels[index - 1] : Levels[index - 1]);
-			CurrentLevel.Load();
+			CurrentLevel = Instantiate(levelPrefab, transform);
+			CurrentLevelData = ScriptableObject.Instantiate(LevelNo <= TutorialLevels.Length ? TutorialLevels[index - 1] : Levels[index - 1]);
+			CurrentLevel.Load(CurrentLevelData);
 			OnLevelLoad?.Invoke();
 
 			StartLevel();
@@ -145,10 +150,10 @@ namespace Fiber.Managers
 		[Button(ButtonSizes.Medium, "Add Level Assets To List")]
 		private void AddLevelAssetsToList()
 		{
-			const string levelPath = "Assets/_Main/Prefabs/Levels";
-			var levels = EditorUtilities.LoadAllAssetsFromPath<Level>(levelPath);
-			var normalLevels = new List<Level>();
-			var tutorialLevels = new List<Level>();
+			const string levelPath = "Assets/_Main/ScriptableObjects/Levels";
+			var levels = EditorUtilities.LoadAllAssetsFromPath<LevelDataSO>(levelPath);
+			var normalLevels = new List<LevelDataSO>();
+			var tutorialLevels = new List<LevelDataSO>();
 
 			foreach (var level in levels)
 			{
