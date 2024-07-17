@@ -1,7 +1,9 @@
 using Fiber.UI;
 using Fiber.Utilities;
+using Managers;
 using TMPro;
 using TriInspector;
+using UI;
 using UnityEngine;
 
 namespace Fiber.Managers
@@ -15,6 +17,7 @@ namespace Fiber.Managers
 		[SerializeField] private WinPanel winPanel;
 		[SerializeField] private LosePanel losePanel;
 		[SerializeField] private SettingsUI settingsPanel;
+		[SerializeField] private StageCompleteUI stageCompleteUI;
 		[Space]
 		[SerializeField] private GameObject inputPanel;
 		public InGameUI InGameUI { get; private set; }
@@ -34,6 +37,7 @@ namespace Fiber.Managers
 			LevelManager.OnLevelStart += OnLevelStart;
 			LevelManager.OnLevelWin += OnLevelWin;
 			LevelManager.OnLevelLose += OnLevelLose;
+			StageManager.OnStageCompleted += ShowStageCompletePanel;
 		}
 
 		private void OnDisable()
@@ -43,6 +47,12 @@ namespace Fiber.Managers
 			LevelManager.OnLevelStart -= OnLevelStart;
 			LevelManager.OnLevelWin -= OnLevelWin;
 			LevelManager.OnLevelLose -= OnLevelLose;
+			StageManager.OnStageCompleted -= ShowStageCompletePanel;
+		}
+
+		private void ShowStageCompletePanel(int stageNo)
+		{
+			stageCompleteUI.Open();
 		}
 
 		private void ShowWinPanel()
