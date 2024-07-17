@@ -14,7 +14,6 @@ namespace GoalSystem
 		public PersonType PersonType { get; private set; }
 
 		[SerializeField] private MeshRenderer holderMeshRenderer;
-		[SerializeField] private Transform cover;
 		[Space]
 		[SerializeField] private GoalSlot[] goalSlots;
 		public GoalSlot[] GoalSlots => goalSlots;
@@ -22,6 +21,7 @@ namespace GoalSystem
 		[SerializeField] private MMF_Player feedbacks;
 
 		private const float MOVE_DURATION = .35F;
+		private const int MATERIAL_INDEX = 1;
 
 		private void OnDisable()
 		{
@@ -34,7 +34,7 @@ namespace GoalSystem
 
 			var mat = GameManager.Instance.PersonMaterialsSO.GoalHolderMaterials[personType];
 			var mats = holderMeshRenderer.materials;
-			mats[0] = mat;
+			mats[MATERIAL_INDEX] = mat;
 			holderMeshRenderer.materials = mats;
 		}
 
@@ -56,14 +56,10 @@ namespace GoalSystem
 
 		public Tween CloseCover()
 		{
-			cover.gameObject.SetActive(true);
+			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.Success);
+			feedbacks.PlayFeedbacks();
+			
 			var seq = DOTween.Sequence();
-			seq.Append(cover.DOLocalMove(cover.localPosition + 5 * Vector3.up, .35f).From().SetEase(Ease.InExpo));
-			seq.AppendCallback(() =>
-			{
-				HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.Success);
-				feedbacks.PlayFeedbacks();
-			});
 			seq.AppendInterval(0.2f);
 			return seq;
 		}

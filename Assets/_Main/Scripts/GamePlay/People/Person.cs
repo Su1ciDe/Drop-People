@@ -2,6 +2,7 @@ using DG.Tweening;
 using Fiber.Managers;
 using Interfaces;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace GamePlay.People
 {
@@ -11,6 +12,7 @@ namespace GamePlay.People
 		public PersonType PersonType { get; private set; }
 		public ISlot CurrentSlot { get; set; }
 
+		[SerializeField] private NavMeshAgent agent;
 		[SerializeField] private PersonAnimations personAnimations;
 		[SerializeField] private SkinnedMeshRenderer meshRenderer;
 

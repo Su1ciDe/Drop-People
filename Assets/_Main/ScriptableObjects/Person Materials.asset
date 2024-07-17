@@ -17,34 +17,34 @@ MonoBehaviour:
     - Key: -1
       Value: {fileID: 0}
     - Key: 0
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: f41816864bd56b94d9e54e129ae22171, type: 2}
     - Key: 1
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: 443f73d1be1df6b4f997ad6d15aaf8bb, type: 2}
     - Key: 2
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: 98f29296e4442614e973d6f5db53cdb5, type: 2}
     - Key: 3
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: 62c693b6e4a8eb84eb56ac7f0cc93b63, type: 2}
     - Key: 4
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: af5211e4980d84044b16363f8cb51b01, type: 2}
     - Key: 5
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: 593d1e36641b2a24eb884c079efd75f7, type: 2}
     - Key: 6
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: e08eb909e5f1f024ab7eb481fd40c3af, type: 2}
   GoalHolderMaterials:
     _serializedList:
     - Key: -1
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: f6da1541cd463684fa5ea8ccbdef485b, type: 2}
     - Key: 0
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: 84610e475d2baca4382fb7930935c026, type: 2}
     - Key: 1
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: aae37f4f4b97f144cae720350df574d2, type: 2}
     - Key: 2
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: 8feac85d2b71ff646accb58fcd58fd1b, type: 2}
     - Key: 3
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: 09b8e5b39e49b684a934aa5865a27688, type: 2}
     - Key: 4
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: e67ebad90eb8fba49a179a8d50a9ae19, type: 2}
     - Key: 5
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: aedef81ff1f432f42a17ff06cafaa014, type: 2}
     - Key: 6
-      Value: {fileID: 0}
+      Value: {fileID: 2100000, guid: 40a7f3b2a204e7d4fba583de056adb40, type: 2}

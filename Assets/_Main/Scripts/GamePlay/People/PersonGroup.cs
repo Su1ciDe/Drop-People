@@ -1,10 +1,10 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DeckSystem;
 using DG.Tweening;
-using Fiber.AudioSystem;
 using Fiber.Managers;
+using Fiber.AudioSystem;
 using Fiber.Utilities.Extensions;
 using GridSystem;
 using Interfaces;
@@ -29,7 +29,7 @@ namespace GamePlay.People
 		[Space]
 		[SerializeField] private Transform model;
 		[SerializeField] private Collider col;
-		[SerializeField] private Transform cover;
+		// [SerializeField] private Transform cover;
 
 		[Space]
 		[SerializeField] private MMF_Player feedback;
@@ -41,8 +41,8 @@ namespace GamePlay.People
 
 		private readonly List<GridCell> triggeredNodes = new List<GridCell>();
 
-		public static readonly int MAX_PERSON_COUNT = 9;
-		
+		public static readonly int MAX_PERSON_COUNT = 6;
+
 		public static event UnityAction<PersonGroup> OnPlace;
 		public static event UnityAction<PersonGroup> OnComplete;
 
@@ -245,9 +245,9 @@ namespace GamePlay.People
 				if (!slot.Person) continue;
 
 				seq = DOTween.Sequence();
-				seq.Append(slot.Person.Unscrew());
+				// seq.Append(slot.Person.Unscrew());
 				seq.Append(slot.Person.MoveToSlot());
-				seq.Append(slot.Person.Screw());
+				// seq.Append(slot.Person.Screw());
 			}
 
 			if (seq.Duration() > 0)
@@ -305,14 +305,15 @@ namespace GamePlay.People
 
 		public void CloseCover()
 		{
-			cover.gameObject.SetActive(true);
-			cover.DOLocalMoveY(4, .25f).From().OnComplete(() => feedback.PlayFeedbacks());
+			// cover.gameObject.SetActive(true);
+			// cover.DOLocalMoveY(4, .25f).From().OnComplete(() => feedback.PlayFeedbacks());
+			feedback.PlayFeedbacks();
 		}
 
 		public void OpenCover()
 		{
-			if (cover.gameObject.activeSelf)
-				cover.gameObject.SetActive(false);
+			// if (cover.gameObject.activeSelf)
+			// 	cover.gameObject.SetActive(false);
 		}
 
 		public IEnumerator RemovePack()

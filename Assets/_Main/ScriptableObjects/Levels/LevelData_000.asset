@@ -17,16 +17,10 @@ MonoBehaviour:
     - PersonType: 0
     - PersonType: 0
     - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
     - PersonType: 1
     - PersonType: 1
     - PersonType: 1
   - PersonTypes:
-    - PersonType: 1
-    - PersonType: 1
-    - PersonType: 1
     - PersonType: 1
     - PersonType: 1
     - PersonType: 1
@@ -41,6 +35,9 @@ MonoBehaviour:
   - Goals:
     - PersonType: 0
     - PersonType: 1
+  - Goals:
+    - PersonType: 1
+    - PersonType: 0
   Obstacles:
     gridSize: {x: 4, y: 6}
     cellSize: {x: 16, y: 16}
