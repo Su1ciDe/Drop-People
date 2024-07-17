@@ -13,6 +13,38 @@ MonoBehaviour:
   m_Name: Person Materials
   m_EditorClassIdentifier: 
   PersonMaterials:
-    _serializedList: []
+    _serializedList:
+    - Key: -1
+      Value: {fileID: 0}
+    - Key: 0
+      Value: {fileID: 0}
+    - Key: 1
+      Value: {fileID: 0}
+    - Key: 2
+      Value: {fileID: 0}
+    - Key: 3
+      Value: {fileID: 0}
+    - Key: 4
+      Value: {fileID: 0}
+    - Key: 5
+      Value: {fileID: 0}
+    - Key: 6
+      Value: {fileID: 0}
   GoalHolderMaterials:
-    _serializedList: []
+    _serializedList:
+    - Key: -1
+      Value: {fileID: 0}
+    - Key: 0
+      Value: {fileID: 0}
+    - Key: 1
+      Value: {fileID: 0}
+    - Key: 2
+      Value: {fileID: 0}
+    - Key: 3
+      Value: {fileID: 0}
+    - Key: 4
+      Value: {fileID: 0}
+    - Key: 5
+      Value: {fileID: 0}
+    - Key: 6
+      Value: {fileID: 0}

@@ -11,7 +11,8 @@ namespace GamePlay.People
 		public PersonType PersonType { get; private set; }
 		public ISlot CurrentSlot { get; set; }
 
-		[SerializeField] private MeshRenderer meshRenderer;
+		[SerializeField] private PersonAnimations personAnimations;
+		[SerializeField] private SkinnedMeshRenderer meshRenderer;
 
 		public static float SCREW_DURATION = .25f;
 		public static float MOVE_DURATION = .2f;

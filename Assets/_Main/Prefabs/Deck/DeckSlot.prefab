@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2171944396568542193
+--- !u!1 &142616912198685834
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2171944396568542192}
-  - component: {fileID: 2171944396568542195}
+  - component: {fileID: 6023902628366601715}
+  - component: {fileID: 1266039535235846659}
   m_Layer: 0
-  m_Name: LevelManager
+  m_Name: DeckSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2171944396568542192
+--- !u!4 &6023902628366601715
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2171944396568542193}
+  m_GameObject: {fileID: 142616912198685834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,20 +32,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2171944396568542195
+--- !u!114 &1266039535235846659
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2171944396568542193}
+  m_GameObject: {fileID: 142616912198685834}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a3ffeff3a5a9b47b4dce90ac524ced, type: 3}
+  m_Script: {fileID: 11500000, guid: a6df59cbc670480686e093ee48054eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomizeAfterRotation: 1
-  levelPrefab: {fileID: 3210734524189124999, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
-  Levels:
-  - {fileID: 11400000, guid: a2953e1e01c2c4cd39fb74b1caf23f42, type: 2}
-  TutorialLevels: []
+  size: 8
