@@ -124,7 +124,7 @@ namespace Managers
 				CurrentGoalHolder.GoalSlots[i].SetPerson(bolt, false);
 
 				var seq = DOTween.Sequence();
-				seq.Append(bolt.Unscrew());
+				// seq.Append(bolt.Unscrew());
 				seq.Append(bolt.MoveToSlot(true).SetDelay(i * DELAY));
 				var i1 = i;
 				seq.AppendCallback(() =>
@@ -132,7 +132,7 @@ namespace Managers
 					HapticManager.Instance.PlayHaptic(0.65f, 1f);
 					AudioManager.Instance.PlayAudio(AudioName.Person).SetPitch(1 + i1 * 0.1f);
 				});
-				seq.Append(bolt.Screw());
+				// seq.Append(bolt.Screw());
 			}
 
 			StartCoroutine(WaitForPackCompletion(personGroup));

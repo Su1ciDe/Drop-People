@@ -371,9 +371,6 @@ MonoBehaviour:
   - {fileID: 4229061913981788883}
   - {fileID: 4510169818851633741}
   - {fileID: 6229306891474424762}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   model: {fileID: 3500887155200392983}
   col: {fileID: 3500887155886545702}
   feedback: {fileID: 3500887155236322648}
