@@ -177,4 +177,4 @@ MonoBehaviour:
   rotationClamp: 25
   touchLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256

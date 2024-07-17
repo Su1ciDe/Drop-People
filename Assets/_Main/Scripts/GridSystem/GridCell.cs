@@ -19,6 +19,8 @@ namespace GridSystem
 
 		private const float HIGHLIGHT_DURATION = .4F;
 
+		private static readonly int baseColor = Shader.PropertyToID("_BaseColor");
+
 		public void Setup(int x, int y, Vector2 nodeSize)
 		{
 			Coordinates = new Vector2Int(x, y);
@@ -34,7 +36,8 @@ namespace GridSystem
 			highlight.material.color = tempColor;
 
 			highlight.material.DOKill();
-			highlight.material.DOFade(1, HIGHLIGHT_DURATION).SetEase(Ease.OutSine);
+			highlight.material.DOFade(1, baseColor, HIGHLIGHT_DURATION).SetEase(Ease.OutSine);
+			highlight.material.DOFade(1, baseColor, HIGHLIGHT_DURATION).SetEase(Ease.OutSine);
 
 			highlight.transform.localScale = Vector3.zero;
 			highlight.transform.DOKill();
@@ -44,7 +47,7 @@ namespace GridSystem
 		public void HideHighlight()
 		{
 			highlight.material.DOKill();
-			highlight.material.DOFade(0, HIGHLIGHT_DURATION).SetEase(Ease.OutSine);
+			highlight.material.DOFade(0, baseColor, HIGHLIGHT_DURATION).SetEase(Ease.OutSine);
 
 			highlight.transform.DOKill();
 			highlight.transform.DOScale(0, HIGHLIGHT_DURATION).SetEase(Ease.InBack).OnComplete(() => highlight.gameObject.SetActive(false));
