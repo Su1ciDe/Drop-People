@@ -63,9 +63,9 @@ namespace GamePlay.People
 			{
 				if (personColors[i].PersonType == PersonType.None) continue;
 
-				var bolt = Instantiate(personPrefab);
-				bolt.Setup(personColors[i].PersonType);
-				personGroupSlots[i].SetPerson(bolt);
+				var person = Instantiate(personPrefab);
+				person.Setup(personColors[i].PersonType);
+				personGroupSlots[i].SetPerson(person);
 			}
 		}
 
@@ -127,6 +127,12 @@ namespace GamePlay.People
 			transform.DOLocalMove(Vector3.zero, .25f).SetEase(Ease.OutBack).OnComplete(() =>
 			{
 				HapticManager.Instance.PlayHaptic(0.5f, 0.5f);
+
+				for (var i = 0; i < personGroupSlots.Length; i++)
+				{
+					if (personGroupSlots[i].Person)
+						personGroupSlots[i].Person.OnGroupPlaced();
+				}
 
 				OnPlace?.Invoke(this);
 			});
@@ -231,7 +237,7 @@ namespace GamePlay.People
 			}
 		}
 
-		public IEnumerator MoveBolts()
+		public IEnumerator MovePeople()
 		{
 			yield return new WaitUntil(() => !IsBusy);
 			if (!isActiveAndEnabled) yield break;

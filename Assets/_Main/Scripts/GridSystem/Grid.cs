@@ -192,7 +192,7 @@ namespace GridSystem
 			// Moving Sequence
 			foreach (var boltPackPair in connectedPersonGroups)
 			{
-				StartCoroutine(boltPackPair.MoveBolts());
+				StartCoroutine(boltPackPair.MovePeople());
 			}
 
 			if (moveSequenceCoroutine is not null)

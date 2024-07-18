@@ -12,6 +12,8 @@ namespace GamePlay.People
 		public PersonType PersonType { get; private set; }
 		public ISlot CurrentSlot { get; set; }
 
+		public NavMeshAgent Agent => agent;
+
 		[SerializeField] private NavMeshAgent agent;
 		[SerializeField] private PersonAnimations personAnimations;
 		[SerializeField] private SkinnedMeshRenderer meshRenderer;
@@ -20,6 +22,11 @@ namespace GamePlay.People
 		public static float MOVE_DURATION = .2f;
 		private const int SCREW_AMOUNT = 2;
 		private const float SCREW_HEIGHT = 1.5F;
+
+		private void Awake()
+		{
+			agent.updateRotation = false;
+		}
 
 		private void OnDestroy()
 		{
@@ -30,6 +37,12 @@ namespace GamePlay.People
 		{
 			PersonType = boltType;
 			meshRenderer.material = GameManager.Instance.PersonMaterialsSO.PersonMaterials[boltType];
+		}
+
+		public void OnGroupPlaced()
+		{
+			agent.enabled = true;
+			agent.SetDestination(transform.position);
 		}
 
 		public void ChangeSlot(ISlot slot, bool removeCurrentSlot = true, bool changePosition = true)
@@ -58,11 +71,11 @@ namespace GamePlay.People
 		public Tween MoveToSlot(bool changeRotation = false)
 		{
 			this.DOKill();
-
+			
 			var seq = DOTween.Sequence();
 			if (transform.position.Equals(CurrentSlot.GetTransform().position)) return seq;
 
-			seq.Join(transform.DOLocalMove(SCREW_HEIGHT * Vector3.up, MOVE_DURATION).SetEase(Ease.InOutSine));
+			seq.Join(transform.DOLocalMove(Vector3.zero, MOVE_DURATION).SetEase(Ease.InOutSine));
 			seq.Join(transform.DOScale(Vector3.one, MOVE_DURATION).SetEase(Ease.InOutSine));
 			if (changeRotation)
 				seq.Join(transform.DORotate(CurrentSlot.GetTransform().eulerAngles, MOVE_DURATION));

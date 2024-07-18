@@ -21,7 +21,7 @@ namespace GoalSystem
 		[SerializeField] private MMF_Player feedbacks;
 
 		private const float MOVE_DURATION = .35F;
-		private const int MATERIAL_INDEX = 1;
+		private const int MATERIAL_INDEX = 0;
 
 		private void OnDisable()
 		{
