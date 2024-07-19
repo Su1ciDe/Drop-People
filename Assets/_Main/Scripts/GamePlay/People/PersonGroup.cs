@@ -41,7 +41,7 @@ namespace GamePlay.People
 
 		private readonly List<GridCell> triggeredNodes = new List<GridCell>();
 
-		public static readonly int MAX_PERSON_COUNT = 6;
+		public static readonly int MAX_PERSON_COUNT = 9;
 
 		public static event UnityAction<PersonGroup> OnPlace;
 		public static event UnityAction<PersonGroup> OnComplete;
@@ -105,7 +105,7 @@ namespace GamePlay.People
 
 		public void OnRelease()
 		{
-			if (currentNearestGridCell)
+			if (!CurrentGridCell && currentNearestGridCell)
 			{
 				Place(currentNearestGridCell);
 			}
@@ -243,55 +243,55 @@ namespace GamePlay.People
 			if (!isActiveAndEnabled) yield break;
 			IsBusy = true;
 
-			var seq = DOTween.Sequence();
+			// var seq = DOTween.Sequence();
 
 			for (var i = 0; i < personGroupSlots.Length; i++)
 			{
 				var slot = personGroupSlots[i];
 				if (!slot.Person) continue;
 
-				seq = DOTween.Sequence();
-				// seq.Append(slot.Person.Unscrew());
-				seq.Append(slot.Person.MoveToSlot());
-				// seq.Append(slot.Person.Screw());
+				slot.Person.MoveToSlot(slot);
 			}
 
-			if (seq.Duration() > 0)
-				AudioManager.Instance.PlayAudio(AudioName.Person).SetVolume(0.75f);
+			// if (seq.Duration() > 0)
+			// AudioManager.Instance.PlayAudio(AudioName.Person).SetVolume(0.75f);
 
-			CheckIfSorted();
+			var isCompleted = CheckIfSorted();
 
-			seq.OnComplete(() =>
+			var filledSlots = personGroupSlots.Where(x => x.Person);
+			yield return new WaitUntil(() => !filledSlots.Any(x => x.Person.IsMoving));
+			yield return null;
+
+			IsBusy = false;
+			if (isCompleted)
 			{
-				IsBusy = false;
-				if (seq.Duration() > 0)
-				{
-					HapticManager.Instance.PlayHaptic(0.65f, 1f);
-					AudioManager.Instance.PlayAudio(AudioName.Person).SetPitch(1.15f).SetVolume(0.75f);
-				}
-			});
+				Complete();
+			}
+
+			// seq.OnComplete(() =>
+			// {
+			// 	IsBusy = false;
+			// 	if (seq.Duration() > 0)
+			// 	{
+			// 		HapticManager.Instance.PlayHaptic(0.65f, 1f);
+			// 		AudioManager.Instance.PlayAudio(AudioName.Person).SetPitch(1.15f).SetVolume(0.75f);
+			// 	}
+			// });
 		}
 
-		public void CheckIfSorted()
+		public bool CheckIfSorted()
 		{
 			int count = 0;
-			int sameBoltCount = 1;
+			int samePersonTypeCount = 1;
 
 			for (int i = 0; i < personGroupSlots.Length; i++)
 			{
-				if (personGroupSlots[i].Person)
-				{
-					count++;
+				if (!personGroupSlots[i].Person) continue;
 
-					if (i > 0 && personGroupSlots[i - 1].Person?.PersonType == personGroupSlots[i].Person.PersonType)
-						sameBoltCount++;
-				}
-			}
+				count++;
 
-			// Pack it up
-			if (sameBoltCount.Equals(MAX_PERSON_COUNT))
-			{
-				StartCoroutine(Complete());
+				if (i > 0 && personGroupSlots[i - 1].Person?.PersonType == personGroupSlots[i].Person.PersonType)
+					samePersonTypeCount++;
 			}
 
 			// Remove pack from grid
@@ -299,13 +299,14 @@ namespace GamePlay.People
 			{
 				StartCoroutine(RemovePack());
 			}
+
+			// Pack it up
+			return samePersonTypeCount.Equals(MAX_PERSON_COUNT);
 		}
 
-		private IEnumerator Complete()
+		private void Complete()
 		{
 			IsCompleted = true;
-			yield return new WaitForSeconds(Person.MOVE_DURATION + Person.SCREW_DURATION * 2);
-
 			OnComplete?.Invoke(this);
 		}
 
@@ -313,6 +314,7 @@ namespace GamePlay.People
 		{
 			// cover.gameObject.SetActive(true);
 			// cover.DOLocalMoveY(4, .25f).From().OnComplete(() => feedback.PlayFeedbacks());
+			//TODO: more feedbacks
 			feedback.PlayFeedbacks();
 		}
 
@@ -326,7 +328,7 @@ namespace GamePlay.People
 		{
 			if (!gameObject) yield break;
 
-			yield return new WaitForSeconds(Person.MOVE_DURATION + Person.SCREW_DURATION * 2);
+			// yield return new WaitForSeconds(Person.MOVE_DURATION + Person.SCREW_DURATION * 2);
 
 			transform.DOScale(0, .5f).SetEase(Ease.InBack).OnComplete(() =>
 			{
@@ -417,7 +419,7 @@ namespace GamePlay.People
 					yield return personGroupSlots[i];
 		}
 
-		public IEnumerable<Person> GetAllBolts()
+		public IEnumerable<Person> GetAllPeople()
 		{
 			for (int i = 0; i < personGroupSlots.Length; i++)
 				if (personGroupSlots[i].Person)

@@ -5,6 +5,7 @@ using Fiber.Utilities.Extensions;
 using GamePlay.People;
 using TriInspector;
 using UnityEngine;
+using Utilities;
 using Random = UnityEngine.Random;
 
 namespace ScriptableObjects
@@ -47,7 +48,7 @@ namespace ScriptableObjects
 		[Serializable]
 		public class PersonGroupSettings
 		{
-			[ValidateInput(nameof(ValidateBoltTypes))]
+			[ValidateInput(nameof(ValidatePersonTypes))]
 			public List<PersonColor> PersonTypes = new List<PersonColor>();
 
 			[Serializable]
@@ -78,7 +79,7 @@ namespace ScriptableObjects
 				}
 			}
 
-			private TriValidationResult ValidateBoltTypes()
+			private TriValidationResult ValidatePersonTypes()
 			{
 				if (PersonTypes.Count > PersonGroup.MAX_PERSON_COUNT)
 					return TriValidationResult.Error($"Max {PersonGroup.MAX_PERSON_COUNT}")
@@ -99,7 +100,16 @@ namespace ScriptableObjects
 		[Serializable]
 		public class GoalSettings
 		{
-			public PersonGroupSettings.PersonColor[] Goals;
+			[TableList]
+			public Goal[] Goals;
+		}
+
+		[Serializable]
+		public class Goal
+		{
+			public PersonGroupSettings.PersonColor GoalColor;
+			[RangeStep(9, 27, 9)]
+			public int Count;
 		}
 	}
 }

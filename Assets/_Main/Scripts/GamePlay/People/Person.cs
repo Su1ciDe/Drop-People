@@ -1,5 +1,8 @@
+using System.Collections;
 using DG.Tweening;
+using Fiber.AudioSystem;
 using Fiber.Managers;
+using Fiber.Utilities.Extensions;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,21 +10,24 @@ using UnityEngine.AI;
 namespace GamePlay.People
 {
 	[SelectionBase]
+	[RequireComponent(typeof(NavMeshAgent))]
 	public class Person : MonoBehaviour
 	{
+		public bool IsMoving { get; set; }
+
 		public PersonType PersonType { get; private set; }
 		public ISlot CurrentSlot { get; set; }
 
 		public NavMeshAgent Agent => agent;
 
 		[SerializeField] private NavMeshAgent agent;
+		[SerializeField] private float rotationDamping = 1;
+		[SerializeField] private Transform model;
 		[SerializeField] private PersonAnimations personAnimations;
 		[SerializeField] private SkinnedMeshRenderer meshRenderer;
 
 		public static float SCREW_DURATION = .25f;
 		public static float MOVE_DURATION = .2f;
-		private const int SCREW_AMOUNT = 2;
-		private const float SCREW_HEIGHT = 1.5F;
 
 		private void Awake()
 		{
@@ -52,51 +58,54 @@ namespace GamePlay.People
 					CurrentSlot.SetPerson(null);
 
 			slot.SetPerson(this, changePosition);
-			// name = slot.name + " - " + BoltType;
 		}
 
-		public Tween Unscrew()
+		public void MoveToSlot(ISlot slot, bool changeRotation = false)
 		{
-			this.DOKill();
+			if (Mathf.Abs((transform.position.xz() - CurrentSlot.GetTransform().position.xz()).sqrMagnitude) < .1f) return;
 
-			var seq = DOTween.Sequence();
-			if (transform.position.Equals(CurrentSlot.GetTransform().position)) return seq;
-
-			seq.Join(transform.DOMove(new Vector3(transform.position.x, transform.position.y + SCREW_HEIGHT, transform.position.z), SCREW_DURATION).SetEase(Ease.Linear));
-			seq.Join(transform.DOLocalRotate(-360 * Vector3.up, SCREW_DURATION / SCREW_AMOUNT, RotateMode.FastBeyond360).SetLoops(SCREW_AMOUNT, LoopType.Incremental).SetEase(Ease.Linear));
-			seq.SetTarget(this);
-			return seq;
+			StartCoroutine(MoveCoroutine(slot, changeRotation));
 		}
 
-		public Tween MoveToSlot(bool changeRotation = false)
+		private IEnumerator MoveCoroutine(ISlot slot, bool changeRotation)
 		{
-			this.DOKill();
-			
-			var seq = DOTween.Sequence();
-			if (transform.position.Equals(CurrentSlot.GetTransform().position)) return seq;
+			if (!agent.enabled) yield break;
 
-			seq.Join(transform.DOLocalMove(Vector3.zero, MOVE_DURATION).SetEase(Ease.InOutSine));
-			seq.Join(transform.DOScale(Vector3.one, MOVE_DURATION).SetEase(Ease.InOutSine));
+			transform.DOKill();
+
+			IsMoving = true;
+			var slotT = slot.GetTransform();
+
+			agent.SetDestination(slotT.position);
+			personAnimations.Run();
+
+			yield return null;
+			while (agent.remainingDistance > agent.stoppingDistance)
+			{
+				UpdateRotation();
+				yield return null;
+			}
+
+			// HapticManager.Instance.PlayHaptic(0.65f, 1f);
+			// AudioManager.Instance.PlayAudio(AudioName.Person);
+
+			personAnimations.StopRunning();
+			IsMoving = false;
+
 			if (changeRotation)
-				seq.Join(transform.DORotate(CurrentSlot.GetTransform().eulerAngles, MOVE_DURATION));
-
-			seq.SetTarget(this);
-
-			return seq;
+				model.DORotate(CurrentSlot.GetTransform().eulerAngles, .15f);
 		}
 
-		public Tween Screw()
+		private void UpdateRotation()
 		{
-			this.DOKill();
-
-			var seq = DOTween.Sequence();
-			if (transform.position.Equals(CurrentSlot.GetTransform().position)) return seq;
-
-			seq.Join(transform.DOLocalMove(Vector3.zero, SCREW_DURATION).SetEase(Ease.Linear));
-			seq.Join(transform.DOLocalRotate(360 * Vector3.up, SCREW_DURATION / SCREW_AMOUNT, RotateMode.FastBeyond360).SetLoops(SCREW_AMOUNT, LoopType.Incremental).SetEase(Ease.Linear));
-			seq.SetTarget(this);
-
-			return seq;
+			if (agent.desiredVelocity.sqrMagnitude > agent.stoppingDistance)
+			{
+				model.forward = Vector3.Lerp(model.forward, agent.velocity.normalized, Time.deltaTime * rotationDamping);
+			}
+			else
+			{
+				// model.forward = Vector3.Lerp(model.forward, Helper.MainCamera.transform.position.xz() - transform.position.xz(), Time.deltaTime);
+			}
 		}
 	}
 }

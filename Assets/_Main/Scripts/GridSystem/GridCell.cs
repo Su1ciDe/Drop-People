@@ -8,14 +8,15 @@ namespace GridSystem
 	[SelectionBase]
 	public class GridCell : MonoBehaviour
 	{
-		public bool IsShowingHighlight => highlight.gameObject.activeSelf;
+		public bool IsShowingHighlight => highlightT.gameObject.activeSelf;
 
 		public Vector2Int Coordinates { get; private set; }
 
 		public PersonGroup CurrentPersonGroup { get; set; }
 		public INode CurrentNode { get; set; }
 
-		[SerializeField] private MeshRenderer highlight;
+		[SerializeField] private Transform highlightT;
+		[SerializeField] private MeshRenderer highlightMR;
 
 		private const float HIGHLIGHT_DURATION = .4F;
 
@@ -29,28 +30,27 @@ namespace GridSystem
 
 		public void ShowHighlight()
 		{
-			highlight.gameObject.SetActive(true);
+			highlightT.gameObject.SetActive(true);
 
-			var tempColor = highlight.material.color;
+			var tempColor = highlightMR.material.color;
 			tempColor.a = 0;
-			highlight.material.color = tempColor;
+			highlightMR.material.color = tempColor;
 
-			highlight.material.DOKill();
-			highlight.material.DOFade(1, baseColor, HIGHLIGHT_DURATION).SetEase(Ease.OutSine);
-			highlight.material.DOFade(1, baseColor, HIGHLIGHT_DURATION).SetEase(Ease.OutSine);
+			highlightMR.material.DOKill();
+			highlightMR.material.DOFade(1, baseColor, HIGHLIGHT_DURATION).SetEase(Ease.OutSine);
 
-			highlight.transform.localScale = Vector3.zero;
-			highlight.transform.DOKill();
-			highlight.transform.DOScale(1, HIGHLIGHT_DURATION).SetEase(Ease.OutBack);
+			highlightT.DOKill();
+			highlightT.localScale = Vector3.zero;
+			highlightT.DOScale(1, HIGHLIGHT_DURATION).SetEase(Ease.OutBack);
 		}
 
 		public void HideHighlight()
 		{
-			highlight.material.DOKill();
-			highlight.material.DOFade(0, baseColor, HIGHLIGHT_DURATION).SetEase(Ease.OutSine);
+			highlightMR.material.DOKill();
+			highlightMR.material.DOFade(0, baseColor, HIGHLIGHT_DURATION).SetEase(Ease.OutSine);
 
-			highlight.transform.DOKill();
-			highlight.transform.DOScale(0, HIGHLIGHT_DURATION).SetEase(Ease.InBack).OnComplete(() => highlight.gameObject.SetActive(false));
+			highlightT.DOComplete();
+			highlightT.DOScale(0, HIGHLIGHT_DURATION).SetEase(Ease.InBack).OnComplete(() => highlightT.gameObject.SetActive(false));
 		}
 	}
 }

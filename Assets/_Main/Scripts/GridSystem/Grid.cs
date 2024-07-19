@@ -5,6 +5,7 @@ using Fiber.Managers;
 using Fiber.Utilities;
 using GamePlay.People;
 using GamePlay.Obstacles;
+using GoalSystem;
 using Managers;
 using UnityEngine;
 
@@ -32,16 +33,18 @@ namespace GridSystem
 		{
 			PersonGroup.OnPlace += OnBoltPlaced;
 			LevelManager.OnLevelLoad += OnLevelLoaded;
-			StageManager.OnStageStarted += OnStageStarted;
+			// StageManager.OnStageStarted += OnStageStarted;
 			GoalManager.OnGoal += OnGoal;
+			GoalManager.OnNewGoal += CheckCompletedPacks;
 		}
 
 		private void OnDisable()
 		{
 			PersonGroup.OnPlace -= OnBoltPlaced;
 			LevelManager.OnLevelLoad -= OnLevelLoaded;
-			StageManager.OnStageStarted -= OnStageStarted;
+			// StageManager.OnStageStarted -= OnStageStarted;
 			GoalManager.OnGoal -= OnGoal;
+			GoalManager.OnNewGoal -= CheckCompletedPacks;
 		}
 
 		private void Setup()
@@ -200,6 +203,7 @@ namespace GridSystem
 				StopCoroutine(moveSequenceCoroutine);
 				moveSequenceCoroutine = null;
 			}
+
 			moveSequenceCoroutine = StartCoroutine(MoveSequence());
 		}
 
@@ -216,7 +220,7 @@ namespace GridSystem
 
 		private IEnumerator MoveSequence()
 		{
-			yield return new WaitForSeconds(Person.MOVE_DURATION + Person.SCREW_DURATION * 2);
+			// yield return new WaitForSeconds(Person.MOVE_DURATION + Person.SCREW_DURATION * 2);
 			yield return null;
 			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
 			yield return new WaitForSeconds(2.5f);
@@ -244,29 +248,28 @@ namespace GridSystem
 			}
 		}
 
-		public void CheckCompletedPacks()
+		public void CheckCompletedPacks(GoalHolder goalHolder)
 		{
-			if (!GoalManager.Instance.CurrentGoalHolder) return;
-
-			PersonGroup completedPersonGroup = null;
+			// PersonGroup completedPersonGroup = null;
 			for (int x = 0; x < size.x; x++)
 			{
 				for (int y = 0; y < size.y; y++)
 				{
 					var grid = gridCells[x, y];
-					if (grid.CurrentPersonGroup && grid.CurrentPersonGroup.IsCompleted && grid.CurrentPersonGroup.PersonGroupSlots[0].Person.PersonType == GoalManager.Instance.CurrentGoalHolder.PersonType)
+					if (grid.CurrentPersonGroup && grid.CurrentPersonGroup.IsCompleted && grid.CurrentPersonGroup.PersonGroupSlots[0].Person.PersonType == goalHolder.PersonType)
 					{
-						completedPersonGroup = grid.CurrentPersonGroup;
-						break;
+						GoalManager.Instance.OnPersonGroupCompleted(grid.CurrentPersonGroup);
+						// completedPersonGroup = grid.CurrentPersonGroup;
+						// break;
 					}
 				}
 
-				if (completedPersonGroup)
-					break;
+				// if (completedPersonGroup)
+				// 	break;
 			}
 
-			if (completedPersonGroup)
-				GoalManager.Instance.OnBoltPackCompleted(completedPersonGroup);
+			// if (completedPersonGroup)
+			// 	GoalManager.Instance.OnPersonGroupCompleted(completedPersonGroup);
 		}
 
 		private void CheckHasSameType(PersonGroup neighbourGroup, ref List<PersonGroup> connectedPersonGroups)
@@ -277,18 +280,18 @@ namespace GridSystem
 			}
 		}
 
-		private void OnStageStarted(int stageNo)
-		{
-			if (stageNo.Equals(0)) return;
-
-			StartCoroutine(WaitStage());
-			return;
-
-			IEnumerator WaitStage()
-			{
-				yield return new WaitForSeconds(1);
-				CheckCompletedPacks();
-			}
-		}
+		// private void OnStageStarted(int stageNo)
+		// {
+		// 	if (stageNo.Equals(0)) return;
+		//
+		// 	StartCoroutine(WaitStage());
+		// 	return;
+		//
+		// 	IEnumerator WaitStage()
+		// 	{
+		// 		yield return new WaitForSeconds(1);
+		// 		CheckCompletedPacks();
+		// 	}
+		// }
 	}
 }

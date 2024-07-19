@@ -19,8 +19,7 @@ namespace GamePlay.People
 			Person = person;
 			Person.CurrentSlot = this;
 			Person.transform.SetParent(transform);
-			if (Person.isActiveAndEnabled && Person.Agent.enabled)
-				Person.Agent.SetDestination(transform.position);
+			
 			if (setPosition)
 				Person.transform.localPosition = Vector3.zero;
 		}

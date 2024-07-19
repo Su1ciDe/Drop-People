@@ -49,7 +49,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -71,7 +71,7 @@ ModelImporter:
       takeName: Character_anim01
       internalID: -2152638325936189310
       firstFrame: 10
-      lastFrame: 509
+      lastFrame: 506
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

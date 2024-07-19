@@ -1,36 +1,100 @@
+using System.Collections;
+using System.Linq;
 using DG.Tweening;
 using Fiber.Managers;
 using GamePlay.People;
 using Lofelt.NiceVibrations;
+using Managers;
 using MoreMountains.Feedbacks;
+using TMPro;
+using TriInspector;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GoalSystem
 {
 	[SelectionBase]
 	public class GoalHolder : MonoBehaviour
 	{
-		public bool Completed { get; set; }
+		public bool Completed { get; set; } = false;
 		public PersonType PersonType { get; private set; }
+		public int NeededAmount { get; private set; }
+		public int LineIndex { get; private set; }
 
 		[SerializeField] private MeshRenderer holderMeshRenderer;
 		[Space]
 		[SerializeField] private GoalSlot[] goalSlots;
 		public GoalSlot[] GoalSlots => goalSlots;
 
+		[Space]
 		[SerializeField] private MMF_Player feedbacks;
+
+		[Title("UI")]
+		[SerializeField] private TMP_Text txtCount;
+
+		private int currentAmount;
 
 		private const float MOVE_DURATION = .35F;
 		private const int MATERIAL_INDEX = 0;
+
+		public event UnityAction<GoalHolder> OnComplete;
 
 		private void OnDisable()
 		{
 			transform.DOKill();
 		}
 
-		public void Setup(PersonType personType)
+		public IEnumerator SetPeople(PersonGroup personGroup)
+		{
+			var people = personGroup.GetAllPeople().ToArray();
+			var peopleCount = people.Length;
+
+			for (var i = 0; i < peopleCount; i++)
+			{
+				var slot = GetFirstGoalSlot();
+				if (!slot) continue;
+
+				slot.SetPerson(people[i], false);
+				currentAmount++;
+			}
+
+			Completed = CheckIfCompleted();
+
+			for (var i = 0; i < peopleCount; i++)
+			{
+				yield return new WaitForSeconds(GoalManager.DELAY);
+				people[i].MoveToSlot(people[i].CurrentSlot, true);
+			}
+
+			if (personGroup)
+				StartCoroutine(personGroup.RemovePack());
+
+			yield return null;
+			yield return new WaitUntil(() => !people.Any(x => x.IsMoving));
+			yield return null;
+
+			for (var i = 0; i < peopleCount; i++)
+			{
+				people[i].Agent.enabled = false;
+			}
+
+			if (Completed)
+			{
+				OnComplete?.Invoke(this);
+			}
+		}
+
+		private bool CheckIfCompleted()
+		{
+			return currentAmount >= NeededAmount;
+		}
+
+		public void Setup(PersonType personType, int neededAmount, int lineIndex)
 		{
 			PersonType = personType;
+			NeededAmount = neededAmount;
+			LineIndex = lineIndex;
+			currentAmount = 0;
 
 			var mat = GameManager.Instance.PersonMaterialsSO.GoalHolderMaterials[personType];
 			var mats = holderMeshRenderer.materials;
@@ -58,10 +122,21 @@ namespace GoalSystem
 		{
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.Success);
 			feedbacks.PlayFeedbacks();
-			
+
 			var seq = DOTween.Sequence();
 			seq.AppendInterval(0.2f);
 			return seq;
+		}
+
+		public GoalSlot GetFirstGoalSlot()
+		{
+			for (var i = 0; i < goalSlots.Length; i++)
+			{
+				if (!goalSlots[i].Person)
+					return goalSlots[i];
+			}
+
+			return null;
 		}
 	}
 }

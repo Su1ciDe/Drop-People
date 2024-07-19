@@ -14537,6 +14537,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7333541980691527542, guid: 8c5b5dccb5a0b49d88a0a560ce89ed8d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8379791166936811621, guid: 8c5b5dccb5a0b49d88a0a560ce89ed8d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -17171,7 +17175,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 21a43744d4cb940d28e4191c3721560c, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2ff02f6a912b94532992c32d2e09969a, type: 2}
   m_BuildHeightMesh: 0
 --- !u!64 &2079345604
 MeshCollider:

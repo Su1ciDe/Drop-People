@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 using Fiber.AudioSystem;
 using Fiber.Managers;
@@ -10,157 +9,157 @@ using GoalSystem;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Events;
-using Grid = GridSystem.Grid;
 
 namespace Managers
 {
 	public class GoalManager : Singleton<GoalManager>
 	{
 		public bool IsGoalSequence { get; set; } = false;
-		public GoalHolder CurrentGoalHolder { get; private set; }
+		// public GoalHolder CurrentGoalHolder { get; private set; }
+		public List<GoalHolder> CurrentGoalHolders { get; private set; } = new List<GoalHolder>(LINE_COUNT);
 
 		[SerializeField] private GoalHolder goalHolderPrefab;
+		[SerializeField] private float goalHolderLength;
 		[Title("Points")]
 		[SerializeField] private Transform goalHolderPoint;
 		[SerializeField] private Transform goalHolderNextPoint;
 		[SerializeField] private Transform goalHolderMovePoint;
+		[Title("Lines")]
+		[SerializeField] private Transform[] lines = new Transform[LINE_COUNT];
 
-		// private List<GoalHolder> holders = new List<GoalHolder>();
-		private Dictionary<int, List<GoalHolder>> holders = new Dictionary<int, List<GoalHolder>>();
+		private List<Queue<GoalHolder>> lineQueues = new List<Queue<GoalHolder>>();
+		// private Dictionary<int, List<GoalHolder>> holders = new Dictionary<int, List<GoalHolder>>();
 
-		private const float DELAY = .1F;
+		public const float DELAY = .05F;
+		public const int LINE_COUNT = 3;
 
 		public static event UnityAction OnGoal;
+		public static event UnityAction<GoalHolder> OnNewGoal;
 
 		private void OnEnable()
 		{
 			LevelManager.OnLevelLoad += OnLevelLoaded;
-			StageManager.OnStageStarted += OnStageStarted;
-			PersonGroup.OnComplete += OnBoltPackCompleted;
+			LevelManager.OnLevelStart += OnLevelStarted;
+			PersonGroup.OnComplete += OnPersonGroupCompleted;
 		}
 
 		private void OnDisable()
 		{
 			LevelManager.OnLevelLoad -= OnLevelLoaded;
-			StageManager.OnStageStarted -= OnStageStarted;
-			PersonGroup.OnComplete -= OnBoltPackCompleted;
+			LevelManager.OnLevelStart -= OnLevelStarted;
+			PersonGroup.OnComplete -= OnPersonGroupCompleted;
 		}
 
 		private void OnLevelLoaded()
 		{
+			lineQueues.Add(new Queue<GoalHolder>());
+			lineQueues.Add(new Queue<GoalHolder>());
+			lineQueues.Add(new Queue<GoalHolder>());
+
 			for (var i = 0; i < LevelManager.Instance.CurrentLevelData.GoalStages.Length; i++)
 			{
 				var goalStage = LevelManager.Instance.CurrentLevelData.GoalStages[i];
-				holders.Add(i, new List<GoalHolder>());
-				foreach (var goal in goalStage.Goals)
+				for (int j = 0; j < LINE_COUNT; j++)
 				{
-					var goalHolder = Instantiate(goalHolderPrefab, transform);
-					goalHolder.Setup(goal.PersonType);
-					goalHolder.gameObject.SetActive(false);
+					var line = lines[j];
+					var goal = goalStage.Goals[j];
 
-					holders[i].Add(goalHolder);
+					var goalHolder = Instantiate(goalHolderPrefab, line.transform);
+					goalHolder.transform.localPosition = new Vector3(-goalHolderLength * i, 0, 0);
+					goalHolder.transform.rotation = line.rotation;
+					goalHolder.Setup(goal.GoalColor.PersonType, goal.Count, j);
+					goalHolder.OnComplete += OnGoalCompleted;
+
+					lineQueues[j].Enqueue(goalHolder);
 				}
 			}
 		}
 
-		private void OnStageStarted(int stageIndex)
+		private void OnGoalCompleted(GoalHolder goalHolder)
 		{
-			SpawnHolder(stageIndex);
+			goalHolder.OnComplete -= OnGoalCompleted;
+
+			goalHolder.MoveTo(goalHolderMovePoint.position).OnComplete(() => { Destroy(goalHolder.gameObject); });
+
+			var index = goalHolder.LineIndex;
+
+			if (!lineQueues[index].TryDequeue(out var nextGoalHolder)) return;
+
+			CurrentGoalHolders[index] = nextGoalHolder;
+			nextGoalHolder.MoveTo(lines[index].position).OnComplete(() => OnNewGoal?.Invoke(nextGoalHolder));
+
+			int i = 1;
+			foreach (var holder in lineQueues[index])
+			{
+				holder.MoveTo(lines[index].position + i * goalHolderLength * Vector3.forward);
+				i++;
+			}
 		}
 
-		private void SpawnHolder(int stageIndex)
+		private void OnLevelStarted()
 		{
-			if (!holders.TryGetValue(stageIndex, out var holderList))
-			{
-				CurrentGoalHolder = null;
-				return;
-			}
+			CurrentGoalHolders.Clear();
 
-			if (holderList.Count <= 0)
-			{
-				CurrentGoalHolder = null;
-				StageManager.Instance.StageComplete();
-				return;
-			}
-
-			var holder = holderList[0];
-			holderList.RemoveAt(0);
-			CurrentGoalHolder = holder;
-
-			holder.Spawn(goalHolderNextPoint).OnComplete(() =>
-			{
-				holder.MoveTo(goalHolderPoint.position).OnComplete(() =>
-				{
-					if (holderList.Count > 0)
-					{
-						var nextHolder = holderList[0];
-						nextHolder.Spawn(goalHolderNextPoint);
-					}
-				});
-			});
+			for (int i = 0; i < LINE_COUNT; i++)
+				CurrentGoalHolders.Add(lineQueues[i].Dequeue());
 		}
 
-		public void OnBoltPackCompleted(PersonGroup personGroup)
+		public void OnPersonGroupCompleted(PersonGroup personGroup)
 		{
-			if (!CurrentGoalHolder) return;
-			if (CurrentGoalHolder.Completed) return;
-			if (personGroup.PersonGroupSlots[0].Person.PersonType != CurrentGoalHolder.PersonType)
+			var personType = personGroup.GetPersonTypes()[0];
+			var goalHolder = GetCurrentGoalHolder(personType);
+			if (!goalHolder)
 			{
 				personGroup.CloseCover();
 				return;
 			}
 
-			CurrentGoalHolder.Completed = true;
+			if (goalHolder.Completed) return;
 
+			StartCoroutine(GroupCompleteCoroutine(personGroup, goalHolder));
+		}
+
+		private IEnumerator GroupCompleteCoroutine(PersonGroup personGroup, GoalHolder goalHolder)
+		{
 			IsGoalSequence = true;
 			personGroup.OpenCover();
 
+			yield return StartCoroutine(goalHolder.SetPeople(personGroup));
 			OnGoal?.Invoke();
 
-			var bolts = personGroup.GetAllBolts().ToArray();
-			for (var i = 0; i < bolts.Length; i++)
-			{
-				var bolt = bolts[i];
-				CurrentGoalHolder.GoalSlots[i].SetPerson(bolt, false);
-
-				var seq = DOTween.Sequence();
-				// seq.Append(bolt.Unscrew());
-				seq.Append(bolt.MoveToSlot(true).SetDelay(i * DELAY));
-				var i1 = i;
-				seq.AppendCallback(() =>
-				{
-					HapticManager.Instance.PlayHaptic(0.65f, 1f);
-					AudioManager.Instance.PlayAudio(AudioName.Person).SetPitch(1 + i1 * 0.1f);
-				});
-				// seq.Append(bolt.Screw());
-			}
-
-			StartCoroutine(WaitForPackCompletion(personGroup));
+			// yield return StartCoroutine(WaitForPackCompletion(personGroup, goalHolder));
 		}
 
-		private IEnumerator WaitForPackCompletion(PersonGroup boltPack)
+		private IEnumerator WaitForPackCompletion(PersonGroup personGroup, GoalHolder goalHolder)
 		{
-			var goalHolder = CurrentGoalHolder;
-
-			yield return new WaitForSeconds(Person.MOVE_DURATION + Person.SCREW_DURATION * 2 + PersonGroup.MAX_PERSON_COUNT * DELAY);
+			yield return null;
 
 			AudioManager.Instance.PlayAudio(AudioName.Goal);
 
-			if (boltPack)
-				StartCoroutine(boltPack.RemovePack());
+			if (personGroup)
+				StartCoroutine(personGroup.RemovePack());
 
 			goalHolder.CloseCover().OnComplete(() =>
 			{
-				goalHolder.MoveTo(goalHolderMovePoint.position).OnComplete(() =>
-				{
-					Destroy(goalHolder.gameObject);
-
-					Grid.Instance.CheckCompletedPacks();
-				});
-				SpawnHolder(StageManager.Instance.CurrentStageIndex);
+				goalHolder.MoveTo(goalHolderMovePoint.position).OnComplete(() => { Destroy(goalHolder.gameObject); });
 
 				IsGoalSequence = false;
 			});
+		}
+
+		public GoalHolder GetCurrentGoalHolder(PersonType personType)
+		{
+			for (var i = 0; i < CurrentGoalHolders.Count; i++)
+			{
+				var currentGoalHolder = CurrentGoalHolders[i];
+				if (!currentGoalHolder) continue;
+				if (currentGoalHolder.PersonType == personType)
+				{
+					return currentGoalHolder;
+				}
+			}
+
+			return null;
 		}
 	}
 }
