@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ba55f57baf8da8a41b6f9ac2c06eecf0
+guid: 6f4b946cbb6aee74ba4307a648d4c1b6
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,23 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: M_01
-    second: {fileID: 2100000, guid: 4d0a2ec856241534a8b0e3d69bce6283, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_02
-    second: {fileID: 2100000, guid: 074f7150abc724740b7c37141224e918, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_03
-    second: {fileID: 2100000, guid: ad6e20a843802b6429a9be4ec0b25056, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_04
-    second: {fileID: 2100000, guid: a277d961738837945a5dd0b4a3ec585c, type: 2}
+      name: M_gridholder
+    second: {fileID: 2100000, guid: 9b851288a2b19a548b029de933b41f07, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
