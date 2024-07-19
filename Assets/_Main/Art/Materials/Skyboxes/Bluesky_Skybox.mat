@@ -121,7 +121,7 @@ Material:
     - _FogColor: {r: 0.4362871, g: 0.2721098, b: 0.6509804, a: 1}
     - _HazeColor: {r: 1, g: 0.5969347, b: 0, a: 1}
     - _Tex_HDR1: {r: 0, g: 0, b: 0, a: 0}
-    - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _Tint: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0.5}
     - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _TopColor: {r: 0.467, g: 0.735135, b: 1, a: 1}
   m_BuildTextureStacks: []
