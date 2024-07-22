@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   companyName: Fiber Games
-  productName: Project-Template
+  productName: Drop People
   productIcon: {fileID: 2800000, guid: 0049bd813b4544af79cb4fe539f26a73, type: 3}
   version: 0.1
-  iOSBundleId: com.fibergames.game
+  iOSBundleId: com.FiberGames.DropPeople
   teamId: 9JRFGT2VDU
   iOSBuildNo: 0
   androidBundleId: com.fibergames.game
   androidBuildNo: 1
-  facebookId: 0
-  facebookClientToken: 
-  gameId: 
-  gameSecret: 
+  facebookId: 1363335254626622
+  facebookClientToken: 4fa038a7c60ca29deacc5039db2f53a2
+  gameId: 22f24c2a54d08a3eb9b20ca83c435634f405cc81af898a19e6b32ed76bcd2f61
+  gameSecret: 14c34740007694f0e9a0999babe54fafe779829f19b16409e200c33f136800fd
   background: {fileID: 0}
   loadingScreenLogo: {fileID: 0}
   loadingScreenTitle: {fileID: 0}

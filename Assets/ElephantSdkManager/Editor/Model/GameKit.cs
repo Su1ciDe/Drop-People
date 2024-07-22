@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 namespace ElephantSdkManager.Model
 {
@@ -46,6 +47,10 @@ namespace ElephantSdkManager.Model
         public string fitoBannerAdUnitAndroid;
         public string fitoInterstitialAdUnitAndroid;
         public string fitoRewardedAdUnitAndroid;
+        public string helpshiftDomainAndroid;
+        public string helpshiftAppIDAndroid;
+        public string helpshiftDomainIos;
+        public string helpshiftAppIDIos;
     }
     
     [Serializable]

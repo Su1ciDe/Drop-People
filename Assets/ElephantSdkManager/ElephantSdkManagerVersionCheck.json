@@ -1,6 +1,6 @@
 {
   "downloadUrl": "https://elephant-sdks.s3.amazonaws.com/ElephantSdkManager.unitypackage",
   "sdkName": "ElephantSdkManager",
-  "version": "v5.2.0",
+  "version": "v5.3.2",
   "type": "internal"
 }

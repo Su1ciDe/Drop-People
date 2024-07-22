@@ -50,6 +50,7 @@ namespace ElephantSdkManager.Util
             {
                 version = version.Replace("_internal", string.Empty);
             }
+
             return version.Split('.')
                 .Select(v => int.TryParse(v, NumberStyles.Any, CultureInfo.InvariantCulture, out piece) ? piece : 0)
                 .ToArray();
@@ -69,7 +70,7 @@ namespace ElephantSdkManager.Util
 
             return null;
         }
-        
+
         private static string GetElephantThirdParyIdsPath(string packageName)
         {
             if (packageName.ToLower().Contains("gamekit"))
@@ -79,299 +80,195 @@ namespace ElephantSdkManager.Util
 
             return null;
         }
-        
+
         public static void SetupElephantThirdPartyIDs(GameKitManifest gameKitManifest, string packageName)
         {
             if (gameKitManifest is null || gameKitManifest.data is null || gameKitManifest.data.appKey is null) return;
-            
-            var elephantPath = GetElephantThirdParyIdsPath(packageName);
 
+            var elephantPath = GetElephantThirdParyIdsPath(packageName);
             if (elephantPath is null) return;
 
-            string[] lines = File.ReadAllLines(elephantPath);
+            var lines = File.ReadAllLines(elephantPath);
             File.Delete(elephantPath);
             var stringBuilder = new StringBuilder();
-            stringBuilder.Append("Your IDs is being set...\n");
+            stringBuilder.Append("Your IDs are being set...\n");
 
-            using (StreamWriter sw = File.AppendText(elephantPath))
+            var idMap = new Dictionary<string, string>
             {
-                foreach (string line in lines)
+                { "FacebookClientToken", gameKitManifest.data.facebookClientToken },
+                { "FacebookAppId", gameKitManifest.data.facebookAppId },
+                { "GameId", gameKitManifest.data.gameId },
+                { "GameSecret", gameKitManifest.data.gameSecret },
+                { "BundleName", gameKitManifest.data.bundle },
+                { "AdjustAppKey", gameKitManifest.data.adjustAppKey },
+                { "HelpShiftDomainAndroid", gameKitManifest.data.helpshiftDomainAndroid },
+                { "HelpShiftAppIdAndroid", gameKitManifest.data.helpshiftAppIDAndroid },
+                { "HelpshiftDomainIOS", gameKitManifest.data.helpshiftDomainIos },
+                { "HelpShiftAppIdIOS", gameKitManifest.data.helpshiftAppIDIos }
+            };
+
+            using (var sw = File.AppendText(elephantPath))
+            {
+                foreach (var line in lines)
                 {
-                    string newLine = "";
-                    if (line.Contains("[TEMP_GAMEKIT_FacebookClientToken]"))
+                    var newLine = line;
+                    foreach (var entry in idMap)
                     {
-                        newLine = line.Replace("[TEMP_GAMEKIT_FacebookClientToken]", gameKitManifest.data.facebookClientToken);
-                        stringBuilder.Append("Facebook client token: " + gameKitManifest.data.facebookClientToken + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_FacebookAppId]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_FacebookAppId]", gameKitManifest.data.facebookAppId);
-                        stringBuilder.Append("Facebook app ID: " + gameKitManifest.data.facebookAppId + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_GameId]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_GameId]",
-                            gameKitManifest.data.gameId);
-                        stringBuilder.Append("Elephant Game ID: " + gameKitManifest.data.gameId + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_GameSecret]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_GameSecret]",
-                            gameKitManifest.data.gameSecret);
-                        stringBuilder.Append("Elephant Game Secret: " + gameKitManifest.data.gameSecret + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_BundleName]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_BundleName]",
-                            gameKitManifest.data.bundle);
-                        
-                        PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android ,gameKitManifest.data.bundle);
-                        PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS ,gameKitManifest.data.bundle);
-                        stringBuilder.Append("Game Bundle Name is set to: " + gameKitManifest.data.bundle + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_AdjustAppKey]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_AdjustAppKey]",
-                            gameKitManifest.data.adjustAppKey);
-                        stringBuilder.Append("Adjust App Key: " + gameKitManifest.data.adjustAppKey + "\n");
-                    }
-                    else
-                    {
-                        newLine = line;
+                        if (line.Trim().StartsWith($"public static string {entry.Key} ="))
+                        {
+                            newLine = ReplaceValue(line, entry.Value);
+                            stringBuilder.Append($"{entry.Key}: {entry.Value}\n");
+                            if (entry.Key == "BundleName")
+                            {
+                                PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, entry.Value);
+                                PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, entry.Value);
+                                stringBuilder.Append("Game Bundle Name is set to: " + entry.Value + "\n");
+                            }
+
+                            break;
+                        }
                     }
 
                     sw.WriteLine(newLine);
                 }
             }
-            
+
             SetupAdjustTokens(gameKitManifest);
-            
+
             Debug.Log(stringBuilder);
-            
+        }
+
+        private static string ReplaceValue(string line, string newValue)
+        {
+            var startIndex = line.IndexOf('\"') + 1;
+            var endIndex = line.LastIndexOf('\"');
+
+            if (startIndex > 0 && endIndex >= startIndex)
+            {
+                return line.Substring(0, startIndex) + newValue + line.Substring(endIndex);
+            }
+
+            return line;
         }
 
         public static void SetupAdjustTokens(GameKitManifest gameKitManifest)
         {
             var adjustTokenClassPath = Application.dataPath + "/Elephant/Core/AdjustTokens.cs";
-
             if (!File.Exists(adjustTokenClassPath)) return;
-            
+
             var lines = File.ReadAllLines(adjustTokenClassPath);
             File.Delete(adjustTokenClassPath);
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append("Setting up Adjust tokens...\n");
+
+            var tokenMap = new Dictionary<string, string>
+            {
+                { "FullScreenWatched_10", "Fs_watched_10" },
+                { "FullScreenWatched_25", "Fs_watched_25" },
+                { "FullScreenWatched_50", "Fs_watched_50" },
+                { "Level_10", "lvl10" },
+                { "Level_20", "lvl20" },
+                { "Level_30", "lvl30" },
+                { "Level_50", "lvl50" },
+                { "Level_100", "lvl100" },
+                { "RewardedWatched_10", "Rw_watched_10" },
+                { "RewardedWatched_25", "Rw_watched_25" },
+                { "RewardedWatched_50", "Rw_watched_50" },
+                { "Timespend_10", "Timespend_10" },
+                { "Timespend_30", "Timespend_30" },
+                { "Timespend_60", "Timespend_60" },
+                { "Timespend_120", "Timespend_120" },
+                { "SkanCvUpdate", "skan_cv_update" }
+            };
 
             using (var sw = File.AppendText(adjustTokenClassPath))
             {
                 foreach (var line in lines)
                 {
-                    var key = gameKitManifest.data.adjustEvents.Find(aEvent => line.Contains(aEvent.name));
-                    var newLine = "";
-                    if (key != null)
+                    var newLine = line;
+                    foreach (var entry in tokenMap)
                     {
-                        if (line.Contains("[TEMP_GAMEKIT_lvl100]"))
+                        if (line.Trim().StartsWith($"public static string {entry.Key} ="))
                         {
-                            var key2 = gameKitManifest.data.adjustEvents.Find(aEvent => aEvent.name.Equals("lvl100"));
-                            if (key2 != null)
-                            {
-                                newLine = line.Replace("[TEMP_GAMEKIT_" + key2.name + "]", key2.token);    
-                            }
-                        }
-                        else if (line.Contains("[skan_cv_update]"))
-                        {
-                            var key3 = gameKitManifest.data.adjustEvents.Find(aEvent => aEvent.name.Equals("skan_cv_update"));
-                            if (key3 != null)
-                            {
-                                newLine = line.Replace("[skan_cv_update]", key3.token);    
-                            }
-                        }
-                        else
-                        {
-                            newLine = line.Replace("[TEMP_GAMEKIT_" + key.name + "]", key.token);
-                        
+                            var token = GetToken(gameKitManifest, entry.Value);
+                            newLine = ReplaceValue(line, token);
+                            stringBuilder.Append($"Setting Adjust token for {entry.Key}: {token}\n");
+                            break;
                         }
                     }
-                    else
-                    {
-                        newLine = line;
-                    
-                    }
-                
+
                     sw.WriteLine(newLine);
                 }
             }
+
+            Debug.Log(stringBuilder);
+        }
+
+        private static string GetToken(GameKitManifest gameKitManifest, string eventName)
+        {
+            var key = gameKitManifest.data.adjustEvents.Find(aEvent => aEvent.name.Equals(eventName));
+            return key != null ? key.token : "";
         }
 
         public static void SetupGameKitIDs(GameKitManifest gameKitManifest, string packageName)
         {
-            if (gameKitManifest is null || gameKitManifest.data is null || gameKitManifest.data.appKey is null) return;
-            
-            string rollicAdsPath = CheckMediationPackageName(packageName);
+            if (gameKitManifest?.data?.appKey is null) return;
 
+            var rollicAdsPath = CheckMediationPackageName(packageName);
             if (rollicAdsPath is null) return;
 
-            string[] lines = File.ReadAllLines(rollicAdsPath);
+            var lines = File.ReadAllLines(rollicAdsPath);
             File.Delete(rollicAdsPath);
             var stringBuilder = new StringBuilder();
 
-            using (StreamWriter sw = File.AppendText(rollicAdsPath))
+            var idMap = new Dictionary<string, string>
             {
-                foreach (string line in lines)
+                { "AppKey", gameKitManifest.data.appKey },
+                { "AppKey_ios", gameKitManifest.data.appKeyIos },
+                { "AppKey_android", gameKitManifest.data.appKeyAndroid },
+                { "BannerAdUnitIos", gameKitManifest.data.bannerAdUnitIos },
+                { "InterstitialAdUnitIos", gameKitManifest.data.interstitialAdUnitIos },
+                { "RewardedAdUnitIos", gameKitManifest.data.rewardedAdUnitIos },
+                { "BannerAdUnitAndroid", gameKitManifest.data.bannerAdUnitAndroid },
+                { "InterstitialAdUnitAndroid", gameKitManifest.data.interstitialAdUnitAndroid },
+                { "RewardedAdUnitAndroid", gameKitManifest.data.rewardedAdUnitAndroid },
+                { "GoogleIosId", gameKitManifest.data.googleAppIdIos },
+                { "GoogleAndroidId", gameKitManifest.data.googleAppIdAndroid },
+                { "AmazonAppIdIos", gameKitManifest.data.amazonAppIdIos },
+                { "AmazonBannerSlotIdIos", gameKitManifest.data.amazonBannerSlotIdIos },
+                { "AmazonInterstitialVideoSlotIdIos", gameKitManifest.data.amazonInterstitialVideoSlotIdIos },
+                { "AmazonRewardedVideoSlotIdIos", gameKitManifest.data.amazonRewardedVideoSlotIdIos },
+                { "AmazonAppIdAndroid", gameKitManifest.data.amazonAppIdAndroid },
+                { "AmazonBannerSlotIdAndroid", gameKitManifest.data.amazonBannerSlotIdAndroid },
+                { "AmazonInterstitialVideoSlotIdAndroid", gameKitManifest.data.amazonInterstitialVideoSlotIdAndroid },
+                { "AmazonRewardedVideoSlotIdAndroid", gameKitManifest.data.amazonRewardedVideoSlotIdAndroid },
+                { "FitoBannerAdUnitIos", gameKitManifest.data.fitoBannerAdUnitIos },
+                { "FitoInterstitialAdUnitIos", gameKitManifest.data.fitoInterstitialAdUnitIos },
+                { "FitoRewardedAdUnitIos", gameKitManifest.data.fitoRewardedAdUnitIos },
+                { "FitoBannerAdUnitAndroid", gameKitManifest.data.fitoBannerAdUnitAndroid },
+                { "FitoInterstitialAdUnitAndroid", gameKitManifest.data.fitoInterstitialAdUnitAndroid },
+                { "FitoRewardedAdUnitAndroid", gameKitManifest.data.fitoRewardedAdUnitAndroid }
+            };
+
+            using (var sw = File.AppendText(rollicAdsPath))
+            {
+                foreach (var line in lines)
                 {
-                    string newLine = "";
-                    if (line.Contains("[TEMP_GAMEKIT_AppKey]"))
+                    var newLine = line;
+                    foreach (var entry in idMap)
                     {
-                        newLine = line.Replace("[TEMP_GAMEKIT_AppKey]", gameKitManifest.data.appKey);
-                        stringBuilder.Append("Applovin MAX App Key: " + gameKitManifest.data.appKey + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_AppKey_ios]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_AppKey_ios]", gameKitManifest.data.appKeyIos);
-                        stringBuilder.Append("IS appkey iOS: " + gameKitManifest.data.appKeyIos + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_AppKey_android]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_AppKey_android]", gameKitManifest.data.appKeyAndroid);
-                        stringBuilder.Append("IS appkey Android: " + gameKitManifest.data.appKeyAndroid + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_BannerAdUnitIos]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_BannerAdUnitIos]", gameKitManifest.data.bannerAdUnitIos);
-                        stringBuilder.Append("iOS Banner ad unit ID: " + gameKitManifest.data.bannerAdUnitIos + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_InterstitialAdUnitIos]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_InterstitialAdUnitIos]",
-                            gameKitManifest.data.interstitialAdUnitIos);
-                        stringBuilder.Append("iOS Interstitial ad unit ID: " + gameKitManifest.data.interstitialAdUnitIos + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_RewardedAdUnitIos]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_RewardedAdUnitIos]",
-                            gameKitManifest.data.rewardedAdUnitIos);
-                        stringBuilder.Append("iOS Rewarded Ad ad unit ID: " + gameKitManifest.data.rewardedAdUnitIos + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_BannerAdUnitAndroid]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_BannerAdUnitAndroid]",
-                            gameKitManifest.data.bannerAdUnitAndroid);
-                        stringBuilder.Append("Android Banner ad unit ID: " + gameKitManifest.data.bannerAdUnitAndroid + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_InterstitialAdUnitAndroid]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_InterstitialAdUnitAndroid]",
-                            gameKitManifest.data.interstitialAdUnitAndroid);
-                        stringBuilder.Append("Android Interstitial ad unit ID: " + gameKitManifest.data.interstitialAdUnitAndroid + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_RewardedAdUnitAndroid]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_RewardedAdUnitAndroid]",
-                            gameKitManifest.data.rewardedAdUnitAndroid);
-                        stringBuilder.Append("Android Rewarded Ad ad unit ID: " + gameKitManifest.data.rewardedAdUnitAndroid + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_GoogleAppIdIos]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_GoogleAppIdIos]",
-                            gameKitManifest.data.googleAppIdIos);
-                        stringBuilder.Append("iOS Google app ID: " + gameKitManifest.data.googleAppIdIos + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_GoogleAppIdAndroid]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_GoogleAppIdAndroid]",
-                            gameKitManifest.data.googleAppIdAndroid);
-                        stringBuilder.Append("Android Google app ID: " + gameKitManifest.data.googleAppIdAndroid + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_AmazonAppIdIos]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonAppIdIos]",
-                            gameKitManifest.data.amazonAppIdIos);
-                        stringBuilder.Append("iOS Amazon App ID: " + gameKitManifest.data.amazonAppIdIos + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_AmazonBannerSlotIdIos]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonBannerSlotIdIos]",
-                            gameKitManifest.data.amazonBannerSlotIdIos);
-                        stringBuilder.Append("iOS Amazon Banner Slot ID: " + gameKitManifest.data.amazonBannerSlotIdIos + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_AmazonInterstitialVideoSlotIdIos]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonInterstitialVideoSlotIdIos]",
-                            gameKitManifest.data.amazonInterstitialVideoSlotIdIos);
-                        stringBuilder.Append("iOS Amazon Interstitial Slot ID: " + gameKitManifest.data.amazonInterstitialVideoSlotIdIos + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_AmazonRewardedVideoSlotIdIos]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonRewardedVideoSlotIdIos]",
-                            gameKitManifest.data.amazonRewardedVideoSlotIdIos);
-                        stringBuilder.Append("iOS Amazon Rewarded Slot ID: " + gameKitManifest.data.amazonRewardedVideoSlotIdIos + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_AmazonAppIdAndroid]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonAppIdAndroid]",
-                            gameKitManifest.data.amazonAppIdAndroid);
-                        stringBuilder.Append("Android Amazon App ID: " + gameKitManifest.data.amazonAppIdAndroid + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_AmazonBannerSlotIdAndroid]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonBannerSlotIdAndroid]",
-                            gameKitManifest.data.amazonBannerSlotIdAndroid);
-                        stringBuilder.Append("Android Amazon Banner Slot ID: " + gameKitManifest.data.amazonBannerSlotIdAndroid + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_AmazonInterstitialVideoSlotIdAndroid]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonInterstitialVideoSlotIdAndroid]",
-                            gameKitManifest.data.amazonInterstitialVideoSlotIdAndroid);
-                        stringBuilder.Append("Android Amazon Interstitial Slot ID: " + gameKitManifest.data.amazonInterstitialVideoSlotIdAndroid + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_AmazonRewardedVideoSlotIdAndroid]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonRewardedVideoSlotIdAndroid]",
-                            gameKitManifest.data.amazonRewardedVideoSlotIdAndroid);
-                        stringBuilder.Append("Android Amazon Rewarded Slot ID: " + gameKitManifest.data.amazonRewardedVideoSlotIdAndroid + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_FitoBannerAdUnitIos]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_FitoBannerAdUnitIos]",
-                            gameKitManifest.data.fitoBannerAdUnitIos);
-                        stringBuilder.Append("iOS FITO Banner Slot ID: " + gameKitManifest.data.fitoBannerAdUnitIos + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_FitoInterstitialAdUnitIos]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_FitoInterstitialAdUnitIos]",
-                            gameKitManifest.data.fitoInterstitialAdUnitIos);
-                        stringBuilder.Append("iOS FITO Interstitial Slot ID: " + gameKitManifest.data.fitoInterstitialAdUnitIos + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_FitoRewardedAdUnitIos]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_FitoRewardedAdUnitIos]",
-                            gameKitManifest.data.fitoRewardedAdUnitIos);
-                        stringBuilder.Append("iOS FITO Rewarded Slot ID: " + gameKitManifest.data.fitoRewardedAdUnitIos + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_FitoBannerAdUnitAndroid]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_FitoBannerAdUnitAndroid]",
-                            gameKitManifest.data.fitoBannerAdUnitAndroid);
-                        stringBuilder.Append("Android FITO Banner Slot ID: " + gameKitManifest.data.fitoBannerAdUnitAndroid + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_FitoInterstitialAdUnitAndroid]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_FitoInterstitialAdUnitAndroid]",
-                            gameKitManifest.data.fitoInterstitialAdUnitAndroid);
-                        stringBuilder.Append("Android FITO Interstitial Slot ID: " + gameKitManifest.data.fitoInterstitialAdUnitAndroid + "\n");
-                    }
-                    else if (line.Contains("[TEMP_GAMEKIT_FitoRewardedAdUnitAndroid]"))
-                    {
-                        newLine = line.Replace("[TEMP_GAMEKIT_FitoRewardedAdUnitAndroid]",
-                            gameKitManifest.data.fitoRewardedAdUnitAndroid);
-                        stringBuilder.Append("Android FITO Rewarded Slot ID: " + gameKitManifest.data.fitoRewardedAdUnitAndroid + "\n");
-                    }
-                    else
-                    {
-                        newLine = line;
+                        if (line.Trim().StartsWith($"public static string {entry.Key} ="))
+                        {
+                            newLine = ReplaceValue(line, entry.Value);
+                            stringBuilder.Append($"{entry.Key}: {entry.Value}\n");
+                            break;
+                        }
                     }
 
                     sw.WriteLine(newLine);
                 }
             }
-            
+
             Debug.Log(stringBuilder);
         }
 
