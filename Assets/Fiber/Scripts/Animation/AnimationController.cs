@@ -9,11 +9,11 @@ namespace Fiber.Animation
     [RequireComponent(typeof(Animator))]
     public abstract class AnimationController : MonoBehaviour
     {
-        private Animator animator;
+        public Animator Animator { get; private set; }
 
         public virtual void Awake()
         {
-            animator = GetComponent<Animator>();
+            Animator = GetComponent<Animator>();
         }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Fiber.Animation
         /// <param name="type">The parameter type.</param>
         public void SetTrigger(AnimationType type)
         {
-            animator.SetTrigger(AnimationFactory.GetAnimation(type));
+            Animator.SetTrigger(AnimationFactory.GetAnimation(type));
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Fiber.Animation
         /// <param name="value">The new parameter value.</param>
         public void SetBool(AnimationType type, bool value)
         {
-            animator.SetBool(AnimationFactory.GetAnimation(type), value);
+            Animator.SetBool(AnimationFactory.GetAnimation(type), value);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Fiber.Animation
         /// <param name="value">The new parameter value.</param>
         public void SetInt(AnimationType type, int value)
         {
-            animator.SetInteger(AnimationFactory.GetAnimation(type), value);
+            Animator.SetInteger(AnimationFactory.GetAnimation(type), value);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Fiber.Animation
         /// <param name="value">The new parameter value.</param>
         public void SetFloat(AnimationType type, float value)
         {
-            animator.SetFloat(AnimationFactory.GetAnimation(type), value);
+            Animator.SetFloat(AnimationFactory.GetAnimation(type), value);
         }
 
         /// <summary>
@@ -60,20 +60,20 @@ namespace Fiber.Animation
         /// </summary>
         /// <param name="type">The parameter type.</param>
         /// <returns>The value of the parameter.</returns>
-        public bool GetBool(AnimationType type) => animator.GetBool(AnimationFactory.GetAnimation(type));
+        public bool GetBool(AnimationType type) => Animator.GetBool(AnimationFactory.GetAnimation(type));
 
         /// <summary>
         ///   <para>Returns the value of the given float parameter.</para>
         /// </summary>
         /// <param name="type">The parameter type.</param>
         /// <returns>The value of the parameter.</returns>
-        public float GetFloat(AnimationType type) => animator.GetFloat(AnimationFactory.GetAnimation(type));
+        public float GetFloat(AnimationType type) => Animator.GetFloat(AnimationFactory.GetAnimation(type));
 
         /// <summary>
         ///   <para>Returns the value of the given integer parameter.</para>
         /// </summary>
         /// <param name="type">The parameter type.</param>
         /// <returns>The value of the parameter.</returns>
-        public int GetInt(AnimationType type) => animator.GetInteger(AnimationFactory.GetAnimation(type));
+        public int GetInt(AnimationType type) => Animator.GetInteger(AnimationFactory.GetAnimation(type));
     }
 }

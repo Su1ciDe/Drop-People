@@ -16,6 +16,8 @@ namespace GamePlay.People
 	{
 		public bool IsMoving { get; private set; }
 
+		public PersonRagdoll PersonRagdoll { get; private set; }
+
 		public PersonType PersonType { get; private set; }
 		public ISlot CurrentSlot { get; set; }
 
@@ -29,6 +31,8 @@ namespace GamePlay.People
 
 		private void Awake()
 		{
+			PersonRagdoll = GetComponent<PersonRagdoll>();
+
 			agent.updateRotation = false;
 		}
 
@@ -43,10 +47,30 @@ namespace GamePlay.People
 			meshRenderer.material = GameManager.Instance.PersonMaterialsSO.PersonMaterials[boltType];
 		}
 
+		public void OnGroupMove()
+		{
+			var head = PersonRagdoll.Ragdolls[0];
+			head.MovePosition(transform.position);
+		}
+		
+		public void OnGroupPickedUp()
+		{
+			PersonRagdoll.EnableRagdoll();
+			personAnimations.Animator.enabled = false;
+		}
+
+		public void OnGroupDroppedDown()
+		{
+			PersonRagdoll.DisableRagdoll();
+			personAnimations.Animator.enabled = true;
+		}
+
 		public void OnGroupPlaced()
 		{
 			agent.enabled = true;
 			agent.SetDestination(transform.position);
+
+			OnGroupDroppedDown();
 		}
 
 		public void ChangeSlot(ISlot slot, bool removeCurrentSlot = true, bool changePosition = true)

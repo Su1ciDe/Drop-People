@@ -68,6 +68,7 @@ namespace GamePlay.Player
 
 					group.transform.DOKill();
 					SelectedPersonGroup = group;
+					SelectedPersonGroup.OnPickUp();
 
 					OnDown?.Invoke(hit.point);
 				}
@@ -86,8 +87,8 @@ namespace GamePlay.Player
 			{
 				var position = hit.point + offset;
 
-				var rotateTo = Quaternion.Euler(new Vector3(Mathf.Clamp(-finger.ScreenDelta.y, -rotationClamp, rotationClamp), 0, Mathf.Clamp(finger.ScreenDelta.x, -rotationClamp, rotationClamp)));
-				SelectedPersonGroup.Move(position, rotateTo, rotationDamping);
+				// var rotateTo = Quaternion.Euler(new Vector3(Mathf.Clamp(-finger.ScreenDelta.y, -rotationClamp, rotationClamp), 0, Mathf.Clamp(finger.ScreenDelta.x, -rotationClamp, rotationClamp)));
+				SelectedPersonGroup.Move(position);
 				OnMove?.Invoke(position);
 			}
 		}

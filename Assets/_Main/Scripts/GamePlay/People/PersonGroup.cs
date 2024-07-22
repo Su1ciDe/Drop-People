@@ -41,13 +41,17 @@ namespace GamePlay.People
 
 		private readonly List<GridCell> triggeredNodes = new List<GridCell>();
 
-		public static readonly int MAX_PERSON_COUNT = 6;
+		private Rigidbody rb;
+
+		public const int MAX_PERSON_COUNT = 6;
 
 		public static event UnityAction<PersonGroup> OnPlace;
 		public static event UnityAction<PersonGroup> OnComplete;
 
 		private void Awake()
 		{
+			rb = GetComponent<Rigidbody>();
+
 			for (int i = 0; i < personGroupSlots.Length; i++)
 				personGroupSlots[i].Index = i;
 		}
@@ -103,6 +107,17 @@ namespace GamePlay.People
 			}
 		}
 
+		public void OnPickUp()
+		{
+			for (var i = 0; i < personGroupSlots.Length; i++)
+			{
+				if (personGroupSlots[i].Person)
+				{
+					personGroupSlots[i].Person.OnGroupPickedUp();
+				}
+			}
+		}
+
 		public void OnRelease()
 		{
 			if (!CurrentGridCell && currentNearestGridCell && currentNearestGridCell.CurrentNode is null)
@@ -153,12 +168,17 @@ namespace GamePlay.People
 			canMove = false;
 			ResetRotation();
 			transform.DOLocalMove(Vector3.zero, .2f).SetEase(Ease.OutExpo).OnComplete(() => canMove = true);
+
+			for (var i = 0; i < personGroupSlots.Length; i++)
+			{
+				if (personGroupSlots[i].Person)
+					personGroupSlots[i].Person.OnGroupDroppedDown();
+			}
 		}
 
-		public void Move(Vector3 position, Quaternion rotation, float rotationDamping)
+		public void Move(Vector3 position)
 		{
-			transform.position = position;
-			model.rotation = Quaternion.Lerp(model.rotation, rotation, Time.deltaTime * rotationDamping);
+			rb.MovePosition(Vector3.Lerp(rb.position, position, Time.deltaTime * 10));
 
 			var nearestCell = GetNearestNode();
 			if (currentNearestGridCell)
@@ -174,6 +194,14 @@ namespace GamePlay.People
 			{
 				currentNearestGridCell.ShowHighlight();
 				HapticManager.Instance.PlayHaptic(0.3f, 0);
+			}
+
+			for (var i = 0; i < personGroupSlots.Length; i++)
+			{
+				if (personGroupSlots[i].Person)
+				{
+					personGroupSlots[i].Person.OnGroupMove();
+				}
 			}
 		}
 

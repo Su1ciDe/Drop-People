@@ -14,12 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoltPacks:
   - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 1
-    - PersonType: 1
-    - PersonType: 1
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 3
   - PersonTypes:
     - PersonType: 1
     - PersonType: 1
@@ -27,6 +41,13 @@ MonoBehaviour:
     - PersonType: 0
     - PersonType: 0
     - PersonType: 0
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
   count: 0
   minPersonCount: 0
   maxPersonCount: 0
