@@ -1,4 +1,3 @@
-using GamePlay;
 using GamePlay.People;
 using Interfaces;
 using UnityEngine;

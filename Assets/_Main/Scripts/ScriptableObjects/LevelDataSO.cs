@@ -108,7 +108,7 @@ namespace ScriptableObjects
 		public class Goal
 		{
 			public PersonGroupSettings.PersonColor GoalColor;
-			[RangeStep(9, 27, 9)]
+			[RangeStep(6, 18, 6)]
 			public int Count;
 		}
 	}

@@ -122,7 +122,7 @@ namespace GridSystem
 					for (int j = 0; j < connectedPersonGroups.Count; j++)
 					{
 						if (connectedPersonGroups[j].Equals(personGroup)) continue;
-						if (!connectedPersonGroups[j].ContainsBoltType(selectedType)) continue;
+						if (!connectedPersonGroups[j].ContainsPersonType(selectedType)) continue;
 
 						selected = true;
 						break;
@@ -151,8 +151,8 @@ namespace GridSystem
 						var otherPack = connectedPersonGroups[j];
 						if (otherPack.Equals(personGroup)) continue;
 
-						var otherPacksBoltCount = otherPack.GetBoltCountByType(selectedType);
-						if (!otherPack.GetBoltsCount().Equals(PersonGroup.MAX_PERSON_COUNT) && otherPacksBoltCount > personGroup.GetBoltCountByType(selectedType))
+						var otherPacksBoltCount = otherPack.GetPersonCountByType(selectedType);
+						if (!otherPack.GetPeopleCount().Equals(PersonGroup.MAX_PERSON_COUNT) && otherPacksBoltCount > personGroup.GetPersonCountByType(selectedType))
 						{
 							pointer = 0;
 							continue;

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using Fiber.AudioSystem;
 using Fiber.Managers;
@@ -13,7 +14,7 @@ namespace GamePlay.People
 	[RequireComponent(typeof(NavMeshAgent))]
 	public class Person : MonoBehaviour
 	{
-		public bool IsMoving { get; set; }
+		public bool IsMoving { get; private set; }
 
 		public PersonType PersonType { get; private set; }
 		public ISlot CurrentSlot { get; set; }
@@ -25,9 +26,6 @@ namespace GamePlay.People
 		[SerializeField] private Transform model;
 		[SerializeField] private PersonAnimations personAnimations;
 		[SerializeField] private SkinnedMeshRenderer meshRenderer;
-
-		public static float SCREW_DURATION = .25f;
-		public static float MOVE_DURATION = .2f;
 
 		private void Awake()
 		{
@@ -60,23 +58,30 @@ namespace GamePlay.People
 			slot.SetPerson(this, changePosition);
 		}
 
-		public void MoveToSlot(ISlot slot, bool changeRotation = false)
-		{
-			if (Mathf.Abs((transform.position.xz() - CurrentSlot.GetTransform().position.xz()).sqrMagnitude) < .1f) return;
+		private readonly Queue<Vector3> movementQueue = new Queue<Vector3>();
 
-			StartCoroutine(MoveCoroutine(slot, changeRotation));
+		public void MoveToSlot(bool changeRotation, params Vector3[] moveQueue)
+		{
+			var slotT = CurrentSlot.GetTransform();
+			if (Mathf.Abs((transform.position.xz() - slotT.position.xz()).sqrMagnitude) < .1f) return;
+
+			foreach (var movePoint in moveQueue)
+				movementQueue.Enqueue(movePoint);
+			movementQueue.Enqueue(slotT.position);
+
+			StartCoroutine(MoveCoroutine(changeRotation));
 		}
 
-		private IEnumerator MoveCoroutine(ISlot slot, bool changeRotation)
+		private IEnumerator MoveCoroutine(bool changeRotation)
 		{
 			if (!agent.enabled) yield break;
 
 			transform.DOKill();
 
 			IsMoving = true;
-			var slotT = slot.GetTransform();
 
-			agent.SetDestination(slotT.position);
+			var movePosition = movementQueue.Dequeue();
+			agent.SetDestination(movePosition);
 			personAnimations.Run();
 
 			yield return null;
@@ -86,6 +91,13 @@ namespace GamePlay.People
 				yield return null;
 			}
 
+			if (movementQueue.Count > 0)
+			{
+				StartCoroutine(MoveCoroutine(changeRotation));
+				yield break;
+			}
+
+			movementQueue.Clear();
 			// HapticManager.Instance.PlayHaptic(0.65f, 1f);
 			// AudioManager.Instance.PlayAudio(AudioName.Person);
 

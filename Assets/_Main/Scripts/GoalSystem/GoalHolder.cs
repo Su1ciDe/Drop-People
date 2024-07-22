@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Linq;
 using DG.Tweening;
+using Fiber.AudioSystem;
 using Fiber.Managers;
 using GamePlay.People;
 using Lofelt.NiceVibrations;
 using Managers;
 using MoreMountains.Feedbacks;
+using PathCreation;
 using TMPro;
 using TriInspector;
 using UnityEngine;
@@ -26,6 +28,7 @@ namespace GoalSystem
 		[SerializeField] private GoalSlot[] goalSlots;
 		public GoalSlot[] GoalSlots => goalSlots;
 
+		[SerializeField] private Transform entrancePoint;
 		[Space]
 		[SerializeField] private MMF_Player feedbacks;
 
@@ -63,7 +66,8 @@ namespace GoalSystem
 			for (var i = 0; i < peopleCount; i++)
 			{
 				yield return new WaitForSeconds(GoalManager.DELAY);
-				people[i].MoveToSlot(people[i].CurrentSlot, true);
+				people[i].MoveToSlot(true, entrancePoint.position);
+				StartCoroutine(FeedbackCoroutine(people[i], i));
 			}
 
 			if (personGroup)
@@ -82,6 +86,17 @@ namespace GoalSystem
 			{
 				OnComplete?.Invoke(this);
 			}
+		}
+
+		private IEnumerator FeedbackCoroutine(Person person, int index)
+		{
+			yield return new WaitUntil(() => !person.IsMoving);
+			holderMeshRenderer.transform.DOComplete();
+			holderMeshRenderer.transform.DOScale(1.1f * Vector3.one, .1f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutExpo);
+
+			// AudioManager.Instance.PlayAudio(AudioName.Goal).SetPitch(1 + .1f * index);
+			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(1 + .1f * index);
+			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
 		}
 
 		private bool CheckIfCompleted()
@@ -116,6 +131,29 @@ namespace GoalSystem
 		public Tween MoveTo(Vector3 position)
 		{
 			return transform.DOMove(position, MOVE_DURATION).SetEase(Ease.InOutQuart);
+		}
+
+		private float distanceTravelled;
+		private float speed = 35;
+
+		public void MoveToEnd(VertexPath path)
+		{
+			StartCoroutine(MoveToEndCoroutine(path));
+		}
+
+		private IEnumerator MoveToEndCoroutine(VertexPath path)
+		{
+			while (path.GetClosestTimeOnPath(transform.position) < 1)
+			{
+				distanceTravelled += speed * Time.deltaTime;
+				transform.position = path.GetPointAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
+				transform.rotation = path.GetRotationAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
+				yield return null;
+			}
+
+			yield return null;
+
+			Destroy(gameObject);
 		}
 
 		public Tween CloseCover()

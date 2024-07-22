@@ -41,7 +41,7 @@ namespace GamePlay.People
 
 		private readonly List<GridCell> triggeredNodes = new List<GridCell>();
 
-		public static readonly int MAX_PERSON_COUNT = 9;
+		public static readonly int MAX_PERSON_COUNT = 6;
 
 		public static event UnityAction<PersonGroup> OnPlace;
 		public static event UnityAction<PersonGroup> OnComplete;
@@ -105,7 +105,7 @@ namespace GamePlay.People
 
 		public void OnRelease()
 		{
-			if (!CurrentGridCell && currentNearestGridCell)
+			if (!CurrentGridCell && currentNearestGridCell && currentNearestGridCell.CurrentNode is null)
 			{
 				Place(currentNearestGridCell);
 			}
@@ -144,6 +144,10 @@ namespace GamePlay.People
 
 		public void MoveBackToSlot()
 		{
+			if (currentNearestGridCell)
+				currentNearestGridCell.HideHighlight();
+			currentNearestGridCell = null;
+
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.Warning);
 
 			canMove = false;
@@ -156,16 +160,16 @@ namespace GamePlay.People
 			transform.position = position;
 			model.rotation = Quaternion.Lerp(model.rotation, rotation, Time.deltaTime * rotationDamping);
 
-			var nearestNode = GetNearestNode();
+			var nearestCell = GetNearestNode();
 			if (currentNearestGridCell)
 			{
-				if (!currentNearestGridCell.Equals(nearestNode))
+				if (!currentNearestGridCell.Equals(nearestCell))
 				{
 					currentNearestGridCell.HideHighlight();
 				}
 			}
 
-			currentNearestGridCell = nearestNode;
+			currentNearestGridCell = nearestCell;
 			if (currentNearestGridCell && !currentNearestGridCell.IsShowingHighlight)
 			{
 				currentNearestGridCell.ShowHighlight();
@@ -243,18 +247,13 @@ namespace GamePlay.People
 			if (!isActiveAndEnabled) yield break;
 			IsBusy = true;
 
-			// var seq = DOTween.Sequence();
-
 			for (var i = 0; i < personGroupSlots.Length; i++)
 			{
 				var slot = personGroupSlots[i];
 				if (!slot.Person) continue;
 
-				slot.Person.MoveToSlot(slot);
+				slot.Person.MoveToSlot(true);
 			}
-
-			// if (seq.Duration() > 0)
-			// AudioManager.Instance.PlayAudio(AudioName.Person).SetVolume(0.75f);
 
 			var isCompleted = CheckIfSorted();
 
@@ -267,16 +266,6 @@ namespace GamePlay.People
 			{
 				Complete();
 			}
-
-			// seq.OnComplete(() =>
-			// {
-			// 	IsBusy = false;
-			// 	if (seq.Duration() > 0)
-			// 	{
-			// 		HapticManager.Instance.PlayHaptic(0.65f, 1f);
-			// 		AudioManager.Instance.PlayAudio(AudioName.Person).SetPitch(1.15f).SetVolume(0.75f);
-			// 	}
-			// });
 		}
 
 		public bool CheckIfSorted()
@@ -312,23 +301,13 @@ namespace GamePlay.People
 
 		public void CloseCover()
 		{
-			// cover.gameObject.SetActive(true);
-			// cover.DOLocalMoveY(4, .25f).From().OnComplete(() => feedback.PlayFeedbacks());
 			//TODO: more feedbacks
 			feedback.PlayFeedbacks();
-		}
-
-		public void OpenCover()
-		{
-			// if (cover.gameObject.activeSelf)
-			// 	cover.gameObject.SetActive(false);
 		}
 
 		public IEnumerator RemovePack()
 		{
 			if (!gameObject) yield break;
-
-			// yield return new WaitForSeconds(Person.MOVE_DURATION + Person.SCREW_DURATION * 2);
 
 			transform.DOScale(0, .5f).SetEase(Ease.InBack).OnComplete(() =>
 			{
@@ -357,14 +336,14 @@ namespace GamePlay.People
 			return nearestCell;
 		}
 
-		public IEnumerable<Person> GetBoltsByType(PersonType personType)
+		public IEnumerable<Person> GetPeopleByType(PersonType personType)
 		{
 			for (int i = 0; i < personGroupSlots.Length; i++)
 				if (personGroupSlots[i].Person && personGroupSlots[i].Person.PersonType == personType)
 					yield return personGroupSlots[i].Person;
 		}
 
-		public int GetBoltCountByType(PersonType boltType)
+		public int GetPersonCountByType(PersonType boltType)
 		{
 			int count = 0;
 			for (int i = 0; i < personGroupSlots.Length; i++)
@@ -376,7 +355,7 @@ namespace GamePlay.People
 			return count;
 		}
 
-		public int GetBoltsCount()
+		public int GetPeopleCount()
 		{
 			int count = 0;
 			for (int i = 0; i < personGroupSlots.Length; i++)
@@ -426,7 +405,7 @@ namespace GamePlay.People
 					yield return personGroupSlots[i].Person;
 		}
 
-		public bool ContainsBoltType(PersonType boltType)
+		public bool ContainsPersonType(PersonType boltType)
 		{
 			for (int i = 0; i < personGroupSlots.Length; i++)
 				if (personGroupSlots[i].Person?.PersonType == boltType)

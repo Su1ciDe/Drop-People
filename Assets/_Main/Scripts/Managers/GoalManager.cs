@@ -6,12 +6,14 @@ using Fiber.Managers;
 using Fiber.Utilities;
 using GamePlay.People;
 using GoalSystem;
+using PathCreation;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Managers
 {
+	[DeclareHorizontalGroup("lines")]
 	public class GoalManager : Singleton<GoalManager>
 	{
 		public bool IsGoalSequence { get; set; } = false;
@@ -20,17 +22,15 @@ namespace Managers
 
 		[SerializeField] private GoalHolder goalHolderPrefab;
 		[SerializeField] private float goalHolderLength;
-		[Title("Points")]
-		[SerializeField] private Transform goalHolderPoint;
-		[SerializeField] private Transform goalHolderNextPoint;
-		[SerializeField] private Transform goalHolderMovePoint;
 		[Title("Lines")]
-		[SerializeField] private Transform[] lines = new Transform[LINE_COUNT];
+		[Group("lines")] [SerializeField] private Transform[] lines = new Transform[LINE_COUNT];
+		[Title("Lines")]
+		[Group("lines")] [SerializeField] private PathCreator[] linePaths = new PathCreator[LINE_COUNT];
 
 		private List<Queue<GoalHolder>> lineQueues = new List<Queue<GoalHolder>>();
 		// private Dictionary<int, List<GoalHolder>> holders = new Dictionary<int, List<GoalHolder>>();
 
-		public const float DELAY = .05F;
+		public const float DELAY = .2F;
 		public const int LINE_COUNT = 3;
 
 		public static event UnityAction OnGoal;
@@ -66,7 +66,7 @@ namespace Managers
 
 					var goalHolder = Instantiate(goalHolderPrefab, line.transform);
 					goalHolder.transform.localPosition = new Vector3(-goalHolderLength * i, 0, 0);
-					goalHolder.transform.rotation = line.rotation;
+					// goalHolder.transform.rotation = line.rotation;
 					goalHolder.Setup(goal.GoalColor.PersonType, goal.Count, j);
 					goalHolder.OnComplete += OnGoalCompleted;
 
@@ -79,9 +79,9 @@ namespace Managers
 		{
 			goalHolder.OnComplete -= OnGoalCompleted;
 
-			goalHolder.MoveTo(goalHolderMovePoint.position).OnComplete(() => { Destroy(goalHolder.gameObject); });
-
 			var index = goalHolder.LineIndex;
+
+			goalHolder.MoveToEnd(linePaths[index].path);
 
 			if (!lineQueues[index].TryDequeue(out var nextGoalHolder)) return;
 
@@ -122,30 +122,30 @@ namespace Managers
 		private IEnumerator GroupCompleteCoroutine(PersonGroup personGroup, GoalHolder goalHolder)
 		{
 			IsGoalSequence = true;
-			personGroup.OpenCover();
 
 			yield return StartCoroutine(goalHolder.SetPeople(personGroup));
+
+			//TODO: feedback 
+			IsGoalSequence = false;
 			OnGoal?.Invoke();
-
-			// yield return StartCoroutine(WaitForPackCompletion(personGroup, goalHolder));
 		}
 
-		private IEnumerator WaitForPackCompletion(PersonGroup personGroup, GoalHolder goalHolder)
-		{
-			yield return null;
-
-			AudioManager.Instance.PlayAudio(AudioName.Goal);
-
-			if (personGroup)
-				StartCoroutine(personGroup.RemovePack());
-
-			goalHolder.CloseCover().OnComplete(() =>
-			{
-				goalHolder.MoveTo(goalHolderMovePoint.position).OnComplete(() => { Destroy(goalHolder.gameObject); });
-
-				IsGoalSequence = false;
-			});
-		}
+		// private IEnumerator WaitForPackCompletion(PersonGroup personGroup, GoalHolder goalHolder)
+		// {
+		// 	yield return null;
+		//
+		// 	AudioManager.Instance.PlayAudio(AudioName.Goal);
+		//
+		// 	if (personGroup)
+		// 		StartCoroutine(personGroup.RemovePack());
+		//
+		// 	goalHolder.CloseCover().OnComplete(() =>
+		// 	{
+		// 		goalHolder.MoveTo(goalHolderMovePoint.position).OnComplete(() => { Destroy(goalHolder.gameObject); });
+		//
+		// 		IsGoalSequence = false;
+		// 	});
+		// }
 
 		public GoalHolder GetCurrentGoalHolder(PersonType personType)
 		{
@@ -154,9 +154,7 @@ namespace Managers
 				var currentGoalHolder = CurrentGoalHolders[i];
 				if (!currentGoalHolder) continue;
 				if (currentGoalHolder.PersonType == personType)
-				{
 					return currentGoalHolder;
-				}
 			}
 
 			return null;
