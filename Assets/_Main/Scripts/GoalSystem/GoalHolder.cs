@@ -84,6 +84,7 @@ namespace GoalSystem
 
 			if (Completed)
 			{
+				feedbacks.PlayFeedbacks();
 				OnComplete?.Invoke(this);
 			}
 		}

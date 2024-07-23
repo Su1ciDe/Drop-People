@@ -64,7 +64,6 @@ namespace Managers
 
 					var goalHolder = Instantiate(goalHolderPrefab, line.transform);
 					goalHolder.transform.localPosition = new Vector3(-goalHolderLength * i, 0, 0);
-					// goalHolder.transform.rotation = line.rotation;
 					goalHolder.Setup(goal.GoalColor.PersonType, goal.Count, j);
 					goalHolder.OnComplete += OnGoalCompleted;
 
@@ -80,6 +79,22 @@ namespace Managers
 			var index = goalHolder.LineIndex;
 
 			goalHolder.MoveToEnd(linePaths[index].path);
+			int count = 0;
+
+			foreach (var lineQueue in lineQueues)
+			{
+				foreach (var holder in lineQueue)
+				{
+					if (holder)
+						count++;
+				}
+			}
+
+			Debug.Log(count);
+			if (count.Equals(0))
+			{
+				LevelManager.Instance.Win();
+			}
 
 			if (!lineQueues[index].TryDequeue(out var nextGoalHolder)) return;
 
@@ -87,6 +102,7 @@ namespace Managers
 			nextGoalHolder.MoveTo(lines[index].position).OnComplete(() => OnNewGoal?.Invoke(nextGoalHolder));
 
 			int i = 1;
+
 			foreach (var holder in lineQueues[index])
 			{
 				holder.MoveTo(lines[index].position + i * goalHolderLength * Vector3.forward);

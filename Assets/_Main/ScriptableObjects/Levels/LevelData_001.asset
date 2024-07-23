@@ -43,33 +43,24 @@ MonoBehaviour:
   - Goals:
     - GoalColor:
         PersonType: 0
-      Count: 18
+      Count: 6
     - GoalColor:
         PersonType: 0
-      Count: 18
+      Count: 6
     - GoalColor:
         PersonType: 1
-      Count: 18
+      Count: 6
   - Goals:
     - GoalColor:
         PersonType: 0
-      Count: 18
+      Count: 6
     - GoalColor:
         PersonType: 1
-      Count: 18
+      Count: 6
     - GoalColor:
         PersonType: 1
-      Count: 18
-  - Goals:
-    - GoalColor:
-        PersonType: 1
-      Count: 18
-    - GoalColor:
-        PersonType: 1
-      Count: 18
-    - GoalColor:
-        PersonType: 1
-      Count: 18
+      Count: 6
+  - Goals: []
   Obstacles:
     gridSize: {x: 4, y: 5}
     cellSize: {x: 100, y: 16}
