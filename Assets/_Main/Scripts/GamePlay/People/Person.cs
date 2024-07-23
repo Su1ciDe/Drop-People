@@ -109,7 +109,7 @@ namespace GamePlay.People
 			personAnimations.Run();
 
 			yield return null;
-			while (agent.remainingDistance > agent.stoppingDistance)
+			while (agent.remainingDistance - agent.stoppingDistance > .1f)
 			{
 				UpdateRotation();
 				yield return null;
@@ -121,6 +121,7 @@ namespace GamePlay.People
 				yield break;
 			}
 
+			transform.position = movePosition;
 			movementQueue.Clear();
 			// HapticManager.Instance.PlayHaptic(0.65f, 1f);
 			// AudioManager.Instance.PlayAudio(AudioName.Person);

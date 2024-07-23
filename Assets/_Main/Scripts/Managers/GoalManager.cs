@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Fiber.AudioSystem;
 using Fiber.Managers;
 using Fiber.Utilities;
 using GamePlay.People;
@@ -17,7 +16,6 @@ namespace Managers
 	public class GoalManager : Singleton<GoalManager>
 	{
 		public bool IsGoalSequence { get; set; } = false;
-		// public GoalHolder CurrentGoalHolder { get; private set; }
 		public List<GoalHolder> CurrentGoalHolders { get; private set; } = new List<GoalHolder>(LINE_COUNT);
 
 		[SerializeField] private GoalHolder goalHolderPrefab;
@@ -30,7 +28,7 @@ namespace Managers
 		private List<Queue<GoalHolder>> lineQueues = new List<Queue<GoalHolder>>();
 		// private Dictionary<int, List<GoalHolder>> holders = new Dictionary<int, List<GoalHolder>>();
 
-		public const float DELAY = .2F;
+		public const float DELAY = .25F;
 		public const int LINE_COUNT = 3;
 
 		public static event UnityAction OnGoal;

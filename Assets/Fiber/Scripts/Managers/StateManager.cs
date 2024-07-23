@@ -21,6 +21,9 @@ namespace Fiber.Managers
 		[Header("Debug")]
 		[SerializeField] private GameState gameState = GameState.None;
 
+		private double startTime = -1;
+		private double completionTime;
+
 		public static event UnityAction<GameState> OnStateChanged;
 
 		private void OnEnable()
@@ -57,9 +60,14 @@ namespace Fiber.Managers
 		{
 			Debug.Log("GAME WIN");
 
+			completionTime = Time.unscaledTimeAsDouble - startTime;
+			var param = Params.New().Set("time", completionTime);
 			Elephant.LevelCompleted(LevelManager.Instance.LevelNo);
 
 			CurrentState = GameState.OnWin;
+
+			startTime = 0d;
+			completionTime = 0d;
 		}
 
 		private void LoseLevel()
@@ -69,6 +77,9 @@ namespace Fiber.Managers
 			Elephant.LevelFailed(LevelManager.Instance.LevelNo);
 
 			CurrentState = GameState.OnLose;
+
+			startTime = 0d;
+			completionTime = 0d;
 		}
 	}
 }

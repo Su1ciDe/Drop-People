@@ -16,7 +16,7 @@ namespace Fiber.Build.ProjectConfig
 	[DeclareTabGroup("tabs")]
 	public class ProjectConfig : ScriptableObject
 	{
-		[Header("Player Settings")]
+		[Title("Player Settings")]
 		[SerializeField] private string companyName = "Fiber Games";
 		[SerializeField] private string productName;
 		[SerializeField] private Texture2D productIcon;
@@ -32,15 +32,15 @@ namespace Fiber.Build.ProjectConfig
 		// [Group("tabs"), Tab("Android Settings")] [SerializeField] private string androidVersion = "0.1";
 		[Group("tabs"), Tab("Android Settings")] [SerializeField] private int androidBuildNo;
 
-		[Header("Facebook Settings")]
+		[Title("Facebook Settings")]
 		[SerializeField] private string facebookId;
 		[SerializeField] private string facebookClientToken;
 
-		[Header("Elephant Settings")]
+		[Title("Elephant Settings")]
 		[SerializeField] private string gameId;
 		[SerializeField] private string gameSecret;
 
-		[Header("Loading Screen")]
+		[Title("Loading Screen")]
 		[SerializeField] private Sprite background;
 		[SerializeField] private Sprite loadingScreenLogo;
 		[SerializeField] private Sprite loadingScreenTitle;

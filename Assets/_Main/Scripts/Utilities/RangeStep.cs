@@ -14,17 +14,17 @@ namespace Utilities
 		internal readonly float m_Max = 100f;
 		internal readonly float m_Step = 1;
 		internal readonly int m_Precision;
-		// Whether a increase that is not the step is allowed (Occurs when we are reaching the end)
+		// Whether an increase that isn't the step is allowed (Occurs when we are reaching the end)
 		internal readonly bool m_AllowNonStepReach = true;
 		internal readonly bool m_IsInt = false;
 
 		/// <summary>
-		/// Allow you to increase a float value in step, make sure the type of the variable matches the the parameters
+		/// Allow you to increase a float value in a step, make sure the type of the variable matches the  parameters
 		/// </summary>
 		/// <param name="min"></param>
 		/// <param name="max"></param>
 		/// <param name="step"></param>
-		/// <param name="allowNonStepReach">Whether a increase that is not the step is allowed (Occurs when we are reaching the end)</param>
+		/// <param name="allowNonStepReach">Whether an increase that isn't the step is allowed (Occurs when we are reaching the end)</param>
 		public RangeStep(float min, float max, float step = 1f, bool allowNonStepReach = true)
 		{
 			m_Min = min;
@@ -36,7 +36,7 @@ namespace Utilities
 		}
 
 		/// <summary>
-		/// Allow you to increase a int value in step, make sure the type of the variable matches the the parameters
+		/// Allow you to increase an int value in a step, make sure the type of the variable matches the parameters
 		/// </summary>
 		/// <param name="min"></param>
 		/// <param name="max"></param>
