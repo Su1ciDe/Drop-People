@@ -78,23 +78,8 @@ namespace Managers
 
 			var index = goalHolder.LineIndex;
 
-			goalHolder.MoveToEnd(linePaths[index].path);
-			int count = 0;
-
-			foreach (var lineQueue in lineQueues)
-			{
-				foreach (var holder in lineQueue)
-				{
-					if (holder)
-						count++;
-				}
-			}
-
-			Debug.Log(count);
-			if (count.Equals(0))
-			{
-				LevelManager.Instance.Win();
-			}
+			// goalHolder.MoveToEnd(linePaths[index].path);
+			StartCoroutine(MoveToEndOnComplete(goalHolder, index));
 
 			if (!lineQueues[index].TryDequeue(out var nextGoalHolder)) return;
 
@@ -108,6 +93,49 @@ namespace Managers
 				holder.MoveTo(lines[index].position + i * goalHolderLength * Vector3.forward);
 				i++;
 			}
+		}
+
+		private IEnumerator MoveToEndOnComplete(GoalHolder goalHolder, int index)
+		{
+			int count = 0;
+
+			foreach (var lineQueue in lineQueues)
+			{
+				foreach (var holder in lineQueue)
+				{
+					if (holder)
+						count++;
+				}
+			}
+
+			for (int j = 0; j < CurrentGoalHolders.Count; j++)
+			{
+				if (CurrentGoalHolders[j])
+					count++;
+			}
+
+			yield return StartCoroutine(goalHolder.MoveToEndCoroutine(linePaths[index].path));
+
+			if (count <= 1)
+			{
+				if (levelCompleteCoroutine is not null)
+				{
+					StopCoroutine(levelCompleteCoroutine);
+					levelCompleteCoroutine = null;
+				}
+
+				levelCompleteCoroutine = StartCoroutine(LevelCompleteCoroutine());
+			}
+		}
+
+		private Coroutine levelCompleteCoroutine;
+
+		private IEnumerator LevelCompleteCoroutine()
+		{
+			yield return new WaitForSeconds(1);
+			yield return new WaitUntil(() => !IsGoalSequence);
+			
+			LevelManager.Instance.Win();
 		}
 
 		private void OnLevelStarted()

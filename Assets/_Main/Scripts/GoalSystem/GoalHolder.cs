@@ -142,7 +142,7 @@ namespace GoalSystem
 			StartCoroutine(MoveToEndCoroutine(path));
 		}
 
-		private IEnumerator MoveToEndCoroutine(VertexPath path)
+		public IEnumerator MoveToEndCoroutine(VertexPath path)
 		{
 			while (path.GetClosestTimeOnPath(transform.position) < 1)
 			{

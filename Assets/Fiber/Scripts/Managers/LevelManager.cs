@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Fiber.Utilities;
 using Fiber.AudioSystem;
 using Fiber.LevelSystem;
+using Lofelt.NiceVibrations;
 using ScriptableObjects;
 using TriInspector;
 using UnityEngine;
@@ -135,6 +136,8 @@ namespace Fiber.Managers
 			if (StateManager.Instance.CurrentState != GameState.OnStart) return;
 
 			AudioManager.Instance.PlayAudio(AudioName.LevelWin);
+			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.Success);
+
 			OnLevelWin?.Invoke();
 		}
 
@@ -143,6 +146,8 @@ namespace Fiber.Managers
 			if (StateManager.Instance.CurrentState != GameState.OnStart) return;
 
 			AudioManager.Instance.PlayAudio(AudioName.LevelLose);
+			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.Failure);
+
 			OnLevelLose?.Invoke();
 		}
 

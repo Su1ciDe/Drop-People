@@ -27,6 +27,8 @@ namespace GamePlay.People
 		[SerializeField] private Person personPrefab;
 		[SerializeField] private PersonGroupSlot[] personGroupSlots;
 		[Space]
+		[SerializeField] private float moveDamping = 10f;
+		[Space]
 		[SerializeField] private Transform model;
 		[SerializeField] private Collider col;
 		// [SerializeField] private Transform cover;
@@ -178,7 +180,7 @@ namespace GamePlay.People
 
 		public void Move(Vector3 position)
 		{
-			rb.MovePosition(Vector3.Lerp(rb.position, position, Time.deltaTime * 10));
+			rb.MovePosition(Vector3.Lerp(rb.position, position, Time.deltaTime * moveDamping));
 
 			var nearestCell = GetNearestNode();
 			if (currentNearestGridCell)
