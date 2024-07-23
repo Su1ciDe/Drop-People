@@ -59,6 +59,8 @@ namespace Managers
 				var goalStage = LevelManager.Instance.CurrentLevelData.GoalStages[i];
 				for (int j = 0; j < LINE_COUNT; j++)
 				{
+					if (goalStage.Goals.Length <= j) continue;
+
 					var line = lines[j];
 					var goal = goalStage.Goals[j];
 
