@@ -43,7 +43,9 @@ namespace ScriptableObjects
 		public GoalSettings[] GoalStages;
 
 		[Title("Obstacles")]
-		public Array2DBool Obstacles;
+		// public Array2DBool Obstacles;
+		public Array2DGrid Obstacles;
+		// public Array2DExampleEnum
 
 		[Serializable]
 		public class PersonGroupSettings
@@ -109,7 +111,7 @@ namespace ScriptableObjects
 		{
 			public PersonGroupSettings.PersonColor GoalColor;
 			[RangeStep(6, 18, 6)]
-			public int Count;
+			public int Count = 18;
 		}
 	}
 }

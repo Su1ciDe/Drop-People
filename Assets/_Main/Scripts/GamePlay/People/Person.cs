@@ -50,7 +50,7 @@ namespace GamePlay.People
 		public void OnGroupMove()
 		{
 			var head = PersonRagdoll.Ragdolls[0];
-			head.MovePosition(transform.position);
+			head.MovePosition(transform.position + 2 * Vector3.up);
 		}
 		
 		public void OnGroupPickedUp()

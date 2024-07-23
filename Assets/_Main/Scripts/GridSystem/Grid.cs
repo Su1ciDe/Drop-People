@@ -8,6 +8,7 @@ using GamePlay.Obstacles;
 using GoalSystem;
 using Managers;
 using UnityEngine;
+using Utilities;
 
 namespace GridSystem
 {
@@ -20,6 +21,7 @@ namespace GridSystem
 		[SerializeField] private GridCell cellPrefab;
 		[Space]
 		[SerializeField] private Obstacle obstaclePrefab;
+		[SerializeField] private EmptyObstacle emptyObstaclePrefab;
 
 		private GridCell[,] gridCells;
 		public GridCell[,] GridCells => gridCells;
@@ -72,7 +74,14 @@ namespace GridSystem
 			{
 				for (int x = 0; x < size.x; x++)
 				{
-					if (LevelManager.Instance.CurrentLevelData.Obstacles.GetCell(x, y))
+					var obstacleType = LevelManager.Instance.CurrentLevelData.Obstacles.GetCell(x, y);
+					if (obstacleType == LevelEditorEnum.Empty)
+					{
+						var obstacle = Instantiate(emptyObstaclePrefab, transform);
+						obstacle.Place(gridCells[x, y]);
+						gridCells[x, y].gameObject.SetActive(false);
+					}
+					else if (obstacleType == LevelEditorEnum.Obstacle)
 					{
 						var obstacle = Instantiate(obstaclePrefab, transform);
 						obstacle.Place(gridCells[x, y]);
