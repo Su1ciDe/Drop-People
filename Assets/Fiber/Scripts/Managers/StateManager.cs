@@ -62,7 +62,7 @@ namespace Fiber.Managers
 
 			completionTime = Time.unscaledTimeAsDouble - startTime;
 			var param = Params.New().Set("time", completionTime);
-			Elephant.LevelCompleted(LevelManager.Instance.LevelNo);
+			Elephant.LevelCompleted(LevelManager.Instance.LevelNo, param);
 
 			CurrentState = GameState.OnWin;
 
