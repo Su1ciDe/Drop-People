@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using DeckSystem;
 using DG.Tweening;
 using Fiber.Managers;
-using Fiber.AudioSystem;
 using Fiber.Utilities.Extensions;
 using GridSystem;
 using Interfaces;
@@ -13,6 +12,7 @@ using MoreMountains.Feedbacks;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Events;
+using Grid = GridSystem.Grid;
 
 namespace GamePlay.People
 {
@@ -313,7 +313,7 @@ namespace GamePlay.People
 					samePersonTypeCount++;
 			}
 
-			// Remove pack from grid
+			// Remove pack from the grid
 			if (count.Equals(0))
 			{
 				StartCoroutine(RemovePack());
@@ -326,6 +326,7 @@ namespace GamePlay.People
 		private void Complete()
 		{
 			IsCompleted = true;
+
 			OnComplete?.Invoke(this);
 		}
 

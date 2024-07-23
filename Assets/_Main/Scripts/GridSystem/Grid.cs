@@ -7,6 +7,7 @@ using GamePlay.People;
 using GamePlay.Obstacles;
 using GoalSystem;
 using Managers;
+using ScriptableObjects;
 using UnityEngine;
 using Utilities;
 
@@ -20,6 +21,8 @@ namespace GridSystem
 		[SerializeField] private float ySpacing = .1f;
 		[SerializeField] private GridCell cellPrefab;
 		[Space]
+		[SerializeField] private ObstaclesSO obstaclesSO;
+
 		[SerializeField] private Obstacle obstaclePrefab;
 		[SerializeField] private EmptyObstacle emptyObstaclePrefab;
 
@@ -33,18 +36,16 @@ namespace GridSystem
 
 		private void OnEnable()
 		{
-			PersonGroup.OnPlace += OnBoltPlaced;
+			PersonGroup.OnPlace += OnPersonGroupPlaced;
 			LevelManager.OnLevelLoad += OnLevelLoaded;
-			// StageManager.OnStageStarted += OnStageStarted;
 			GoalManager.OnGoal += OnGoal;
 			GoalManager.OnNewGoal += CheckCompletedPacks;
 		}
 
 		private void OnDisable()
 		{
-			PersonGroup.OnPlace -= OnBoltPlaced;
+			PersonGroup.OnPlace -= OnPersonGroupPlaced;
 			LevelManager.OnLevelLoad -= OnLevelLoaded;
-			// StageManager.OnStageStarted -= OnStageStarted;
 			GoalManager.OnGoal -= OnGoal;
 			GoalManager.OnNewGoal -= CheckCompletedPacks;
 		}
@@ -75,26 +76,23 @@ namespace GridSystem
 				for (int x = 0; x < size.x; x++)
 				{
 					var obstacleType = LevelManager.Instance.CurrentLevelData.Obstacles.GetCell(x, y);
-					if (obstacleType == LevelEditorEnum.Empty)
+					if (obstacleType != LevelEditorEnum.Grid)
 					{
-						var obstacle = Instantiate(emptyObstaclePrefab, transform);
+						var obstacle = Instantiate(obstaclesSO.Obstacles[obstacleType], transform);
 						obstacle.Place(gridCells[x, y]);
-						gridCells[x, y].gameObject.SetActive(false);
-					}
-					else if (obstacleType == LevelEditorEnum.Obstacle)
-					{
-						var obstacle = Instantiate(obstaclePrefab, transform);
-						obstacle.Place(gridCells[x, y]);
+
+						if (obstacleType == LevelEditorEnum.Empty)
+							gridCells[x, y].gameObject.SetActive(false);
 					}
 				}
 			}
 		}
 
-		private void OnBoltPlaced(PersonGroup placedPersonGroup)
+		private void OnPersonGroupPlaced(PersonGroup placedPersonGroup)
 		{
 			var index = placedPersonGroup.CurrentGridCell.Coordinates;
 			var connectedPersonGroups = new List<PersonGroup>();
-			// Check neighbours
+			// Check neighbors
 
 			// Left
 			if (!index.x.Equals(0))
@@ -112,7 +110,7 @@ namespace GridSystem
 			if (!index.y.Equals(size.y - 1))
 				CheckHasSameType(gridCells[index.x, index.y + 1].CurrentPersonGroup, ref connectedPersonGroups);
 
-			// Add original pack
+			// Add the original pack
 			if (connectedPersonGroups.Count > 0 && !connectedPersonGroups.Contains(placedPersonGroup))
 				connectedPersonGroups.Add(placedPersonGroup);
 
@@ -232,7 +230,7 @@ namespace GridSystem
 			// yield return new WaitForSeconds(Person.MOVE_DURATION + Person.SCREW_DURATION * 2);
 			yield return null;
 			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
-			yield return new WaitForSeconds(2.5f);
+			yield return new WaitForSeconds(2f);
 
 			CheckIfFailed();
 		}
@@ -287,6 +285,32 @@ namespace GridSystem
 			{
 				connectedPersonGroups.Add(neighbourGroup);
 			}
+		}
+
+		public void CheckObstacles(PersonGroup personGroup)
+		{
+			var coordinates = personGroup.CurrentGridCell.Coordinates;
+
+			// Check neighbor obstacles
+			// Left
+			if (!coordinates.x.Equals(0))
+				if (gridCells[coordinates.x - 1, coordinates.y].CurrentNode is BaseObstacle obstacle)
+					obstacle.OnGroupCompleteNear(personGroup);
+
+			// Right
+			if (!coordinates.x.Equals(size.x - 1))
+				if (gridCells[coordinates.x + 1, coordinates.y].CurrentNode is BaseObstacle obstacle)
+					obstacle.OnGroupCompleteNear(personGroup);
+
+			// Up
+			if (!coordinates.y.Equals(0))
+				if (gridCells[coordinates.x, coordinates.y - 1].CurrentNode is BaseObstacle obstacle)
+					obstacle.OnGroupCompleteNear(personGroup);
+
+			// Down
+			if (!coordinates.y.Equals(size.y - 1))
+				if (gridCells[coordinates.x, coordinates.y + 1].CurrentNode is BaseObstacle obstacle)
+					obstacle.OnGroupCompleteNear(personGroup);
 		}
 
 		// private void OnStageStarted(int stageNo)

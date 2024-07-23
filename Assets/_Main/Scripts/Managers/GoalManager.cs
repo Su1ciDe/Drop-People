@@ -9,6 +9,7 @@ using PathCreation;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using Grid = GridSystem.Grid;
 
 namespace Managers
 {
@@ -116,6 +117,7 @@ namespace Managers
 					count++;
 			}
 
+			yield return new WaitForSeconds(0.2f);
 			yield return StartCoroutine(goalHolder.MoveToEndCoroutine(linePaths[index].path));
 
 			if (count <= 1)
@@ -136,7 +138,7 @@ namespace Managers
 		{
 			yield return new WaitForSeconds(1);
 			yield return new WaitUntil(() => !IsGoalSequence);
-			
+
 			LevelManager.Instance.Win();
 		}
 
@@ -159,6 +161,8 @@ namespace Managers
 			}
 
 			if (goalHolder.Completed) return;
+
+			Grid.Instance.CheckObstacles(personGroup);
 
 			StartCoroutine(GroupCompleteCoroutine(personGroup, goalHolder));
 		}

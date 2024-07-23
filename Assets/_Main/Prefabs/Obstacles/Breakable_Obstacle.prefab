@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5330206341656736400
+--- !u!1 &2322080114891556039
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8785843506868276233}
-  - component: {fileID: 3740778662355333568}
-  - component: {fileID: 3189918086927458844}
+  - component: {fileID: 3220670247199847115}
+  - component: {fileID: 5380874062672346077}
+  - component: {fileID: 5965262501684456539}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -18,36 +18,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8785843506868276233
+--- !u!4 &3220670247199847115
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5330206341656736400}
+  m_GameObject: {fileID: 2322080114891556039}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.75, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.6999998, y: 3.6999998, z: 3.6999998}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 3820918001841079223}
+  m_Father: {fileID: 3188037229641333539}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3740778662355333568
+--- !u!33 &5380874062672346077
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5330206341656736400}
+  m_GameObject: {fileID: 2322080114891556039}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3189918086927458844
+--- !u!23 &5965262501684456539
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5330206341656736400}
+  m_GameObject: {fileID: 2322080114891556039}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e0e8a571ef6fce34890952889b35afda, type: 2}
+  - {fileID: 2100000, guid: 959bef68856013d4da4cbe9176c989c0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,7 +83,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &6941486746132189412
+--- !u!1001 &8749811548107925616
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -136,29 +136,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3523988801077398396, guid: b95a6f9bdc50048b79f7e7aed3a12d4f, type: 3}
       propertyPath: m_Name
-      value: Obstacle
+      value: Breakable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b95a6f9bdc50048b79f7e7aed3a12d4f, type: 3}
---- !u!4 &3820918001841079223 stripped
+--- !u!4 &3188037229641333539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6148466577410397011, guid: b95a6f9bdc50048b79f7e7aed3a12d4f, type: 3}
-  m_PrefabInstance: {fileID: 6941486746132189412}
+  m_PrefabInstance: {fileID: 8749811548107925616}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5814890731535784856 stripped
+--- !u!1 &5299094204058247948 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3523988801077398396, guid: b95a6f9bdc50048b79f7e7aed3a12d4f, type: 3}
-  m_PrefabInstance: {fileID: 6941486746132189412}
+  m_PrefabInstance: {fileID: 8749811548107925616}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1711025385067561960
+--- !u!114 &-319233506896326462
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5814890731535784856}
+  m_GameObject: {fileID: 5299094204058247948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a2c70bc1b04f59b2c9818ad58f7622, type: 3}
+  m_Script: {fileID: 11500000, guid: 947e51c4c9d24db780e83542a2cf7fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

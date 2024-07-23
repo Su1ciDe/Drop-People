@@ -18,7 +18,7 @@ namespace GoalSystem
 	[SelectionBase]
 	public class GoalHolder : MonoBehaviour
 	{
-		public bool Completed { get; set; } = false;
+		public bool Completed { get; private set; } = false;
 		public PersonType PersonType { get; private set; }
 		public int NeededAmount { get; private set; }
 		public int LineIndex { get; private set; }
@@ -135,18 +135,13 @@ namespace GoalSystem
 		}
 
 		private float distanceTravelled;
-		private float speed = 35;
-
-		public void MoveToEnd(VertexPath path)
-		{
-			StartCoroutine(MoveToEndCoroutine(path));
-		}
+		private const float SPEED = 35;
 
 		public IEnumerator MoveToEndCoroutine(VertexPath path)
 		{
 			while (path.GetClosestTimeOnPath(transform.position) < 1)
 			{
-				distanceTravelled += speed * Time.deltaTime;
+				distanceTravelled += SPEED * Time.deltaTime;
 				transform.position = path.GetPointAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
 				transform.rotation = path.GetRotationAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
 				yield return null;
@@ -155,16 +150,6 @@ namespace GoalSystem
 			yield return null;
 
 			Destroy(gameObject);
-		}
-
-		public Tween CloseCover()
-		{
-			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.Success);
-			feedbacks.PlayFeedbacks();
-
-			var seq = DOTween.Sequence();
-			seq.AppendInterval(0.2f);
-			return seq;
 		}
 
 		public GoalSlot GetFirstGoalSlot()

@@ -1,3 +1,4 @@
+using GamePlay.People;
 using GridSystem;
 using Interfaces;
 using UnityEngine;
@@ -16,6 +17,10 @@ namespace GamePlay.Obstacles
 
 			transform.SetParent(placedCell.transform);
 			transform.localPosition = Vector3.zero;
+		}
+
+		public virtual void OnGroupCompleteNear(PersonGroup personGroup)
+		{
 		}
 	}
 }

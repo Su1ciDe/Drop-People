@@ -5,5 +5,6 @@ namespace Utilities
 		Grid,
 		Empty,
 		Obstacle,
+		Breakable,
 	}
 }
