@@ -23,9 +23,6 @@ namespace GridSystem
 		[Space]
 		[SerializeField] private ObstaclesSO obstaclesSO;
 
-		[SerializeField] private Obstacle obstaclePrefab;
-		[SerializeField] private EmptyObstacle emptyObstaclePrefab;
-
 		private GridCell[,] gridCells;
 		public GridCell[,] GridCells => gridCells;
 
@@ -114,7 +111,17 @@ namespace GridSystem
 			if (connectedPersonGroups.Count > 0 && !connectedPersonGroups.Contains(placedPersonGroup))
 				connectedPersonGroups.Add(placedPersonGroup);
 
-			if (connectedPersonGroups.Count <= 1) return;
+			if (connectedPersonGroups.Count <= 1)
+			{
+				if (moveSequenceCoroutine is not null)
+				{
+					StopCoroutine(moveSequenceCoroutine);
+					moveSequenceCoroutine = null;
+				}
+
+				moveSequenceCoroutine = StartCoroutine(MoveSequence(connectedPersonGroups));
+				return;
+			}
 
 			// Select the most occuring type
 			connectedPersonGroups = connectedPersonGroups.OrderBy(y => y.GetPersonTypes().Count).ToList();
@@ -194,15 +201,15 @@ namespace GridSystem
 			}
 
 			// Rearrange
-			foreach (var boltPackPair in connectedPersonGroups)
+			foreach (var personGroup in connectedPersonGroups)
 			{
-				boltPackPair.Rearrange(false);
+				personGroup.Rearrange(false);
 			}
 
 			// Moving Sequence
-			foreach (var boltPackPair in connectedPersonGroups)
+			foreach (var personGroup in connectedPersonGroups)
 			{
-				StartCoroutine(boltPackPair.MovePeople());
+				StartCoroutine(personGroup.MovePeople());
 			}
 
 			if (moveSequenceCoroutine is not null)
@@ -211,33 +218,35 @@ namespace GridSystem
 				moveSequenceCoroutine = null;
 			}
 
-			moveSequenceCoroutine = StartCoroutine(MoveSequence());
+			moveSequenceCoroutine = StartCoroutine(MoveSequence(connectedPersonGroups));
 		}
 
 		private void OnGoal()
 		{
-			if (moveSequenceCoroutine is not null)
-			{
-				StopCoroutine(moveSequenceCoroutine);
-				moveSequenceCoroutine = null;
-			}
+			// if (moveSequenceCoroutine is not null)
+			// {
+			// 	StopCoroutine(moveSequenceCoroutine);
+			// 	moveSequenceCoroutine = null;
+			// }
 		}
 
 		private Coroutine moveSequenceCoroutine = null;
 
-		private IEnumerator MoveSequence()
+		private IEnumerator MoveSequence(List<PersonGroup> connectedPersonGroups)
 		{
-			// yield return new WaitForSeconds(Person.MOVE_DURATION + Person.SCREW_DURATION * 2);
+			var people = connectedPersonGroups.SelectMany(x => x.PersonGroupSlots.Where(y => y.Person)).Select(z => z.Person);
+			yield return null;
+			yield return new WaitUntil(() => !people.Any(x => x.IsMoving));
 			yield return null;
 			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
 			yield return new WaitForSeconds(1f);
 
-			CheckIfFailed();
+			StartCoroutine(CheckIfFailed());
 		}
 
-		private void CheckIfFailed()
+		private IEnumerator CheckIfFailed()
 		{
-			if (GoalManager.Instance.IsGoalSequence) return;
+			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
 
 			int filledNodeCount = 0;
 			for (int x = 0; x < size.x; x++)
