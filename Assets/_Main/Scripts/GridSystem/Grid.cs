@@ -223,11 +223,11 @@ namespace GridSystem
 
 		private void OnGoal()
 		{
-			// if (moveSequenceCoroutine is not null)
-			// {
-			// 	StopCoroutine(moveSequenceCoroutine);
-			// 	moveSequenceCoroutine = null;
-			// }
+			if (moveSequenceCoroutine is not null)
+			{
+				StopCoroutine(moveSequenceCoroutine);
+				moveSequenceCoroutine = null;
+			}
 		}
 
 		private Coroutine moveSequenceCoroutine = null;
@@ -237,16 +237,12 @@ namespace GridSystem
 			var people = connectedPersonGroups.SelectMany(x => x.PersonGroupSlots.Where(y => y.Person)).Select(z => z.Person);
 			yield return null;
 			yield return new WaitUntil(() => !people.Any(x => x.IsMoving));
+			yield return new WaitForSeconds(0.25f);
+			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
 			yield return null;
-			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
-			yield return new WaitForSeconds(1f);
 
-			StartCoroutine(CheckIfFailed());
-		}
-
-		private IEnumerator CheckIfFailed()
-		{
 			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
+			yield return null;
 
 			int filledNodeCount = 0;
 			for (int x = 0; x < size.x; x++)

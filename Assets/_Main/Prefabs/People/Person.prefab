@@ -80,8 +80,8 @@ NavMeshAgent:
   m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.35
-  m_Speed: 30
-  m_Acceleration: 750
+  m_Speed: 25
+  m_Acceleration: 500
   avoidancePriority: 50
   m_AngularSpeed: 360
   m_StoppingDistance: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
   model: {fileID: 503348731622312337}
   personAnimations: {fileID: 3405138722665375924}
   meshRenderer: {fileID: 2816156005765007121}
-  footPrintParticle: {fileID: 2730331199581572082}
+  footPrintParticle: {fileID: 6636184049800936181}
 --- !u!114 &3771404772603134818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +220,10 @@ PrefabInstance:
     - target: {fileID: 1651027530809346, guid: e9ee19726145b934497ab8a8c4e9a1d0, type: 3}
       propertyPath: m_Name
       value: Trail
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651027530809346, guid: e9ee19726145b934497ab8a8c4e9a1d0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4632820180959764, guid: e9ee19726145b934497ab8a8c4e9a1d0, type: 3}
       propertyPath: m_RootOrder
@@ -351,11 +355,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9ee19726145b934497ab8a8c4e9a1d0, type: 3}
---- !u!198 &2730331199581572082 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198738923127862292, guid: e9ee19726145b934497ab8a8c4e9a1d0, type: 3}
-  m_PrefabInstance: {fileID: 2820971069952606182}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2825568667102379506 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4632820180959764, guid: e9ee19726145b934497ab8a8c4e9a1d0, type: 3}
@@ -1387,17 +1386,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 503348731622312337}
     m_Modifications:
-    - target: {fileID: 203967150191594416, guid: 8c60a1bf9973447e99e7edc2d5420765, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 203967150191594417, guid: 8c60a1bf9973447e99e7edc2d5420765, type: 3}
       propertyPath: m_Name
       value: FootPrint
-      objectReference: {fileID: 0}
-    - target: {fileID: 203967150191594417, guid: 8c60a1bf9973447e99e7edc2d5420765, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 203967150191594422, guid: 8c60a1bf9973447e99e7edc2d5420765, type: 3}
       propertyPath: m_RootOrder
@@ -1443,14 +1434,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 203967150191594423, guid: 8c60a1bf9973447e99e7edc2d5420765, type: 3}
-      propertyPath: TrailModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c60a1bf9973447e99e7edc2d5420765, type: 3}
 --- !u!4 &6636184049800936180 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 203967150191594422, guid: 8c60a1bf9973447e99e7edc2d5420765, type: 3}
+  m_PrefabInstance: {fileID: 6831069142946918722}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6636184049800936181 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 203967150191594423, guid: 8c60a1bf9973447e99e7edc2d5420765, type: 3}
   m_PrefabInstance: {fileID: 6831069142946918722}
   m_PrefabAsset: {fileID: 0}

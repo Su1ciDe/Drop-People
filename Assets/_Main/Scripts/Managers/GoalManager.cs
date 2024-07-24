@@ -29,7 +29,7 @@ namespace Managers
 		private List<Queue<GoalHolder>> lineQueues = new List<Queue<GoalHolder>>();
 		// private Dictionary<int, List<GoalHolder>> holders = new Dictionary<int, List<GoalHolder>>();
 
-		public const float DELAY = .25F;
+		public const float DELAY = .2F;
 		public const int LINE_COUNT = 3;
 
 		public static event UnityAction OnGoal;

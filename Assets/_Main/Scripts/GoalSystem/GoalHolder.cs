@@ -10,6 +10,7 @@ using MoreMountains.Feedbacks;
 using PathCreation;
 using TriInspector;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 namespace GoalSystem
@@ -38,10 +39,17 @@ namespace GoalSystem
 		private int currentAmount;
 		private int currentPersonAmount;
 
+		private NavMeshObstacle[] navMeshObstacles;
+
 		private const float MOVE_DURATION = .35F;
 		private const int MATERIAL_INDEX = 0;
 
 		public event UnityAction<GoalHolder> OnComplete;
+
+		private void Awake()
+		{
+			navMeshObstacles = GetComponentsInChildren<NavMeshObstacle>();
+		}
 
 		private void OnDisable()
 		{
@@ -67,7 +75,7 @@ namespace GoalSystem
 			for (var i = 0; i < peopleCount; i++)
 			{
 				yield return new WaitForSeconds(GoalManager.DELAY);
-				people[i].MoveToSlot(true, entrancePoint.position);
+				people[i].MoveToSlot(true);
 				StartCoroutine(FeedbackCoroutine(people[i], i));
 			}
 
@@ -152,6 +160,9 @@ namespace GoalSystem
 
 		public IEnumerator MoveToEndCoroutine(VertexPath path)
 		{
+			foreach (var navMeshObstacle in navMeshObstacles)
+				navMeshObstacle.enabled = false;
+			
 			while (path.GetClosestTimeOnPath(transform.position) < 1)
 			{
 				distanceTravelled += SPEED * Time.deltaTime;
