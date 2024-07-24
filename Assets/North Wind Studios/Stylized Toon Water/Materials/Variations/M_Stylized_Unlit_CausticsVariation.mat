@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1861629949338890194
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 12
+  hdPluginSubTargetMaterialVersions:
+    m_Keys: []
+    m_Values: 
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Stylized_Unlit_CausticsVariation
+  m_Shader: {fileID: -6465566751694194690, guid: bad12f15701340c49a8a2861623f9cb5, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _ENABLE_FOG_ON_TRANSPARENT
+  - _SURFACE_TYPE_TRANSPARENT
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses:
+  - TransparentDepthPrepass
+  - TransparentDepthPostpass
+  - TransparentBackface
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _SampleTexture2D_1d003a3fcde94b5caf7d90d1e752faa4_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 4f83998f6f8c87747930fe4ec9f8686b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_1db41287fb3d41509b0fa79129eb8963_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 4f83998f6f8c87747930fe4ec9f8686b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ebeab58796bd46ce85af470de57ef10f_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 4f83998f6f8c87747930fe4ec9f8686b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Caustics_1_Intensity: 1
+    - _Caustics_1_Power: 5
+    - _Caustics_2_Intensity: 1
+    - _Caustics_2_Power: 25
+    - _Fade_Distance: 0.75
+    - _Foam_Line_Speed: -0.1
+    - _Foam_Lines_Amount: 10
+    - _Foam_Noise_Scale: 5
+    - _Gradient_Hardness: 0.01
+    - _Gradient_Radius: 5
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Use_Foam: 1
+    - _Use_Gradient: 1
+    - _Use_Waves: 1
+    - _Wave_Intensity: 0.5
+    - _Wave_Speed: 0.1
+    m_Colors:
+    - _Caustics_1_Speed: {r: 0.01, g: 0, b: 0, a: 0}
+    - _Caustics_1_Tile: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - _Caustics_2_Speed: {r: -0.007, g: 0, b: 0, a: 0}
+    - _Caustics_2_Tile: {r: 0.03, g: 0.03, b: 0, a: 0}
+    - _Caustics_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Foam_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Inner_Color: {r: 0, g: 0.5294118, b: 0.7254902, a: 0}
+    - _Outer_Color: {r: 0, g: 0.38039213, b: 0.5411765, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &4999423930467098854
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
