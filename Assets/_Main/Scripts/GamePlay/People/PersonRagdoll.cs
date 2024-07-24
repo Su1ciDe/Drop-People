@@ -6,16 +6,25 @@ namespace GamePlay.People
 	{
 		[SerializeField] private Rigidbody[] ragdolls;
 		public Rigidbody[] Ragdolls => ragdolls;
-		
+
+		[SerializeField] private DynamicBone dynamicBone;
+		public DynamicBone DynamicBone => dynamicBone;
 
 		public void EnableRagdoll()
 		{
-			SetRagdoll(true);
+			// SetRagdoll(true);
+			SetDynamicBone(true);
 		}
 
 		public void DisableRagdoll()
 		{
-			SetRagdoll(false);
+			// SetRagdoll(false);
+			SetDynamicBone(false);
+		}
+
+		private void SetDynamicBone(bool enable)
+		{
+			dynamicBone.enabled = enable;
 		}
 
 		private void SetRagdoll(bool enable)

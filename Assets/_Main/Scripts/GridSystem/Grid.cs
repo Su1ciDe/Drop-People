@@ -257,26 +257,20 @@ namespace GridSystem
 
 		public void CheckCompletedPacks(GoalHolder goalHolder)
 		{
-			// PersonGroup completedPersonGroup = null;
+			Debug.Log("cehchecheckecke");
 			for (int x = 0; x < size.x; x++)
 			{
 				for (int y = 0; y < size.y; y++)
 				{
 					var grid = gridCells[x, y];
-					if (grid.CurrentPersonGroup && grid.CurrentPersonGroup.IsCompleted && grid.CurrentPersonGroup.PersonGroupSlots[0].Person.PersonType == goalHolder.PersonType)
+					if (grid.CurrentPersonGroup && grid.CurrentPersonGroup.IsCompleted && grid.CurrentPersonGroup.PersonGroupSlots[0].Person.PersonType == goalHolder.PersonType &&
+					    !goalHolder.IsCompleted)
 					{
 						GoalManager.Instance.OnPersonGroupCompleted(grid.CurrentPersonGroup);
-						// completedPersonGroup = grid.CurrentPersonGroup;
-						// break;
+						Debug.Log(grid.CurrentPersonGroup, grid.CurrentPersonGroup);
 					}
 				}
-
-				// if (completedPersonGroup)
-				// 	break;
 			}
-
-			// if (completedPersonGroup)
-			// 	GoalManager.Instance.OnPersonGroupCompleted(completedPersonGroup);
 		}
 
 		private void CheckHasSameType(PersonGroup neighbourGroup, ref List<PersonGroup> connectedPersonGroups)

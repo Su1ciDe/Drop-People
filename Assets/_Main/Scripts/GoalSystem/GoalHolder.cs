@@ -8,7 +8,6 @@ using Lofelt.NiceVibrations;
 using Managers;
 using MoreMountains.Feedbacks;
 using PathCreation;
-using TMPro;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,7 +17,7 @@ namespace GoalSystem
 	[SelectionBase]
 	public class GoalHolder : MonoBehaviour
 	{
-		public bool Completed { get; private set; } = false;
+		public bool IsCompleted { get; private set; } = false;
 		public PersonType PersonType { get; private set; }
 		public int NeededAmount { get; private set; }
 		public int LineIndex { get; private set; }
@@ -33,7 +32,8 @@ namespace GoalSystem
 		[SerializeField] private MMF_Player feedbacks;
 
 		[Title("UI")]
-		[SerializeField] private TMP_Text txtCount;
+		[SerializeField] private Canvas progressBarUI;
+		[SerializeField] private SlicedFilledImage imgProgressBar;
 
 		private int currentAmount;
 
@@ -61,7 +61,7 @@ namespace GoalSystem
 				currentAmount++;
 			}
 
-			Completed = CheckIfCompleted();
+			IsCompleted = CheckIfCompleted();
 
 			for (var i = 0; i < peopleCount; i++)
 			{
@@ -82,22 +82,28 @@ namespace GoalSystem
 				people[i].Agent.enabled = false;
 			}
 
-			if (Completed)
+			if (IsCompleted)
 			{
+				progressBarUI.gameObject.SetActive(false);
 				feedbacks.PlayFeedbacks();
 				OnComplete?.Invoke(this);
 			}
+
+			imgProgressBar.FillAmount = (float)currentAmount / NeededAmount;
 		}
 
 		private IEnumerator FeedbackCoroutine(Person person, int index)
 		{
 			yield return new WaitUntil(() => !person.IsMoving);
+
 			holderMeshRenderer.transform.DOComplete();
 			holderMeshRenderer.transform.DOScale(1.1f * Vector3.one, .1f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutExpo);
 
 			// AudioManager.Instance.PlayAudio(AudioName.Goal).SetPitch(1 + .1f * index);
 			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(1 + .1f * index);
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
+
+			imgProgressBar.FillAmount = (float)(index + 1) / NeededAmount;
 		}
 
 		private bool CheckIfCompleted()
@@ -127,6 +133,11 @@ namespace GoalSystem
 			transform.rotation = point.rotation;
 
 			return transform.DOScale(0, duration).From().SetEase(Ease.OutBack);
+		}
+
+		public void OnCurrentGoal()
+		{
+			progressBarUI.gameObject.SetActive(true);
 		}
 
 		public Tween MoveTo(Vector3 position)

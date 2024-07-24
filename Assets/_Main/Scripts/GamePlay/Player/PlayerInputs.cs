@@ -64,7 +64,7 @@ namespace GamePlay.Player
 				if (hit.rigidbody && hit.rigidbody.TryGetComponent(out PersonGroup group) && group.CanMove)
 				{
 					HapticManager.Instance.PlayHaptic(0.5f, 0.5f);
-					AudioManager.Instance.PlayAudio(AudioName.Pickup);
+					AudioManager.Instance.PlayAudio(AudioName.Plop1);
 
 					group.transform.DOKill();
 					SelectedPersonGroup = group;
@@ -87,7 +87,6 @@ namespace GamePlay.Player
 			{
 				var position = hit.point + offset;
 
-				// var rotateTo = Quaternion.Euler(new Vector3(Mathf.Clamp(-finger.ScreenDelta.y, -rotationClamp, rotationClamp), 0, Mathf.Clamp(finger.ScreenDelta.x, -rotationClamp, rotationClamp)));
 				SelectedPersonGroup.Move(position);
 				OnMove?.Invoke(position);
 			}

@@ -56,13 +56,13 @@ namespace GamePlay.People
 		public void OnGroupPickedUp()
 		{
 			PersonRagdoll.EnableRagdoll();
-			personAnimations.Animator.enabled = false;
+			// personAnimations.Animator.enabled = false;
 		}
 
 		public void OnGroupDroppedDown()
 		{
 			PersonRagdoll.DisableRagdoll();
-			personAnimations.Animator.enabled = true;
+			// personAnimations.Animator.enabled = true;
 		}
 
 		public void OnGroupPlaced()

@@ -58,12 +58,6 @@ MonoBehaviour:
       Count: 6
   - Goals:
     - GoalColor:
-        PersonType: 0
-      Count: 6
-    - GoalColor:
-        PersonType: 1
-      Count: 6
-    - GoalColor:
         PersonType: 1
       Count: 6
   Obstacles:

@@ -19,12 +19,12 @@ MonoBehaviour:
   iOSBundleId: com.FiberGames.DropPeople
   teamId: 9JRFGT2VDU
   iOSBuildNo: 0
-  androidBundleId: com.fibergames.game
+  androidBundleId: com.FiberGames.DropPeople
   androidBuildNo: 1
   facebookId: 1363335254626622
   facebookClientToken: 4fa038a7c60ca29deacc5039db2f53a2
   gameId: 22f24c2a54d08a3eb9b20ca83c435634f405cc81af898a19e6b32ed76bcd2f61
   gameSecret: 14c34740007694f0e9a0999babe54fafe779829f19b16409e200c33f136800fd
-  background: {fileID: 0}
-  loadingScreenLogo: {fileID: 0}
-  loadingScreenTitle: {fileID: 0}
+  background: {fileID: 21300000, guid: 7db2ebc3dda4eb3418cdfa05d9d07289, type: 3}
+  loadingScreenLogo: {fileID: 21300000, guid: 9b4875b501dcff247b2b30c077136abb, type: 3}
+  loadingScreenTitle: {fileID: 21300000, guid: 30fbce1a20a7f0d4b8a342742e909b3a, type: 3}

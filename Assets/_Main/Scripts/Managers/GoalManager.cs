@@ -81,19 +81,18 @@ namespace Managers
 
 			var index = goalHolder.LineIndex;
 
-			// goalHolder.MoveToEnd(linePaths[index].path);
 			StartCoroutine(MoveToEndOnComplete(goalHolder, index));
 
 			if (!lineQueues[index].TryDequeue(out var nextGoalHolder)) return;
 
 			CurrentGoalHolders[index] = nextGoalHolder;
-			nextGoalHolder.MoveTo(lines[index].position).OnComplete(() => OnNewGoal?.Invoke(nextGoalHolder));
+			nextGoalHolder.MoveTo(lines[index].position).SetDelay(0.2f).OnComplete(() => OnNewGoal?.Invoke(nextGoalHolder));
+			nextGoalHolder.OnCurrentGoal();
 
 			int i = 1;
-
 			foreach (var holder in lineQueues[index])
 			{
-				holder.MoveTo(lines[index].position + i * goalHolderLength * Vector3.forward);
+				holder.MoveTo(lines[index].position + i * goalHolderLength * Vector3.forward).SetDelay(0.2f);
 				i++;
 			}
 		}
@@ -106,21 +105,21 @@ namespace Managers
 			{
 				foreach (var holder in lineQueue)
 				{
-					if (holder)
+					if (holder && !holder.IsCompleted)
 						count++;
 				}
 			}
 
 			for (int j = 0; j < CurrentGoalHolders.Count; j++)
 			{
-				if (CurrentGoalHolders[j])
+				if (CurrentGoalHolders[j] && !CurrentGoalHolders[j].IsCompleted)
 					count++;
 			}
 
 			yield return new WaitForSeconds(0.2f);
 			yield return StartCoroutine(goalHolder.MoveToEndCoroutine(linePaths[index].path));
 
-			if (count <= 1)
+			if (count <= 0)
 			{
 				if (levelCompleteCoroutine is not null)
 				{
@@ -147,7 +146,11 @@ namespace Managers
 			CurrentGoalHolders.Clear();
 
 			for (int i = 0; i < LINE_COUNT; i++)
-				CurrentGoalHolders.Add(lineQueues[i].Dequeue());
+			{
+				var goalHolder = lineQueues[i].Dequeue();
+				CurrentGoalHolders.Add(goalHolder);
+				goalHolder.OnCurrentGoal();
+			}
 		}
 
 		public void OnPersonGroupCompleted(PersonGroup personGroup)
@@ -160,7 +163,7 @@ namespace Managers
 				return;
 			}
 
-			if (goalHolder.Completed) return;
+			if (goalHolder.IsCompleted) return;
 
 			Grid.Instance.CheckObstacles(personGroup);
 
@@ -201,6 +204,7 @@ namespace Managers
 			{
 				var currentGoalHolder = CurrentGoalHolders[i];
 				if (!currentGoalHolder) continue;
+				if (currentGoalHolder.IsCompleted) continue;
 				if (currentGoalHolder.PersonType == personType)
 					return currentGoalHolder;
 			}

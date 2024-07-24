@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DeckSystem;
 using DG.Tweening;
+using Fiber.AudioSystem;
 using Fiber.Managers;
 using Fiber.Utilities.Extensions;
 using GridSystem;
@@ -144,6 +145,7 @@ namespace GamePlay.People
 			transform.DOLocalMove(Vector3.zero, .25f).SetEase(Ease.OutBack).OnComplete(() =>
 			{
 				HapticManager.Instance.PlayHaptic(0.5f, 0.5f);
+				AudioManager.Instance.PlayAudio(AudioName.Plop2);
 
 				for (var i = 0; i < personGroupSlots.Length; i++)
 				{
@@ -245,7 +247,7 @@ namespace GamePlay.People
 				// start searching from the next index
 				for (int j = index + 1; j < MAX_PERSON_COUNT; j++)
 				{
-					// check if the selected index and traversed index are same type
+					// check if the selected index and traversed index are the same type
 					if (personGroupSlots[j].Person?.PersonType == firstSlot.Person.PersonType)
 					{
 						// swap if not the same slot
@@ -264,9 +266,9 @@ namespace GamePlay.People
 					}
 				}
 
-				// select the current pointer because it's different
+				// select the current pointer because it is different
 				index = p;
-				// start searching from next index
+				// start searching from the next index
 				p++;
 			}
 		}
