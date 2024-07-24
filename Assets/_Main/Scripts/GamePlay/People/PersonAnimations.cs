@@ -7,7 +7,7 @@ namespace GamePlay.People
 	{
 		private void Start()
 		{
-			SetFloat(AnimationType.IdleSpeed, Random.Range(0.75f, 1.25f));
+			SetFloat(AnimationType.IdleSpeed, Random.Range(0.75f, 1.5f));
 		}
 
 		public void Run()

@@ -275,23 +275,19 @@ namespace GridSystem
 		{
 			if (neighbourGroup && !neighbourGroup.IsCompleted && !connectedPersonGroups.Contains(neighbourGroup))
 			{
-				if (GetIsSameType(placedPersonGroup, neighbourGroup))
+				if (HasSameType(placedPersonGroup, neighbourGroup))
 					connectedPersonGroups.Add(neighbourGroup);
 			}
 		}
 
-		private bool GetIsSameType(PersonGroup placedPersonGroup, PersonGroup neighbourGroup)
+		private bool HasSameType(PersonGroup placedPersonGroup, PersonGroup neighbourGroup)
 		{
 			var placedTypes = placedPersonGroup.GetPersonTypes();
-			var neighbourTypes = neighbourGroup.GetPersonTypes();
 
 			for (var i = 0; i < placedTypes.Count; i++)
 			{
-				for (var j = 0; j < neighbourTypes.Count; j++)
-				{
-					if (placedTypes[i] == neighbourTypes[j])
-						return true;
-				}
+				if (neighbourGroup.ContainsPersonType(placedTypes[i]))
+					return true;
 			}
 
 			return false;
