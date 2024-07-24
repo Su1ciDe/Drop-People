@@ -147,7 +147,7 @@ Material:
     - _Use_Caustics_Distortion: 1
     - _Use_Depth_Distortion: 1
     - _Use_Gradient: 1
-    - _Use_Waves: 1
+    - _Use_Waves: 0
     - _Wave_Intensity: 0.5
     - _Wave_Speed: 0.1
     - _ZTestDepthEqualForOpaque: 3
@@ -155,11 +155,11 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - _Caustics_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Caustics_Color: {r: 0.064257726, g: 0.6003395, b: 0.7169812, a: 0}
     - _Caustics_Distortion_Speed: {r: 0.02, g: 0.01, b: 0, a: 0}
     - _Caustics_Distortion_Tile: {r: 0.004, g: 0.004, b: 0, a: 0}
     - _Caustics_Speed: {r: 0.01, g: 0, b: 0, a: 0}
-    - _Caustics_Tile: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - _Caustics_Tile: {r: 0.4, g: 0.4, b: 0, a: 0}
     - _Depth_Color: {r: 0, g: 0.38823527, b: 0.5372549, a: 0}
     - _Depth_Distortion_Speed: {r: 0.02, g: 0.01, b: 0, a: 0}
     - _Depth_Distortion_Tile: {r: 0.01, g: 0.01, b: 0, a: 0}
