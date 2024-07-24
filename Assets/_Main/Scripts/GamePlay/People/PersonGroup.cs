@@ -293,7 +293,11 @@ namespace GamePlay.People
 			yield return new WaitUntil(() => !filledSlots.Any(x => x.Person.IsMoving));
 			yield return null;
 
+			feedback.PlayFeedbacks();
 			IsBusy = false;
+
+			yield return new WaitForSeconds(0.2f);
+
 			if (isCompleted)
 			{
 				Complete();
