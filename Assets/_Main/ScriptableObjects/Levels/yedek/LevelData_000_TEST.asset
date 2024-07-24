@@ -44,7 +44,7 @@ MonoBehaviour:
   - Goals:
     - GoalColor:
         PersonType: 0
-      Count: 6
+      Count: 18
     - GoalColor:
         PersonType: 0
       Count: 6
