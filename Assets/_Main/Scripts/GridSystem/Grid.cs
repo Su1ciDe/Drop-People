@@ -236,9 +236,7 @@ namespace GridSystem
 		{
 			var people = connectedPersonGroups.SelectMany(x => x.PersonGroupSlots.Where(y => y.Person)).Select(z => z.Person);
 			yield return null;
-			Debug.Log("ismoving");
 			yield return new WaitUntil(() => !people.Any(x => x.IsMoving));
-			Debug.Log("notmoving");
 			yield return new WaitForSeconds(0.25f);
 			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
 			yield return null;
