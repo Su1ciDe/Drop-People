@@ -33,13 +33,13 @@ MonoBehaviour:
   - PersonTypes:
     - PersonType: 1
     - PersonType: 1
-  - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
     - PersonType: 0
   - PersonTypes:
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 0
     - PersonType: 0
     - PersonType: 0
     - PersonType: 0
@@ -51,9 +51,6 @@ MonoBehaviour:
   - PersonTypes:
     - PersonType: 1
     - PersonType: 1
-    - PersonType: 0
-    - PersonType: 0
-  - PersonTypes:
     - PersonType: 0
     - PersonType: 0
   - PersonTypes:
@@ -124,5 +121,5 @@ MonoBehaviour:
     - row: 01000000010000000100000001000000
     - row: 01000000000000000000000001000000
     - row: 01000000000000000000000001000000
-    - row: 01000000000000000000000001000000
+    - row: 01000000010000000100000001000000
     - row: 01000000010000000100000001000000
