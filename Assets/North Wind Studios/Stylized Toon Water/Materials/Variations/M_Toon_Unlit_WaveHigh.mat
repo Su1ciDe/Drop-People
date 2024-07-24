@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6976922476372660173
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 12
+  hdPluginSubTargetMaterialVersions:
+    m_Keys: []
+    m_Values: 
+--- !u!114 &-3790887873927828267
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Toon_Unlit_WaveHigh
+  m_Shader: {fileID: -6465566751694194690, guid: 7a0a76a6206c9a049b70edbf08829b8c, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2000
+  stringTagMap: {}
+  disabledShaderPasses:
+  - TransparentDepthPrepass
+  - TransparentDepthPostpass
+  - TransparentBackface
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _SampleTexture2DLOD_58694394bb524765822978bd0dbfc08c_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 62887413143d80f4ba1ac998ad76593c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_3c125220b1094f9d9260cc3e2804016f_Texture_1:
+        m_Texture: {fileID: 2800000, guid: cfd6b4517b3cea047abb78ee93d577e9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_411c60dabc8148c3a5d0b783a983853c_Texture_1:
+        m_Texture: {fileID: 2800000, guid: d719980c22e01ed47ba04fad4af7e633, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_708fecb4918f42f8ad213770f12b12ba_Texture_1:
+        m_Texture: {fileID: 2800000, guid: d719980c22e01ed47ba04fad4af7e633, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_84b78fa4cb214670a73188bd87e66d2c_Texture_1:
+        m_Texture: {fileID: 2800000, guid: cfd6b4517b3cea047abb78ee93d577e9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AddPrecomputedVelocity: 0
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 0
+    - _AlphaSrcBlend: 1
+    - _AlphaToMask: 0
+    - _AlphaToMaskInspectorValue: 0
+    - _BlendMode: 0
+    - _Caustics_Distortion_Strength: 0.03
+    - _ConservativeDepthOffsetEnable: 0
+    - _CullMode: 2
+    - _CullModeForward: 2
+    - _DepthOffsetEnable: 0
+    - _Depth_Distortion_Strength: 0.04
+    - _Depth_Height: -2
+    - _Depth_Height_Ratio: 0.01
+    - _DoubleSidedEnable: 0
+    - _DoubleSidedGIMode: 0
+    - _DoubleSidedNormalMode: 2
+    - _DstBlend: 0
+    - _EnableBlendModePreserveSpecularLighting: 0
+    - _EnableFogOnTransparent: 1
+    - _Gradient_Hardness: 0.01
+    - _Gradient_Intensity: 2
+    - _Gradient_Radius: 5
+    - _OpaqueCullMode: 2
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _RenderQueueType: 1
+    - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 0
+    - _StencilRefDistortionVec: 4
+    - _StencilRefGBuffer: 2
+    - _StencilRefMV: 32
+    - _StencilWriteMask: 6
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 4
+    - _StencilWriteMaskGBuffer: 14
+    - _StencilWriteMaskMV: 40
+    - _SurfaceType: 0
+    - _TransparentBackfaceEnable: 0
+    - _TransparentCullMode: 2
+    - _TransparentDepthPostpassEnable: 0
+    - _TransparentDepthPrepassEnable: 0
+    - _TransparentSortPriority: 0
+    - _TransparentWritingMotionVec: 0
+    - _TransparentZWrite: 0
+    - _UseShadowThreshold: 0
+    - _Use_Caustics_Distortion: 1
+    - _Use_Depth_Distortion: 1
+    - _Use_Gradient: 1
+    - _Use_Waves: 1
+    - _Wave_Intensity: 2
+    - _Wave_Speed: 0.2
+    - _ZTestDepthEqualForOpaque: 3
+    - _ZTestGBuffer: 4
+    - _ZTestTransparent: 4
+    - _ZWrite: 1
+    m_Colors:
+    - _Caustics_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Caustics_Distortion_Speed: {r: 0.02, g: 0.01, b: 0, a: 0}
+    - _Caustics_Distortion_Tile: {r: 0.004, g: 0.004, b: 0, a: 0}
+    - _Caustics_Speed: {r: 0.01, g: 0, b: 0, a: 0}
+    - _Caustics_Tile: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - _Depth_Color: {r: 0, g: 0.38823527, b: 0.5372549, a: 0}
+    - _Depth_Distortion_Speed: {r: 0.02, g: 0.01, b: 0, a: 0}
+    - _Depth_Distortion_Tile: {r: 0.01, g: 0.01, b: 0, a: 0}
+    - _Depth_Tile: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Main_Color: {r: 0, g: 0.6117647, b: 1, a: 0}
+  m_BuildTextureStacks: []
