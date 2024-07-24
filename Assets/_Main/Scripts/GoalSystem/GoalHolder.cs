@@ -36,6 +36,7 @@ namespace GoalSystem
 		[SerializeField] private SlicedFilledImage imgProgressBar;
 
 		private int currentAmount;
+		private int currentPersonAmount;
 
 		private const float MOVE_DURATION = .35F;
 		private const int MATERIAL_INDEX = 0;
@@ -103,7 +104,8 @@ namespace GoalSystem
 			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(1 + .1f * index);
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
 
-			imgProgressBar.FillAmount = (float)(index + 1) / NeededAmount;
+			currentPersonAmount++;
+			imgProgressBar.FillAmount = (float)currentPersonAmount / NeededAmount;
 		}
 
 		private bool CheckIfCompleted()

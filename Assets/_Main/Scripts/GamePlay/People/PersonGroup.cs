@@ -13,7 +13,6 @@ using MoreMountains.Feedbacks;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Events;
-using Grid = GridSystem.Grid;
 
 namespace GamePlay.People
 {
@@ -285,12 +284,13 @@ namespace GamePlay.People
 				if (!slot.Person) continue;
 
 				slot.Person.MoveToSlot(true);
+				StartCoroutine(FeedbackCoroutine(slot.Person));
 			}
 
 			var isCompleted = CheckIfSorted();
 
-			var filledSlots = personGroupSlots.Where(x => x.Person);
-			yield return new WaitUntil(() => !filledSlots.Any(x => x.Person.IsMoving));
+			var filledSlots = GetAllPeople();
+			yield return new WaitUntil(() => !filledSlots.Any(x => x.IsMoving));
 			yield return null;
 
 			feedback.PlayFeedbacks();
@@ -302,6 +302,13 @@ namespace GamePlay.People
 			{
 				Complete();
 			}
+		}
+
+		private IEnumerator FeedbackCoroutine(Person person)
+		{
+			yield return new WaitUntil(() => !person.IsMoving);
+
+			AudioManager.Instance.PlayAudio(AudioName.Pop2);
 		}
 
 		public bool CheckIfSorted()

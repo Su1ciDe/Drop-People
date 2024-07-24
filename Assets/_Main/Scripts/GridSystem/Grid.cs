@@ -96,19 +96,19 @@ namespace GridSystem
 
 			// Left
 			if (!index.x.Equals(0))
-				CheckHasSameType(gridCells[index.x - 1, index.y].CurrentPersonGroup, ref connectedPersonGroups);
+				CheckHasSameType(placedPersonGroup, gridCells[index.x - 1, index.y].CurrentPersonGroup, ref connectedPersonGroups);
 
 			// Right
 			if (!index.x.Equals(size.x - 1))
-				CheckHasSameType(gridCells[index.x + 1, index.y].CurrentPersonGroup, ref connectedPersonGroups);
+				CheckHasSameType(placedPersonGroup, gridCells[index.x + 1, index.y].CurrentPersonGroup, ref connectedPersonGroups);
 
 			// Up
 			if (!index.y.Equals(0))
-				CheckHasSameType(gridCells[index.x, index.y - 1].CurrentPersonGroup, ref connectedPersonGroups);
+				CheckHasSameType(placedPersonGroup, gridCells[index.x, index.y - 1].CurrentPersonGroup, ref connectedPersonGroups);
 
 			// Down
 			if (!index.y.Equals(size.y - 1))
-				CheckHasSameType(gridCells[index.x, index.y + 1].CurrentPersonGroup, ref connectedPersonGroups);
+				CheckHasSameType(placedPersonGroup, gridCells[index.x, index.y + 1].CurrentPersonGroup, ref connectedPersonGroups);
 
 			// Add the original pack
 			if (connectedPersonGroups.Count > 0 && !connectedPersonGroups.Contains(placedPersonGroup))
@@ -271,12 +271,30 @@ namespace GridSystem
 			}
 		}
 
-		private void CheckHasSameType(PersonGroup neighbourGroup, ref List<PersonGroup> connectedPersonGroups)
+		private void CheckHasSameType(PersonGroup placedPersonGroup, PersonGroup neighbourGroup, ref List<PersonGroup> connectedPersonGroups)
 		{
 			if (neighbourGroup && !neighbourGroup.IsCompleted && !connectedPersonGroups.Contains(neighbourGroup))
 			{
-				connectedPersonGroups.Add(neighbourGroup);
+				if (GetIsSameType(placedPersonGroup, neighbourGroup))
+					connectedPersonGroups.Add(neighbourGroup);
 			}
+		}
+
+		private bool GetIsSameType(PersonGroup placedPersonGroup, PersonGroup neighbourGroup)
+		{
+			var placedTypes = placedPersonGroup.GetPersonTypes();
+			var neighbourTypes = neighbourGroup.GetPersonTypes();
+
+			for (var i = 0; i < placedTypes.Count; i++)
+			{
+				for (var j = 0; j < neighbourTypes.Count; j++)
+				{
+					if (placedTypes[i] == neighbourTypes[j])
+						return true;
+				}
+			}
+
+			return false;
 		}
 
 		public void CheckObstacles(PersonGroup personGroup)
