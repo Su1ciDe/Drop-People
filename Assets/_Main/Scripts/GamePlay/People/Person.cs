@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Fiber.AudioSystem;
 using Fiber.Managers;
 using Fiber.Utilities.Extensions;
 using Interfaces;
@@ -29,6 +28,9 @@ namespace GamePlay.People
 		[SerializeField] private PersonAnimations personAnimations;
 		[SerializeField] private SkinnedMeshRenderer meshRenderer;
 
+		[Space]
+		[SerializeField] private ParticleSystem footPrintParticle;
+
 		private void Awake()
 		{
 			PersonRagdoll = GetComponent<PersonRagdoll>();
@@ -45,6 +47,7 @@ namespace GamePlay.People
 		{
 			PersonType = boltType;
 			meshRenderer.material = GameManager.Instance.PersonMaterialsSO.PersonMaterials[boltType];
+			footPrintParticle.GetComponent<Renderer>().material.color = meshRenderer.material.color;
 		}
 
 		public void OnGroupMove()
@@ -52,7 +55,7 @@ namespace GamePlay.People
 			var head = PersonRagdoll.Ragdolls[0];
 			head.MovePosition(transform.position + 2 * Vector3.up);
 		}
-		
+
 		public void OnGroupPickedUp()
 		{
 			PersonRagdoll.EnableRagdoll();
@@ -108,6 +111,8 @@ namespace GamePlay.People
 			agent.SetDestination(movePosition);
 			personAnimations.Run();
 
+			footPrintParticle.Play();
+
 			yield return null;
 			while (agent.remainingDistance - agent.stoppingDistance > .1f)
 			{
@@ -128,6 +133,8 @@ namespace GamePlay.People
 
 			personAnimations.StopRunning();
 			IsMoving = false;
+			
+			footPrintParticle.Stop();
 
 			if (changeRotation)
 				model.DORotate(CurrentSlot.GetTransform().eulerAngles, .15f);
