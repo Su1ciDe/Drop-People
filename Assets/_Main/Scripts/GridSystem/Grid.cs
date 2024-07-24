@@ -257,7 +257,6 @@ namespace GridSystem
 
 		public void CheckCompletedPacks(GoalHolder goalHolder)
 		{
-			Debug.Log("cehchecheckecke");
 			for (int x = 0; x < size.x; x++)
 			{
 				for (int y = 0; y < size.y; y++)
@@ -267,7 +266,6 @@ namespace GridSystem
 					    !goalHolder.IsCompleted)
 					{
 						GoalManager.Instance.OnPersonGroupCompleted(grid.CurrentPersonGroup);
-						Debug.Log(grid.CurrentPersonGroup, grid.CurrentPersonGroup);
 					}
 				}
 			}
