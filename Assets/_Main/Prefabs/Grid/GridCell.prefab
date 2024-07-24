@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1abf0d39d3ce4e3382af1564abca681f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 8415559608485630357}
   highlightT: {fileID: 7215001783109593530}
   highlightMR: {fileID: 1814763979580532511}
 --- !u!1 &8415559608485630357

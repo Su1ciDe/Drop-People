@@ -15,8 +15,10 @@ namespace GridSystem
 		public PersonGroup CurrentPersonGroup { get; set; }
 		public INode CurrentNode { get; set; }
 
-		[SerializeField] private Transform highlightT;
+		[SerializeField] private GameObject model;
+ 		[SerializeField] private Transform highlightT;
 		[SerializeField] private MeshRenderer highlightMR;
+		public GameObject Model => model;
 
 		private const float HIGHLIGHT_DURATION = .4F;
 

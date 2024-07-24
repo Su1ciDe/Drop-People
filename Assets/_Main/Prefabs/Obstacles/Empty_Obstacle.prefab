@@ -53,9 +53,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3523988801077398396, guid: b95a6f9bdc50048b79f7e7aed3a12d4f, type: 3}
       propertyPath: m_Name
-      value: Empty
+      value: Empty_Obstacle
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3523988801077398339, guid: b95a6f9bdc50048b79f7e7aed3a12d4f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b95a6f9bdc50048b79f7e7aed3a12d4f, type: 3}
 --- !u!1 &1913230138445642410 stripped
 GameObject:

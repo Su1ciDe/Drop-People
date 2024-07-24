@@ -82,7 +82,7 @@ namespace GridSystem
 						obstacle.Place(gridCells[x, y]);
 
 						if (obstacleType == LevelEditorEnum.Empty)
-							gridCells[x, y].gameObject.SetActive(false);
+							gridCells[x, y].Model.SetActive(false);
 					}
 				}
 			}
