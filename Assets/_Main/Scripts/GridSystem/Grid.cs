@@ -230,7 +230,7 @@ namespace GridSystem
 			// yield return new WaitForSeconds(Person.MOVE_DURATION + Person.SCREW_DURATION * 2);
 			yield return null;
 			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
-			yield return new WaitForSeconds(2f);
+			yield return new WaitForSeconds(1f);
 
 			CheckIfFailed();
 		}
@@ -318,19 +318,5 @@ namespace GridSystem
 				if (gridCells[coordinates.x, coordinates.y + 1].CurrentNode is BaseObstacle obstacle)
 					obstacle.OnGroupCompleteNear(personGroup);
 		}
-
-		// private void OnStageStarted(int stageNo)
-		// {
-		// 	if (stageNo.Equals(0)) return;
-		//
-		// 	StartCoroutine(WaitStage());
-		// 	return;
-		//
-		// 	IEnumerator WaitStage()
-		// 	{
-		// 		yield return new WaitForSeconds(1);
-		// 		CheckCompletedPacks();
-		// 	}
-		// }
 	}
 }
