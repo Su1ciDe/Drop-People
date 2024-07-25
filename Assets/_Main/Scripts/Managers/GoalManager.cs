@@ -16,7 +16,7 @@ namespace Managers
 	[DeclareHorizontalGroup("lines")]
 	public class GoalManager : Singleton<GoalManager>
 	{
-		public bool IsGoalSequence { get; set; } = false;
+		public bool IsGoalSequence { get; private set; }
 		public List<GoalHolder> CurrentGoalHolders { get; private set; } = new List<GoalHolder>(LINE_COUNT);
 
 		[SerializeField] private GoalHolder goalHolderPrefab;
@@ -147,7 +147,8 @@ namespace Managers
 
 			for (int i = 0; i < LINE_COUNT; i++)
 			{
-				var goalHolder = lineQueues[i].Dequeue();
+				if (!lineQueues[i].TryDequeue(out var goalHolder)) continue;
+
 				CurrentGoalHolders.Add(goalHolder);
 				goalHolder.OnCurrentGoal();
 			}

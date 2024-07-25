@@ -1,3 +1,4 @@
+using System.Collections;
 using ElephantSDK;
 using Fiber.Utilities;
 using Fiber.LevelSystem;
@@ -21,8 +22,10 @@ namespace Fiber.Managers
 		[Header("Debug")]
 		[SerializeField] private GameState gameState = GameState.None;
 
-		private double startTime = -1;
 		private double completionTime;
+
+		private const string PARAM_TIME = "time";
+		private const string PARAM_MOVE_COUNT = "used_move_count";
 
 		public static event UnityAction<GameState> OnStateChanged;
 
@@ -39,7 +42,6 @@ namespace Fiber.Managers
 			LevelManager.OnLevelLoad -= LevelLoading;
 			LevelManager.OnLevelStart -= StartLevel;
 			LevelManager.OnLevelLose -= LoseLevel;
-			LevelManager.OnLevelWin -= WinLevel;
 		}
 
 		private void LevelLoading()
@@ -54,19 +56,33 @@ namespace Fiber.Managers
 			Elephant.LevelStarted(LevelManager.Instance.LevelNo);
 
 			CurrentState = GameState.OnStart;
+
+			levelCompleteTimeCoroutine = StartCoroutine(LevelCompleteTime());
 		}
 
 		private void WinLevel()
 		{
 			Debug.Log("GAME WIN");
 
-			completionTime = Time.unscaledTimeAsDouble - startTime;
-			var param = Params.New().Set("time", completionTime);
+			StopCoroutine(levelCompleteTimeCoroutine);
+			var param = Params.New().Set(PARAM_TIME, completionTime);
 			Elephant.LevelCompleted(LevelManager.Instance.LevelNo, param);
 
 			CurrentState = GameState.OnWin;
 
-			startTime = 0d;
+			completionTime = 0d;
+		}
+
+		private void WinLevelWithMoveCount(int moveCount)
+		{
+			Debug.Log("GAME WIN");
+
+			StopCoroutine(levelCompleteTimeCoroutine);
+			var param = Params.New().Set(PARAM_TIME, completionTime).Set(PARAM_MOVE_COUNT, moveCount);
+			Elephant.LevelCompleted(LevelManager.Instance.LevelNo, param);
+
+			CurrentState = GameState.OnWin;
+
 			completionTime = 0d;
 		}
 
@@ -78,8 +94,20 @@ namespace Fiber.Managers
 
 			CurrentState = GameState.OnLose;
 
-			startTime = 0d;
+			StopCoroutine(levelCompleteTimeCoroutine);
 			completionTime = 0d;
+		}
+
+		private readonly WaitForSeconds wait = new WaitForSeconds(1);
+		private Coroutine levelCompleteTimeCoroutine;
+
+		private IEnumerator LevelCompleteTime()
+		{
+			while (Application.isFocused)
+			{
+				yield return wait;
+				completionTime++;
+			}
 		}
 	}
 }

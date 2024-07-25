@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Array2DEditor;
 using Fiber.Utilities.Extensions;
 using GamePlay.People;
 using TriInspector;
@@ -10,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace ScriptableObjects
 {
-	[CreateAssetMenu(fileName = "LevelData_001", menuName = "DropPeople/Level Data", order = 0)]
+	[CreateAssetMenu(fileName = "Level_001", menuName = "DropPeople/Level Data", order = 0)]
 	[DeclareFoldoutGroup("Randomizer")]
 	[DeclareHorizontalGroup("Randomizer/count")]
 	public class LevelDataSO : ScriptableObject
@@ -43,9 +42,7 @@ namespace ScriptableObjects
 		public GoalSettings[] GoalStages;
 
 		[Title("Obstacles")]
-		// public Array2DBool Obstacles;
 		public Array2DGrid Obstacles;
-		// public Array2DExampleEnum
 
 		[Serializable]
 		public class PersonGroupSettings
@@ -102,7 +99,7 @@ namespace ScriptableObjects
 		[Serializable]
 		public class GoalSettings
 		{
-			[TableList]
+			[TableList(Draggable = true)]
 			public Goal[] Goals;
 		}
 

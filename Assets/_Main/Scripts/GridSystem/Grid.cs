@@ -323,5 +323,21 @@ namespace GridSystem
 				if (gridCells[coordinates.x, coordinates.y + 1].CurrentNode is BaseObstacle obstacle)
 					obstacle.OnGroupCompleteNear(personGroup);
 		}
+
+		public GridCell GetFirstEmptyCell()
+		{
+			for (int x = 0; x < size.x; x++)
+			{
+				for (int y = 0; y < size.y; y++)
+				{
+					if (gridCells[x,y].CurrentNode is null)
+					{
+						return gridCells[x, y];
+					}
+				}
+			}
+
+			return null;
+		}
 	}
 }

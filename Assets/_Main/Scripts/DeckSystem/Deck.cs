@@ -102,5 +102,18 @@ namespace DeckSystem
 				Spawn();
 			}
 		}
+
+		public PersonGroup GetFirstGroupInDeck()
+		{
+			for (var i = 0; i < personGroupsInDeck.Count; i++)
+			{
+				if (personGroupsInDeck[i])
+				{
+					return personGroupsInDeck[i];
+				}
+			}
+
+			return null;
+		}
 	}
 }
