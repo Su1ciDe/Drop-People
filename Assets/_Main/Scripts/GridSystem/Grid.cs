@@ -149,44 +149,46 @@ namespace GridSystem
 				// Sort
 				for (int i = 0; i < personGroup.PersonGroupSlots.Length; i++)
 				{
-					if (personGroup.PersonGroupSlots[i].Person?.PersonType == selectedType) continue;
+					var selectedPerson = personGroup.PersonGroupSlots[i].Person;
+					if (selectedPerson?.PersonType == selectedType) continue;
 
 					int pointer = 0;
-					var selectedPerson = personGroup.PersonGroupSlots[i].Person;
-
 					for (var j = 0; j < connectedPersonGroups.Count; j++)
 					{
+						var otherGroup = connectedPersonGroups[j];
+						if (otherGroup.Equals(personGroup))
+						{
+							pointer = 0;
+							continue;
+						}
+
 						if (pointer >= PersonGroup.MAX_PERSON_COUNT)
 						{
 							pointer = 0;
 							continue;
 						}
 
-						var otherPack = connectedPersonGroups[j];
-						if (otherPack.Equals(personGroup)) continue;
-
-						var otherPacksBoltCount = otherPack.GetPersonCountByType(selectedType);
-						if (!otherPack.GetPeopleCount().Equals(PersonGroup.MAX_PERSON_COUNT) && otherPacksBoltCount > personGroup.GetPersonCountByType(selectedType))
+						var otherGroupsPersonCount = otherGroup.GetPersonCountByType(selectedType);
+						if (!otherGroup.GetPeopleCount().Equals(PersonGroup.MAX_PERSON_COUNT) && otherGroupsPersonCount > personGroup.GetPersonCountByType(selectedType))
 						{
 							pointer = 0;
 							continue;
 						}
 
-						if (otherPacksBoltCount.Equals(PersonGroup.MAX_PERSON_COUNT))
+						if (otherGroupsPersonCount.Equals(PersonGroup.MAX_PERSON_COUNT))
 						{
 							pointer = 0;
 							continue;
 						}
 
-						var otherPacksTypes = otherPack.GetPersonTypes();
-
-						if (selectedPerson && otherPacksTypes.Contains(selectedPerson.PersonType) && otherPack.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
+						var otherPacksTypes = otherGroup.GetPersonTypes();
+						if (selectedPerson && otherPacksTypes.Contains(selectedPerson.PersonType) && otherGroup.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
 						{
-							otherPack.PersonGroupSlots[pointer].Person.ChangeSlot(personGroup.PersonGroupSlots[i], true, false);
-							selectedPerson.ChangeSlot(otherPack.PersonGroupSlots[pointer], true, false);
+							otherGroup.PersonGroupSlots[pointer].Person.ChangeSlot(personGroup.PersonGroupSlots[i], true, false);
+							selectedPerson.ChangeSlot(otherGroup.PersonGroupSlots[pointer], true, false);
 							break;
 						}
-						else if (!selectedPerson && otherPack.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
+						else if (!selectedPerson && otherGroup.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
 						{
 							connectedPersonGroups[j].PersonGroupSlots[pointer].Person.ChangeSlot(personGroup.PersonGroupSlots[i], true, false);
 							break;
@@ -330,7 +332,7 @@ namespace GridSystem
 			{
 				for (int y = 0; y < size.y; y++)
 				{
-					if (gridCells[x,y].CurrentNode is null)
+					if (gridCells[x, y].CurrentNode is null)
 					{
 						return gridCells[x, y];
 					}

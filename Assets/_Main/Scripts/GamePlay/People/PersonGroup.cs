@@ -141,7 +141,7 @@ namespace GamePlay.People
 			col.enabled = false;
 
 			transform.SetParent(placedCell.transform);
-			transform.DOLocalMove(Vector3.zero, .25f).SetEase(Ease.OutBack).OnComplete(() =>
+			transform.DOLocalMove(Vector3.zero, .25f).SetEase(Ease.OutBack, 2.5f).OnComplete(() =>
 			{
 				HapticManager.Instance.PlayHaptic(0.5f, 0.5f);
 				AudioManager.Instance.PlayAudio(AudioName.Plop2);
@@ -328,9 +328,7 @@ namespace GamePlay.People
 
 			// Remove pack from the grid
 			if (count.Equals(0))
-			{
 				StartCoroutine(RemovePack());
-			}
 
 			// Pack it up
 			return samePersonTypeCount.Equals(MAX_PERSON_COUNT);
@@ -353,10 +351,11 @@ namespace GamePlay.People
 		{
 			if (!gameObject) yield break;
 
+			CurrentGridCell.CurrentPersonGroup = null;
+			CurrentGridCell.CurrentNode = null;
+
 			transform.DOScale(0, .5f).SetEase(Ease.InBack).OnComplete(() =>
 			{
-				CurrentGridCell.CurrentPersonGroup = null;
-				CurrentGridCell.CurrentNode = null;
 				if (gameObject)
 					Destroy(gameObject);
 			});
