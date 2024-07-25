@@ -98,6 +98,7 @@ MonoBehaviour:
   - PersonTypes:
     - PersonType: 6
     - PersonType: 6
+    - PersonType: 6
     - PersonType: 5
     - PersonType: 5
   - PersonTypes:
@@ -131,25 +132,15 @@ MonoBehaviour:
     - PersonType: 0
     - PersonType: 0
   - PersonTypes:
-    - PersonType: 1
-    - PersonType: 1
     - PersonType: 0
-    - PersonType: 1
-    - PersonType: 1
+    - PersonType: 0
+    - PersonType: 0
   - PersonTypes:
     - PersonType: 6
     - PersonType: 6
     - PersonType: 0
     - PersonType: 0
     - PersonType: 1
-  - PersonTypes:
-    - PersonType: 1
-    - PersonType: 1
-    - PersonType: 1
-  - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
   - PersonTypes:
     - PersonType: 0
     - PersonType: 0
@@ -192,7 +183,7 @@ MonoBehaviour:
       Count: 6
     - GoalColor:
         PersonType: 5
-      Count: 6
+      Count: 12
   Obstacles:
     gridSize: {x: 4, y: 5}
     cellSize: {x: 100, y: 16}
