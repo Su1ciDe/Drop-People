@@ -87,25 +87,25 @@ namespace GridSystem
 
 		private void OnPersonGroupPlaced(PersonGroup placedPersonGroup)
 		{
-			var index = placedPersonGroup.CurrentGridCell.Coordinates;
+			var coordinates = placedPersonGroup.CurrentGridCell.Coordinates;
 			var connectedPersonGroups = new List<PersonGroup>();
 			// Check neighbors
 
 			// Left
-			if (!index.x.Equals(0))
-				CheckHasSameType(placedPersonGroup, gridCells[index.x - 1, index.y].CurrentPersonGroup, ref connectedPersonGroups);
+			if (!coordinates.x.Equals(0))
+				CheckHasSameType(placedPersonGroup, gridCells[coordinates.x - 1, coordinates.y].CurrentPersonGroup, ref connectedPersonGroups);
 
 			// Right
-			if (!index.x.Equals(size.x - 1))
-				CheckHasSameType(placedPersonGroup, gridCells[index.x + 1, index.y].CurrentPersonGroup, ref connectedPersonGroups);
+			if (!coordinates.x.Equals(size.x - 1))
+				CheckHasSameType(placedPersonGroup, gridCells[coordinates.x + 1, coordinates.y].CurrentPersonGroup, ref connectedPersonGroups);
 
 			// Up
-			if (!index.y.Equals(0))
-				CheckHasSameType(placedPersonGroup, gridCells[index.x, index.y - 1].CurrentPersonGroup, ref connectedPersonGroups);
+			if (!coordinates.y.Equals(0))
+				CheckHasSameType(placedPersonGroup, gridCells[coordinates.x, coordinates.y - 1].CurrentPersonGroup, ref connectedPersonGroups);
 
 			// Down
-			if (!index.y.Equals(size.y - 1))
-				CheckHasSameType(placedPersonGroup, gridCells[index.x, index.y + 1].CurrentPersonGroup, ref connectedPersonGroups);
+			if (!coordinates.y.Equals(size.y - 1))
+				CheckHasSameType(placedPersonGroup, gridCells[coordinates.x, coordinates.y + 1].CurrentPersonGroup, ref connectedPersonGroups);
 
 			// Add the original pack
 			if (connectedPersonGroups.Count > 0 && !connectedPersonGroups.Contains(placedPersonGroup))
@@ -123,84 +123,8 @@ namespace GridSystem
 				return;
 			}
 
-			// Select the most occuring type
-			connectedPersonGroups = connectedPersonGroups.OrderBy(y => y.GetPersonTypes().Count).ToList();
-			foreach (var personGroup in connectedPersonGroups)
-			{
-				var selectedType = PersonType.None;
-				var types = personGroup.GetPersonTypesOrdered(true);
-				for (int i = 0; i < types.Count; i++)
-				{
-					selectedType = types[i];
-					bool selected = false;
-					for (int j = 0; j < connectedPersonGroups.Count; j++)
-					{
-						if (connectedPersonGroups[j].Equals(personGroup)) continue;
-						if (!connectedPersonGroups[j].ContainsPersonType(selectedType)) continue;
-
-						selected = true;
-						break;
-					}
-
-					if (selected)
-						break;
-				}
-
-				// Sort
-				for (int i = 0; i < personGroup.PersonGroupSlots.Length; i++)
-				{
-					var selectedPerson = personGroup.PersonGroupSlots[i].Person;
-					if (selectedPerson?.PersonType == selectedType) continue;
-
-					int pointer = 0;
-					for (var j = 0; j < connectedPersonGroups.Count; j++)
-					{
-						var otherGroup = connectedPersonGroups[j];
-						if (otherGroup.Equals(personGroup))
-						{
-							pointer = 0;
-							continue;
-						}
-
-						if (pointer >= PersonGroup.MAX_PERSON_COUNT)
-						{
-							pointer = 0;
-							continue;
-						}
-
-						var otherGroupsPersonCount = otherGroup.GetPersonCountByType(selectedType);
-						if (!otherGroup.GetPeopleCount().Equals(PersonGroup.MAX_PERSON_COUNT) && otherGroupsPersonCount > personGroup.GetPersonCountByType(selectedType))
-						{
-							pointer = 0;
-							continue;
-						}
-
-						if (otherGroupsPersonCount.Equals(PersonGroup.MAX_PERSON_COUNT))
-						{
-							pointer = 0;
-							continue;
-						}
-
-						var otherPacksTypes = otherGroup.GetPersonTypes();
-						if (selectedPerson && otherPacksTypes.Contains(selectedPerson.PersonType) && otherGroup.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
-						{
-							otherGroup.PersonGroupSlots[pointer].Person.ChangeSlot(personGroup.PersonGroupSlots[i], true, false);
-							selectedPerson.ChangeSlot(otherGroup.PersonGroupSlots[pointer], true, false);
-							break;
-						}
-						else if (!selectedPerson && otherGroup.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
-						{
-							connectedPersonGroups[j].PersonGroupSlots[pointer].Person.ChangeSlot(personGroup.PersonGroupSlots[i], true, false);
-							break;
-						}
-						else
-						{
-							pointer++;
-							j--;
-						}
-					}
-				}
-			}
+			Sort(placedPersonGroup, ref connectedPersonGroups);
+			Sort(placedPersonGroup, ref connectedPersonGroups);
 
 			// Rearrange
 			foreach (var personGroup in connectedPersonGroups)
@@ -221,6 +145,95 @@ namespace GridSystem
 			}
 
 			moveSequenceCoroutine = StartCoroutine(MoveSequence(connectedPersonGroups));
+		}
+
+		private void Sort(PersonGroup placedPersonGroup, ref List<PersonGroup> connectedPersonGroups)
+		{
+			// Select groups by the most occuring type
+			connectedPersonGroups = connectedPersonGroups.OrderBy(y => y.GetPersonTypes().Count).ToList();
+			foreach (var personGroup in connectedPersonGroups)
+			{
+				var selectedType = PersonType.None;
+				// Select types by the most count
+				var types = personGroup.GetPersonTypesOrdered(true);
+				for (int i = 0; i < types.Count; i++)
+				{
+					selectedType = types[i];
+					bool selected = false;
+					for (int j = 0; j < connectedPersonGroups.Count; j++)
+					{
+						if (connectedPersonGroups[j].Equals(personGroup)) continue;
+						if (!connectedPersonGroups[j].ContainsPersonType(selectedType)) continue;
+
+						selected = true;
+						break;
+					}
+
+					if (selected) break;
+				}
+
+				// Sort
+				for (int i = 0; i < personGroup.PersonGroupSlots.Length; i++)
+				{
+					var selectedPerson = personGroup.PersonGroupSlots[i].Person;
+					// if (selectedPerson?.PersonType == selectedType) continue;
+
+					int pointer = 0;
+					for (var j = 0; j < connectedPersonGroups.Count; j++)
+					{
+						var otherGroup = connectedPersonGroups[j];
+						if (otherGroup.Equals(personGroup))
+						{
+							pointer = 0;
+							continue;
+						}
+
+						if (pointer >= PersonGroup.MAX_PERSON_COUNT)
+						{
+							pointer = 0;
+							continue;
+						}
+
+						var otherGroupsPersonCountByType = otherGroup.GetPersonCountByType(selectedType);
+						if (otherGroupsPersonCountByType.Equals(PersonGroup.MAX_PERSON_COUNT))
+						{
+							pointer = 0;
+							continue;
+						}
+
+						var groupsPersonCountByType = personGroup.GetPersonCountByType(selectedType);
+						if (!otherGroup.GetPeopleCount().Equals(PersonGroup.MAX_PERSON_COUNT) && otherGroupsPersonCountByType > groupsPersonCountByType)
+						{
+							pointer = 0;
+							continue;
+						}
+
+						var otherPacksTypes = otherGroup.GetPersonTypes();
+						if (selectedPerson && selectedPerson.PersonType != selectedType && otherGroup.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
+						{
+							Debug.Log($"Selected person : {selectedPerson?.PersonType}, {selectedType}");
+							otherGroup.PersonGroupSlots[pointer].Person.ChangeSlot(personGroup.PersonGroupSlots[i], true, false);
+							selectedPerson.ChangeSlot(otherGroup.PersonGroupSlots[pointer], true, false);
+						}
+						else if (selectedPerson && otherPacksTypes.Contains(selectedPerson.PersonType) && otherGroup.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
+						{
+							otherGroup.PersonGroupSlots[pointer].Person.ChangeSlot(personGroup.PersonGroupSlots[i], true, false);
+							selectedPerson.ChangeSlot(otherGroup.PersonGroupSlots[pointer], true, false);
+							break;
+						}
+						else if (!selectedPerson && otherGroup.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
+						{
+							connectedPersonGroups[j].PersonGroupSlots[pointer].Person.ChangeSlot(personGroup.PersonGroupSlots[i], true, false);
+							break;
+						}
+						else
+						{
+							pointer++;
+							j--;
+						}
+					}
+				}
+			}
 		}
 
 		private void OnGoal()

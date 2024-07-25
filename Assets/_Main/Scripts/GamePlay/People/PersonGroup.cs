@@ -293,7 +293,6 @@ namespace GamePlay.People
 			yield return new WaitUntil(() => !filledSlots.Any(x => x.IsMoving));
 			yield return null;
 
-			feedback.PlayFeedbacks();
 			IsBusy = false;
 
 			yield return new WaitForSeconds(0.2f);
@@ -336,6 +335,8 @@ namespace GamePlay.People
 
 		private void Complete()
 		{
+			feedback.PlayFeedbacks();
+
 			IsCompleted = true;
 
 			OnComplete?.Invoke(this);
