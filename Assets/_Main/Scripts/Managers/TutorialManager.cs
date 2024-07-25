@@ -16,19 +16,15 @@ namespace Managers
 		private void OnEnable()
 		{
 			LevelManager.OnLevelStart += OnLevelStarted;
+			LevelManager.OnLevelUnload += OnLevelUnloaded;
 		}
 
 		private void OnDisable()
 		{
 			LevelManager.OnLevelStart -= OnLevelStarted;
+			LevelManager.OnLevelUnload -= OnLevelUnloaded;
 
-			PersonGroup.OnPlace -= OnFirstPersonGroupPlaced;
-			PersonGroup.OnPlace -= OnSecondPersonGroupPlaced;
-		}
-
-		private void OnDestroy()
-		{
-			StopAllCoroutines();
+			Unsub();
 		}
 
 		private void OnLevelStarted()
@@ -37,6 +33,19 @@ namespace Managers
 			{
 				StartCoroutine(Level1Tutorial());
 			}
+		}
+
+		private void OnLevelUnloaded()
+		{
+			Unsub();
+		}
+
+		private void Unsub()
+		{
+			StopAllCoroutines();
+
+			PersonGroup.OnPlace -= OnFirstPersonGroupPlaced;
+			PersonGroup.OnPlace -= OnSecondPersonGroupPlaced;
 		}
 
 		#region Level 1 Tutorial

@@ -31,8 +31,8 @@ namespace Fiber.Utilities
 
 		private void AdjustByScreenRatio()
 		{
-			var ratio = (float)Screen.width / Screen.height;
-			if (ratio < 1.6f) // iPhone
+			var ratio = (float)Screen.height / Screen.width;
+			if (ratio > 1.6f) // iPhone
 			{
 				iphoneCam.gameObject.SetActive(true);
 				ipadCam?.gameObject.SetActive(false);

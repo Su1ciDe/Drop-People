@@ -13,7 +13,6 @@ namespace GamePlay.Obstacles
 		{
 			base.OnGroupCompleteNear(personGroup);
 
-			//TODO: feedbacks (particles)
 			CurrentGridCell.CurrentNode = null;
 			breakableObject.Break();
 

@@ -176,28 +176,10 @@ namespace Managers
 			IsGoalSequence = true;
 
 			yield return StartCoroutine(goalHolder.SetPeople(personGroup));
-
-			//TODO: feedback 
+			
 			IsGoalSequence = false;
 			OnGoal?.Invoke();
 		}
-
-		// private IEnumerator WaitForPackCompletion(PersonGroup personGroup, GoalHolder goalHolder)
-		// {
-		// 	yield return null;
-		//
-		// 	AudioManager.Instance.PlayAudio(AudioName.Goal);
-		//
-		// 	if (personGroup)
-		// 		StartCoroutine(personGroup.RemovePack());
-		//
-		// 	goalHolder.CloseCover().OnComplete(() =>
-		// 	{
-		// 		goalHolder.MoveTo(goalHolderMovePoint.position).OnComplete(() => { Destroy(goalHolder.gameObject); });
-		//
-		// 		IsGoalSequence = false;
-		// 	});
-		// }
 
 		public GoalHolder GetCurrentGoalHolder(PersonType personType)
 		{
