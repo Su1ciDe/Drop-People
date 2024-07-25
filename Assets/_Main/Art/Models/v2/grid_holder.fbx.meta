@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: M_gridholder
     second: {fileID: 2100000, guid: 9b851288a2b19a548b029de933b41f07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_gridholder2
+    second: {fileID: 2100000, guid: 42ad88543cd1df047905d5992c5a8687, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
