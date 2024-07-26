@@ -87,6 +87,38 @@ namespace GridSystem
 
 		private void OnPersonGroupPlaced(PersonGroup placedPersonGroup)
 		{
+			var connectedPersonGroups = SortGroups(placedPersonGroup);
+			if (connectedPersonGroups is null) return;
+
+			// Sort the rest of the groups in connected groups 
+			foreach (var personGroup in connectedPersonGroups)
+			{
+				SortGroups(personGroup);
+			}
+
+			// Rearrange
+			foreach (var personGroup in connectedPersonGroups)
+			{
+				personGroup.Rearrange(false);
+			}
+
+			// Moving Sequence
+			foreach (var personGroup in connectedPersonGroups)
+			{
+				StartCoroutine(personGroup.MovePeople());
+			}
+
+			if (moveSequenceCoroutine is not null)
+			{
+				StopCoroutine(moveSequenceCoroutine);
+				moveSequenceCoroutine = null;
+			}
+
+			moveSequenceCoroutine = StartCoroutine(MoveSequence(connectedPersonGroups));
+		}
+
+		private List<PersonGroup> SortGroups(PersonGroup placedPersonGroup)
+		{
 			var coordinates = placedPersonGroup.CurrentGridCell.Coordinates;
 			var connectedPersonGroups = new List<PersonGroup>();
 			// Check neighbors
@@ -120,31 +152,13 @@ namespace GridSystem
 				}
 
 				moveSequenceCoroutine = StartCoroutine(MoveSequence(connectedPersonGroups));
-				return;
+				return null;
 			}
 
 			Sort(ref connectedPersonGroups);
 			Sort(ref connectedPersonGroups);
 
-			// Rearrange
-			foreach (var personGroup in connectedPersonGroups)
-			{
-				personGroup.Rearrange(false);
-			}
-
-			// Moving Sequence
-			foreach (var personGroup in connectedPersonGroups)
-			{
-				StartCoroutine(personGroup.MovePeople());
-			}
-
-			if (moveSequenceCoroutine is not null)
-			{
-				StopCoroutine(moveSequenceCoroutine);
-				moveSequenceCoroutine = null;
-			}
-
-			moveSequenceCoroutine = StartCoroutine(MoveSequence(connectedPersonGroups));
+			return connectedPersonGroups;
 		}
 
 		private void Sort(ref List<PersonGroup> connectedPersonGroups)
@@ -154,7 +168,7 @@ namespace GridSystem
 			foreach (var personGroup in connectedPersonGroups)
 			{
 				var selectedType = PersonType.None;
-				// Select types by the most count
+				// Select types ordered by the most count
 				var types = personGroup.GetPersonTypesOrdered(true);
 				for (int i = 0; i < types.Count; i++)
 				{
