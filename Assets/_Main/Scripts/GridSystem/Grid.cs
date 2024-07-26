@@ -123,8 +123,8 @@ namespace GridSystem
 				return;
 			}
 
-			Sort(placedPersonGroup, ref connectedPersonGroups);
-			Sort(placedPersonGroup, ref connectedPersonGroups);
+			Sort(ref connectedPersonGroups);
+			Sort(ref connectedPersonGroups);
 
 			// Rearrange
 			foreach (var personGroup in connectedPersonGroups)
@@ -147,7 +147,7 @@ namespace GridSystem
 			moveSequenceCoroutine = StartCoroutine(MoveSequence(connectedPersonGroups));
 		}
 
-		private void Sort(PersonGroup placedPersonGroup, ref List<PersonGroup> connectedPersonGroups)
+		private void Sort(ref List<PersonGroup> connectedPersonGroups)
 		{
 			// Select groups by the most occuring type
 			connectedPersonGroups = connectedPersonGroups.OrderBy(y => y.GetPersonTypes().Count).ToList();
@@ -201,6 +201,7 @@ namespace GridSystem
 							continue;
 						}
 
+						Debug.Log(selectedPerson?.PersonType);
 						var groupsPersonCountByType = personGroup.GetPersonCountByType(selectedType);
 						if (!otherGroup.GetPeopleCount().Equals(PersonGroup.MAX_PERSON_COUNT) && otherGroupsPersonCountByType > groupsPersonCountByType)
 						{
@@ -209,11 +210,16 @@ namespace GridSystem
 						}
 
 						var otherPacksTypes = otherGroup.GetPersonTypes();
-						if (selectedPerson && selectedPerson.PersonType != selectedType && otherGroup.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
+						if (selectedPerson && selectedPerson.PersonType != selectedType && otherGroup.ContainsPersonType(selectedPerson.PersonType) && !otherGroup.PersonGroupSlots[pointer].Person)
 						{
-							Debug.Log($"Selected person : {selectedPerson?.PersonType}, {selectedType}");
+							selectedPerson.ChangeSlot(otherGroup.PersonGroupSlots[pointer], true, false);
+							break;
+						}
+						else if (selectedPerson && selectedPerson.PersonType != selectedType && otherGroup.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
+						{
 							otherGroup.PersonGroupSlots[pointer].Person.ChangeSlot(personGroup.PersonGroupSlots[i], true, false);
 							selectedPerson.ChangeSlot(otherGroup.PersonGroupSlots[pointer], true, false);
+							break;
 						}
 						else if (selectedPerson && otherPacksTypes.Contains(selectedPerson.PersonType) && otherGroup.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
 						{
