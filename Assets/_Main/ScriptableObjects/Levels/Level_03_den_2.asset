@@ -18,11 +18,10 @@ MonoBehaviour:
     - PersonType: 0
     - PersonType: 0
     - PersonType: 0
+    - PersonType: 0
   - PersonTypes:
     - PersonType: 0
-    - PersonType: 5
-    - PersonType: 5
-    - PersonType: 5
+    - PersonType: 0
   - PersonTypes:
     - PersonType: 0
     - PersonType: 5

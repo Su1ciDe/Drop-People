@@ -30,6 +30,8 @@ namespace GamePlay.Player
 
 		private void Awake()
 		{
+			Input.multiTouchEnabled = false;
+			
 			LeanTouch.OnFingerDown += OnFingerDown;
 			LeanTouch.OnFingerUpdate += OnFingerUpdate;
 			LeanTouch.OnFingerUp += OnFingerUp;
