@@ -15,10 +15,14 @@ namespace GridSystem
 		public PersonGroup CurrentPersonGroup { get; set; }
 		public INode CurrentNode { get; set; }
 
-		[SerializeField] private GameObject model;
- 		[SerializeField] private Transform highlightT;
-		[SerializeField] private MeshRenderer highlightMR;
 		public GameObject Model => model;
+		[SerializeField] private GameObject model;
+ 		
+		[SerializeField] private Transform highlightT;
+		[SerializeField] private MeshRenderer highlightMR;
+		
+		[SerializeField] private Transform highlightRedT;
+		[SerializeField] private MeshRenderer highlightRedMR;
 
 		private const float HIGHLIGHT_DURATION = .4F;
 
@@ -53,6 +57,27 @@ namespace GridSystem
 
 			highlightT.DOComplete();
 			highlightT.DOScale(0, HIGHLIGHT_DURATION).SetEase(Ease.InBack).OnComplete(() => highlightT.gameObject.SetActive(false));
+		}
+
+		public void ShowRedHighlight()
+		{
+			highlightRedT.gameObject.SetActive(true);
+
+			var tempColor = highlightRedMR.material.color;
+			tempColor.a = 0;
+			highlightRedMR.material.color = tempColor;
+
+			highlightRedMR.material.DOKill();
+			highlightRedMR.material.DOFade(1, baseColor, HIGHLIGHT_DURATION).SetEase(Ease.OutSine);
+
+			highlightRedT.DOKill();
+			highlightRedT.localScale = Vector3.zero;
+			highlightRedT.DOScale(1, HIGHLIGHT_DURATION).SetEase(Ease.OutBack).OnComplete(() =>
+			{
+				highlightRedMR.material.DOFade(0, baseColor, HIGHLIGHT_DURATION).SetEase(Ease.OutSine);
+
+				highlightRedT.DOScale(0, HIGHLIGHT_DURATION).SetEase(Ease.InBack).OnComplete(() => highlightRedT.gameObject.SetActive(false));
+			});
 		}
 	}
 }

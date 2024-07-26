@@ -136,7 +136,7 @@ namespace GoalSystem
 			var mats = holderMeshRenderer.materials;
 			mats[MATERIAL_INDEX] = mat;
 			holderMeshRenderer.materials = mats;
-			
+
 			txtGoalCount.SetText(currentAmount.ToString() + "/" + NeededAmount.ToString());
 		}
 
@@ -166,6 +166,8 @@ namespace GoalSystem
 
 		public IEnumerator MoveToEndCoroutine(VertexPath path)
 		{
+			AudioManager.Instance.PlayAudio(AudioName.Car);	
+
 			foreach (var navMeshObstacle in navMeshObstacles)
 				navMeshObstacle.enabled = false;
 
