@@ -241,7 +241,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1563429684381581829}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.025, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -264,7 +264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f843f1fb239a4192b5ec5d8d5eb22d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalHolderPrefab: {fileID: 5068486184332951355, guid: 269ef0c972cc94cecbeafd7314a3f167, type: 3}
+  goalHolder6Prefab: {fileID: 1032097839690390188, guid: 3b6f7af2d81d646b3a9df24cd173bd85, type: 3}
+  goalHolder12Prefab: {fileID: 1426146190490377969, guid: 23095758cdb48405185d9b8204fb351d, type: 3}
+  goalHolder18Prefab: {fileID: 2536613448266096141, guid: 3aa7fbbce15314efe878448503a574cf, type: 3}
   goalHolderLength: 10
   lines:
   - {fileID: 874161246}
@@ -342,7 +344,7 @@ MonoBehaviour:
       - 0
       globalNormalsAngle: 90
       flipNormals: 0
-    vertexPathUpToDate: 0
+    vertexPathUpToDate: 1
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0.01
     showTransformTool: 1

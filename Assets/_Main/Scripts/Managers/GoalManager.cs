@@ -19,7 +19,9 @@ namespace Managers
 		public bool IsGoalSequence { get; private set; }
 		public List<GoalHolder> CurrentGoalHolders { get; private set; } = new List<GoalHolder>(LINE_COUNT);
 
-		[SerializeField] private GoalHolder goalHolderPrefab;
+		[SerializeField] private GoalHolder goalHolder6Prefab;
+		[SerializeField] private GoalHolder goalHolder12Prefab;
+		[SerializeField] private GoalHolder goalHolder18Prefab;
 		[SerializeField] private float goalHolderLength;
 		[Title("Lines")]
 		[Group("lines")] [SerializeField] private Transform[] lines = new Transform[LINE_COUNT];
@@ -65,7 +67,9 @@ namespace Managers
 					var line = lines[j];
 					var goal = goalStage.Goals[j];
 
-					var goalHolder = Instantiate(goalHolderPrefab, line.transform);
+					var holderPrefab = SelectGoalHolderByCount(goal.Count);
+
+					var goalHolder = Instantiate(holderPrefab, line.transform);
 					goalHolder.transform.localPosition = new Vector3(-goalHolderLength * i, 0, 0);
 					goalHolder.Setup(goal.GoalColor.PersonType, goal.Count, j);
 					goalHolder.OnComplete += OnGoalCompleted;
@@ -176,9 +180,20 @@ namespace Managers
 			IsGoalSequence = true;
 
 			yield return StartCoroutine(goalHolder.SetPeople(personGroup));
-			
+
 			IsGoalSequence = false;
 			OnGoal?.Invoke();
+		}
+
+		private GoalHolder SelectGoalHolderByCount(int count)
+		{
+			return count switch
+			{
+				6 => goalHolder6Prefab,
+				12 => goalHolder12Prefab,
+				18 => goalHolder18Prefab,
+				_ => null
+			};
 		}
 
 		public GoalHolder GetCurrentGoalHolder(PersonType personType)
