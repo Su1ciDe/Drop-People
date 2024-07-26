@@ -41,10 +41,9 @@ MonoBehaviour:
     - GoalColor:
         PersonType: 0
       Count: 6
-  - Goals:
     - GoalColor:
         PersonType: 0
-      Count: 6
+      Count: 12
   Obstacles:
     gridSize: {x: 4, y: 5}
     cellSize: {x: 100, y: 16}
