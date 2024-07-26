@@ -201,7 +201,6 @@ namespace GridSystem
 							continue;
 						}
 
-						Debug.Log(selectedPerson?.PersonType);
 						var groupsPersonCountByType = personGroup.GetPersonCountByType(selectedType);
 						if (!otherGroup.GetPeopleCount().Equals(PersonGroup.MAX_PERSON_COUNT) && otherGroupsPersonCountByType > groupsPersonCountByType)
 						{
@@ -221,7 +220,8 @@ namespace GridSystem
 							selectedPerson.ChangeSlot(otherGroup.PersonGroupSlots[pointer], true, false);
 							break;
 						}
-						else if (selectedPerson && otherPacksTypes.Contains(selectedPerson.PersonType) && otherGroup.PersonGroupSlots[pointer].Person?.PersonType == selectedType)
+						else if (selectedPerson && otherPacksTypes.Contains(selectedPerson.PersonType) && otherGroup.PersonGroupSlots[pointer].Person?.PersonType == selectedType &&
+						         personGroup.GetPersonCountByType(selectedType) > otherGroup.GetPersonCountByType(selectedType))
 						{
 							otherGroup.PersonGroupSlots[pointer].Person.ChangeSlot(personGroup.PersonGroupSlots[i], true, false);
 							selectedPerson.ChangeSlot(otherGroup.PersonGroupSlots[pointer], true, false);

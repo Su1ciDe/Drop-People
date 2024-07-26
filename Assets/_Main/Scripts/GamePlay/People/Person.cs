@@ -59,13 +59,11 @@ namespace GamePlay.People
 		public void OnGroupPickedUp()
 		{
 			PersonRagdoll.EnableRagdoll();
-			// personAnimations.Animator.enabled = false;
 		}
 
 		public void OnGroupDroppedDown()
 		{
 			PersonRagdoll.DisableRagdoll();
-			// personAnimations.Animator.enabled = true;
 		}
 
 		public void OnGroupPlaced()
@@ -128,12 +126,10 @@ namespace GamePlay.People
 
 			transform.position = movePosition;
 			movementQueue.Clear();
-			// HapticManager.Instance.PlayHaptic(0.65f, 1f);
-			// AudioManager.Instance.PlayAudio(AudioName.Person);
 
 			personAnimations.StopRunning();
 			IsMoving = false;
-			
+
 			footPrintParticle.Stop();
 
 			if (changeRotation)
@@ -143,13 +139,7 @@ namespace GamePlay.People
 		private void UpdateRotation()
 		{
 			if (agent.desiredVelocity.sqrMagnitude > agent.stoppingDistance)
-			{
 				model.forward = Vector3.Lerp(model.forward, agent.velocity.normalized, Time.deltaTime * rotationDamping);
-			}
-			else
-			{
-				// model.forward = Vector3.Lerp(model.forward, Helper.MainCamera.transform.position.xz() - transform.position.xz(), Time.deltaTime);
-			}
 		}
 	}
 }
