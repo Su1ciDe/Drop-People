@@ -90,8 +90,11 @@ namespace Managers
 			if (!lineQueues[index].TryDequeue(out var nextGoalHolder)) return;
 
 			CurrentGoalHolders[index] = nextGoalHolder;
-			nextGoalHolder.MoveTo(lines[index].position).SetDelay(0.2f).OnComplete(() => OnNewGoal?.Invoke(nextGoalHolder));
-			nextGoalHolder.OnCurrentGoal();
+			nextGoalHolder.MoveTo(lines[index].position).SetDelay(0.2f).OnComplete(() =>
+			{
+				nextGoalHolder.OnCurrentGoal();
+				OnNewGoal?.Invoke(nextGoalHolder);
+			});
 
 			int i = 1;
 			foreach (var holder in lineQueues[index])

@@ -53,7 +53,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1886657448436534967, guid: 269ef0c972cc94cecbeafd7314a3f167, type: 3}
       propertyPath: m_Name
-      value: GoalHolder
+      value: GoalHolder_18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5007260469316104893, guid: 269ef0c972cc94cecbeafd7314a3f167, type: 3}
+      propertyPath: m_Extents.x
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 5007260469316104893, guid: 269ef0c972cc94cecbeafd7314a3f167, type: 3}
+      propertyPath: m_Extents.z
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019315456502148827, guid: 269ef0c972cc94cecbeafd7314a3f167, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978170775406416194, guid: 269ef0c972cc94cecbeafd7314a3f167, type: 3}
+      propertyPath: m_Extents.x
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978170775406416194, guid: 269ef0c972cc94cecbeafd7314a3f167, type: 3}
+      propertyPath: m_Extents.z
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7780553118664486532, guid: 269ef0c972cc94cecbeafd7314a3f167, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 269ef0c972cc94cecbeafd7314a3f167, type: 3}
