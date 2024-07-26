@@ -15,34 +15,34 @@ MonoBehaviour:
   BoltPacks:
   - PersonTypes:
     - PersonType: 5
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
     - PersonType: 5
     - PersonType: 5
     - PersonType: 5
   - PersonTypes:
-    - PersonType: 0
+    - PersonType: 3
     - PersonType: 5
     - PersonType: 5
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
     - PersonType: 6
     - PersonType: 6
     - PersonType: 6
   - PersonTypes:
-    - PersonType: 0
+    - PersonType: 3
     - PersonType: 6
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
-    - PersonType: 0
+    - PersonType: 3
     - PersonType: 6
     - PersonType: 6
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
     - PersonType: 5
     - PersonType: 5
@@ -82,8 +82,8 @@ MonoBehaviour:
     - PersonType: 5
     - PersonType: 5
   - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
     - PersonType: 1
     - PersonType: 1
   - PersonTypes:
@@ -113,11 +113,11 @@ MonoBehaviour:
     - PersonType: 1
     - PersonType: 1
   - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
     - PersonType: 1
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
     - PersonType: 1
     - PersonType: 1
@@ -129,31 +129,31 @@ MonoBehaviour:
   - PersonTypes:
     - PersonType: 5
     - PersonType: 5
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
     - PersonType: 1
     - PersonType: 1
     - PersonType: 1
   - PersonTypes:
     - PersonType: 6
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
     - PersonType: 6
     - PersonType: 6
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
     - PersonType: 1
   - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
     - PersonType: 6
     - PersonType: 6
@@ -201,8 +201,8 @@ MonoBehaviour:
         PersonType: 6
       Count: 12
     - GoalColor:
-        PersonType: 3
-      Count: 6
+        PersonType: 5
+      Count: 12
   - Goals:
     - GoalColor:
         PersonType: 3
@@ -211,7 +211,7 @@ MonoBehaviour:
         PersonType: 1
       Count: 6
     - GoalColor:
-        PersonType: 5
+        PersonType: 3
       Count: 12
   Obstacles:
     gridSize: {x: 4, y: 5}

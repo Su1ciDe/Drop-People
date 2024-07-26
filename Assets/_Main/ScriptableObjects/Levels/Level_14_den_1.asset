@@ -158,13 +158,13 @@ MonoBehaviour:
   - Goals:
     - GoalColor:
         PersonType: 0
-      Count: 6
+      Count: 12
     - GoalColor:
         PersonType: 6
-      Count: 6
+      Count: 12
     - GoalColor:
         PersonType: 5
-      Count: 12
+      Count: 18
   - Goals:
     - GoalColor:
         PersonType: 1
