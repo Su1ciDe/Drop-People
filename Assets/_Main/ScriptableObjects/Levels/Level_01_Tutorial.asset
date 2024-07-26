@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9e8a8775fee42d38ef070cf18bee798, type: 3}
-  m_Name: Level_001_Tutorial
+  m_Name: Level_01_Tutorial
   m_EditorClassIdentifier: 
   BoltPacks:
   - PersonTypes:
@@ -30,6 +30,12 @@ MonoBehaviour:
   - PersonType: 3
   GoalStages:
   - Goals:
+    - GoalColor:
+        PersonType: 0
+      Count: 6
+    - GoalColor:
+        PersonType: 0
+      Count: 6
     - GoalColor:
         PersonType: 0
       Count: 6
