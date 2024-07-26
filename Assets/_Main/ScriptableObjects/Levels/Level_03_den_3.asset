@@ -1,0 +1,260 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9e8a8775fee42d38ef070cf18bee798, type: 3}
+  m_Name: Level_03_den_3
+  m_EditorClassIdentifier: 
+  BoltPacks:
+  - PersonTypes:
+    - PersonType: 3
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 3
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 3
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 6
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 6
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 6
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 6
+    - PersonType: 5
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 6
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 1
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 6
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 0
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 6
+    - PersonType: 0
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 1
+  count: 12
+  minPersonCount: 2
+  maxPersonCount: 4
+  personTypes:
+  - PersonType: 6
+  - PersonType: 1
+  - PersonType: 5
+  - PersonType: 5
+  GoalStages:
+  - Goals:
+    - GoalColor:
+        PersonType: 0
+      Count: 6
+    - GoalColor:
+        PersonType: 6
+      Count: 6
+    - GoalColor:
+        PersonType: 5
+      Count: 12
+  - Goals:
+    - GoalColor:
+        PersonType: 3
+      Count: 12
+    - GoalColor:
+        PersonType: 1
+      Count: 6
+    - GoalColor:
+        PersonType: 5
+      Count: 12
+  - Goals:
+    - GoalColor:
+        PersonType: 1
+      Count: 12
+    - GoalColor:
+        PersonType: 6
+      Count: 6
+    - GoalColor:
+        PersonType: 0
+      Count: 6
+  - Goals:
+    - GoalColor:
+        PersonType: 6
+      Count: 12
+    - GoalColor:
+        PersonType: 1
+      Count: 12
+    - GoalColor:
+        PersonType: 3
+      Count: 6
+  - Goals:
+    - GoalColor:
+        PersonType: 0
+      Count: 12
+    - GoalColor:
+        PersonType: 1
+      Count: 6
+    - GoalColor:
+        PersonType: 5
+      Count: 12
+  Obstacles:
+    gridSize: {x: 4, y: 5}
+    cellSize: {x: 100, y: 16}
+    cells:
+    - row: 00000000000000000000000000000000
+    - row: 00000000000000000000000000000000
+    - row: 00000000000000000000000000000000
+    - row: 00000000000000000000000000000000
+    - row: 00000000000000000000000000000000

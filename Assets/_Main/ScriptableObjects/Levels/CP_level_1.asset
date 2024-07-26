@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9e8a8775fee42d38ef070cf18bee798, type: 3}
-  m_Name: Level_01_den_1
+  m_Name: CP_level_1
   m_EditorClassIdentifier: 
   BoltPacks:
   - PersonTypes:
@@ -34,8 +34,8 @@ MonoBehaviour:
     - PersonType: 1
     - PersonType: 1
     - PersonType: 0
-    - PersonType: 0
   - PersonTypes:
+    - PersonType: 0
     - PersonType: 0
     - PersonType: 0
   - PersonTypes:
@@ -106,16 +106,6 @@ MonoBehaviour:
       Count: 6
     - GoalColor:
         PersonType: 1
-      Count: 6
-  - Goals:
-    - GoalColor:
-        PersonType: 1
-      Count: 6
-    - GoalColor:
-        PersonType: 0
-      Count: 6
-    - GoalColor:
-        PersonType: 0
       Count: 6
   Obstacles:
     gridSize: {x: 4, y: 5}

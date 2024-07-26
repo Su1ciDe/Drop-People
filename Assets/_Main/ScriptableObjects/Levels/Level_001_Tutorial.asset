@@ -21,6 +21,14 @@ MonoBehaviour:
     - PersonType: 0
     - PersonType: 0
     - PersonType: 0
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
   count: 4
   minPersonCount: 2
   maxPersonCount: 6
@@ -29,6 +37,10 @@ MonoBehaviour:
   - PersonType: 1
   - PersonType: 3
   GoalStages:
+  - Goals:
+    - GoalColor:
+        PersonType: 0
+      Count: 6
   - Goals:
     - GoalColor:
         PersonType: 0
