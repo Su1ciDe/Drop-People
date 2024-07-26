@@ -287,7 +287,7 @@ namespace GamePlay.People
 				StartCoroutine(FeedbackCoroutine(slot.Person));
 			}
 
-			yield return null;
+			// yield return null;
 			var isCompleted = CheckIfSorted();
 
 			var filledSlots = GetAllPeople();
@@ -296,12 +296,13 @@ namespace GamePlay.People
 
 			IsBusy = false;
 
+			if (isCompleted)
+				feedback.PlayFeedbacks();
+
 			yield return new WaitForSeconds(0.2f);
 
 			if (isCompleted)
-			{
 				Complete();
-			}
 		}
 
 		private IEnumerator FeedbackCoroutine(Person person)
@@ -336,8 +337,6 @@ namespace GamePlay.People
 
 		private void Complete()
 		{
-			feedback.PlayFeedbacks();
-
 			IsCompleted = true;
 
 			OnComplete?.Invoke(this);
@@ -353,11 +352,10 @@ namespace GamePlay.People
 		{
 			if (!gameObject) yield break;
 
-			CurrentGridCell.CurrentPersonGroup = null;
-			CurrentGridCell.CurrentNode = null;
-
-			transform.DOScale(0, .5f).SetEase(Ease.InBack).OnComplete(() =>
+			transform.DOScale(0, .25f).SetEase(Ease.InBack).OnComplete(() =>
 			{
+				CurrentGridCell.CurrentPersonGroup = null;
+				CurrentGridCell.CurrentNode = null;
 				if (gameObject)
 					Destroy(gameObject);
 			});

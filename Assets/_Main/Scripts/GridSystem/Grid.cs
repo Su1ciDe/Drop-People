@@ -91,28 +91,24 @@ namespace GridSystem
 			var connectedPersonGroups = SortGroups(placedPersonGroup);
 			if (connectedPersonGroups is null) return;
 
-			var restConnectedPersonGroups = new List<PersonGroup>();
+			var totalConnectedPersonGroups = new List<PersonGroup>(connectedPersonGroups);
 			// Sort the rest of the groups in connected groups 
 			foreach (var personGroup in connectedPersonGroups)
 			{
-				if (personGroup.IsCompleted) continue;
-				restConnectedPersonGroups = SortGroups(personGroup);
-			}
-
-			if (restConnectedPersonGroups is not null)
-			{
-				foreach (var restConnectedPersonGroup in restConnectedPersonGroups)
-					connectedPersonGroups.AddIfNotContains(restConnectedPersonGroup);
+				var rest = SortGroups(personGroup);
+				if (rest is null) continue;
+				foreach (var group in rest)
+					totalConnectedPersonGroups.AddIfNotContains(group);
 			}
 
 			// Rearrange
-			foreach (var personGroup in connectedPersonGroups)
+			foreach (var personGroup in totalConnectedPersonGroups)
 			{
 				personGroup.Rearrange(false);
 			}
 
 			// Moving Sequence
-			foreach (var personGroup in connectedPersonGroups)
+			foreach (var personGroup in totalConnectedPersonGroups)
 			{
 				StartCoroutine(personGroup.MovePeople());
 			}
@@ -123,7 +119,7 @@ namespace GridSystem
 				moveSequenceCoroutine = null;
 			}
 
-			moveSequenceCoroutine = StartCoroutine(MoveSequence(connectedPersonGroups));
+			moveSequenceCoroutine = StartCoroutine(MoveSequence(totalConnectedPersonGroups));
 		}
 
 		private List<PersonGroup> SortGroups(PersonGroup placedPersonGroup)
