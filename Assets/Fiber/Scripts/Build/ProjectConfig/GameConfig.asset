@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   companyName: Fiber Games
   productName: Drop People
-  productIcon: {fileID: 2800000, guid: 0049bd813b4544af79cb4fe539f26a73, type: 3}
+  productIcon: {fileID: 2800000, guid: 6946582cd095b6a4caee9c5580cd9bc6, type: 3}
   version: 0.1
   iOSBundleId: com.FiberGames.DropPeople
   teamId: 9JRFGT2VDU

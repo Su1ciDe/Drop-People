@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Fiber.AudioSystem;
 using Fiber.Managers;
 using Fiber.Utilities.Extensions;
 using Interfaces;
@@ -31,11 +32,15 @@ namespace GamePlay.People
 		[Space]
 		[SerializeField] private ParticleSystem footPrintParticle;
 
+		private WaitForSeconds delay;
+
 		private void Awake()
 		{
 			PersonRagdoll = GetComponent<PersonRagdoll>();
 
 			agent.updateRotation = false;
+
+			delay = new WaitForSeconds(Random.Range(.15f, .25f));
 		}
 
 		private void OnDestroy()
@@ -110,6 +115,7 @@ namespace GamePlay.People
 			personAnimations.Run();
 
 			footPrintParticle.Play();
+			StartCoroutine(FootstepSound());
 
 			yield return null;
 			while (agent.remainingDistance - agent.stoppingDistance > .1f)
@@ -134,6 +140,15 @@ namespace GamePlay.People
 
 			if (changeRotation)
 				model.DORotate(CurrentSlot.GetTransform().eulerAngles, .15f);
+		}
+
+		private IEnumerator FootstepSound()
+		{
+			while (IsMoving)
+			{
+				AudioManager.Instance.PlayAudio(AudioName.Footstep).SetVolume(0.75f).SetRandomPitch(1.25f, 2.25f);
+				yield return delay;
+			}
 		}
 
 		private void UpdateRotation()

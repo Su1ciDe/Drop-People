@@ -20,5 +20,7 @@ namespace Fiber.AudioSystem
 		Place,
 		Person,
 		Goal,
+		Footstep,
+		Car,
 	}
 }

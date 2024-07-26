@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotCount: 3
   deckSlotPrefab: {fileID: 1266039535235846659, guid: 7b9b933786ce44006938b388fcd2f679, type: 3}
-  personGroupPrefab: {fileID: 3500887155886545700, guid: 1dfc16fc6166041fa87191304414881a, type: 3}
+  personGroupPrefab: {fileID: 6913823538197354511, guid: 31b7812c47bfb4e6fabd6b36ea02acbc, type: 3}
   spawnPoint: {fileID: 6837590361862055526}
 --- !u!1 &5648620209942822645
 GameObject:

@@ -139,6 +139,7 @@ namespace GamePlay.People
 			CurrentGridCell.CurrentNode = this;
 			currentDeckSlot = null;
 			col.enabled = false;
+			canMove = false;
 
 			transform.SetParent(placedCell.transform);
 			transform.DOLocalMove(Vector3.zero, .25f).SetEase(Ease.OutBack, 2.5f).OnComplete(() =>
@@ -165,6 +166,12 @@ namespace GamePlay.People
 			if (currentNearestGridCell)
 				currentNearestGridCell.HideHighlight();
 			currentNearestGridCell = null;
+
+			if (Physics.Raycast(transform.position, Vector3.down, out var hit ,100, LayerMask.GetMask("GridCell")))
+			{
+				if (hit.rigidbody && hit.rigidbody.TryGetComponent(out GridCell cell))
+					cell.ShowRedHighlight();
+			}
 
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.Warning);
 

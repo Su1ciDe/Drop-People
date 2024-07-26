@@ -8,6 +8,7 @@ using Lofelt.NiceVibrations;
 using Managers;
 using MoreMountains.Feedbacks;
 using PathCreation;
+using TMPro;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.AI;
@@ -35,6 +36,7 @@ namespace GoalSystem
 		[Title("UI")]
 		[SerializeField] private Canvas progressBarUI;
 		[SerializeField] private SlicedFilledImage imgProgressBar;
+		[SerializeField] private TMP_Text txtGoalCount;
 
 		private int currentAmount;
 		private int currentPersonAmount;
@@ -99,6 +101,7 @@ namespace GoalSystem
 			}
 
 			imgProgressBar.FillAmount = (float)currentAmount / NeededAmount;
+			txtGoalCount.SetText(currentAmount.ToString() + "/" + NeededAmount.ToString());
 		}
 
 		private IEnumerator FeedbackCoroutine(Person person, int index)
@@ -114,6 +117,7 @@ namespace GoalSystem
 
 			currentPersonAmount++;
 			imgProgressBar.FillAmount = (float)currentPersonAmount / NeededAmount;
+			txtGoalCount.SetText(currentPersonAmount.ToString() + "/" + NeededAmount.ToString());
 		}
 
 		private bool CheckIfCompleted()
@@ -132,6 +136,8 @@ namespace GoalSystem
 			var mats = holderMeshRenderer.materials;
 			mats[MATERIAL_INDEX] = mat;
 			holderMeshRenderer.materials = mats;
+
+			txtGoalCount.SetText(currentAmount.ToString() + "/" + NeededAmount.ToString());
 		}
 
 		public Tween Spawn(Transform point)
@@ -160,9 +166,11 @@ namespace GoalSystem
 
 		public IEnumerator MoveToEndCoroutine(VertexPath path)
 		{
+			AudioManager.Instance.PlayAudio(AudioName.Car);	
+
 			foreach (var navMeshObstacle in navMeshObstacles)
 				navMeshObstacle.enabled = false;
-			
+
 			while (path.GetClosestTimeOnPath(transform.position) < 1)
 			{
 				distanceTravelled += SPEED * Time.deltaTime;
