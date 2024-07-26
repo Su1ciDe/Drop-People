@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Fiber.Utilities.Extensions;
 using GamePlay.People;
@@ -15,7 +16,46 @@ namespace ScriptableObjects
 	public class LevelDataSO : ScriptableObject
 	{
 		[Title("Bolt Packs")]
+		[ListDrawerSettings(ShowElementLabels = true), OnValueChanged(nameof(CalculateCount))]
 		public PersonGroupSettings[] BoltPacks;
+
+		[TableList(Draggable = false, AlwaysExpanded = true, HideAddButton = true, HideRemoveButton = true, ShowElementLabels = false)]
+		[SerializeField] private List<PersonCount> personCounts;
+
+		[Serializable]
+		private class PersonCount
+		{
+			[GUIColor("$GetColor")]
+			[ReadOnly] public PersonType PersonType;
+			[ReadOnly] public int Count;
+
+			public PersonCount(PersonType personType, int count)
+			{
+				PersonType = personType;
+				Count = count;
+			}
+
+			private Color GetColor
+			{
+				get
+				{
+					var color = PersonType switch
+					{
+						PersonType.Blue => Color.blue,
+						PersonType.Green => Color.green,
+						PersonType.Orange => new Color(1f, 0.5f, 0),
+						PersonType.Pink => Color.magenta,
+						PersonType.Purple => new Color(.7f, .25f, 1f),
+						PersonType.Red => Color.red,
+						PersonType.Yellow => Color.yellow,
+						PersonType.None => Color.white,
+						_ => throw new ArgumentOutOfRangeException()
+					};
+
+					return color;
+				}
+			}
+		}
 
 		[Group("Randomizer")] [SerializeField] private int count;
 		[Group("Randomizer/count")] [SerializeField] private int minPersonCount;
@@ -47,7 +87,7 @@ namespace ScriptableObjects
 		[Serializable]
 		public class PersonGroupSettings
 		{
-			[ValidateInput(nameof(ValidatePersonTypes))]
+			[ValidateInput(nameof(ValidatePersonTypes)), ListDrawerSettings(AlwaysExpanded = true)]
 			public List<PersonColor> PersonTypes = new List<PersonColor>();
 
 			[Serializable]
@@ -109,6 +149,34 @@ namespace ScriptableObjects
 			public PersonGroupSettings.PersonColor GoalColor;
 			[RangeStep(6, 18, 6)]
 			public int Count = 18;
+		}
+
+		private void OnEnable()
+		{
+			personCounts = new List<PersonCount>();
+			CalculateCount();
+		}
+
+		private void CalculateCount()
+		{
+			personCounts.Clear();
+			foreach (var personGroupSetting in BoltPacks)
+			{
+				foreach (var personColor in personGroupSetting.PersonTypes)
+				{
+					var found = false;
+					foreach (var personCount in personCounts.Where(personCount => personCount.PersonType == personColor.PersonType))
+					{
+						personCount.Count++;
+						found = true;
+					}
+
+					if (!found)
+					{
+						personCounts.Add(new PersonCount(personColor.PersonType, 1));
+					}
+				}
+			}
 		}
 	}
 }
