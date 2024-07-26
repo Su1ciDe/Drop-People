@@ -249,7 +249,7 @@ namespace GamePlay.People
 					// check if the selected index and traversed index are the same type
 					if (personGroupSlots[j].Person?.PersonType == firstSlot.Person.PersonType)
 					{
-						// swap if not the same slot
+						// swap if different slot
 						if (p != -1 && !personGroupSlots[j].Equals(personGroupSlots[p]))
 						{
 							var tempBolt = personGroupSlots[p].Person;
@@ -287,6 +287,7 @@ namespace GamePlay.People
 				StartCoroutine(FeedbackCoroutine(slot.Person));
 			}
 
+			yield return null;
 			var isCompleted = CheckIfSorted();
 
 			var filledSlots = GetAllPeople();
