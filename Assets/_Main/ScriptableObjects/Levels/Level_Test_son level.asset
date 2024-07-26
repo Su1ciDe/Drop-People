@@ -160,6 +160,21 @@ MonoBehaviour:
     - PersonType: 3
     - PersonType: 0
     - PersonType: 1
+  personCounts:
+  - PersonType: 1
+    Count: 25
+  - PersonType: 6
+    Count: 25
+  - PersonType: 0
+    Count: 26
+  - PersonType: 5
+    Count: 18
+  - PersonType: 2
+    Count: 9
+  - PersonType: 3
+    Count: 9
+  - PersonType: 4
+    Count: 8
   count: 12
   minPersonCount: 2
   maxPersonCount: 4
@@ -220,9 +235,10 @@ MonoBehaviour:
         PersonType: 6
       Count: 6
   Obstacles:
-    gridSize: {x: 4, y: 5}
+    gridSize: {x: 4, y: 6}
     cellSize: {x: 100, y: 16}
     cells:
+    - row: 00000000000000000000000000000000
     - row: 00000000000000000000000000000000
     - row: 00000000000000000000000000000000
     - row: 00000000000000000000000000000000
