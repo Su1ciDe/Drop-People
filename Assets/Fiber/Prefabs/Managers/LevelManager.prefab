@@ -47,5 +47,10 @@ MonoBehaviour:
   randomizeAfterRotation: 1
   levelPrefab: {fileID: 3210734524189124999, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
   Levels:
-  - {fileID: 11400000, guid: a2953e1e01c2c4cd39fb74b1caf23f42, type: 2}
-  TutorialLevels: []
+  - {fileID: 11400000, guid: e2ca17708d4fb1e46b31953fd3c77b83, type: 2}
+  - {fileID: 11400000, guid: e3030209119fee048b598fb01853c97c, type: 2}
+  - {fileID: 11400000, guid: dae8b858136dc6643a47c2c9549c52ad, type: 2}
+  - {fileID: 11400000, guid: ce21072da528c6d40a59b3fccb5aea7d, type: 2}
+  - {fileID: 11400000, guid: 46e18d0d6a38dda428ab0d40c09080df, type: 2}
+  TutorialLevels:
+  - {fileID: 11400000, guid: 62c2d523ba4ce4e468c49ee76fc8713b, type: 2}
