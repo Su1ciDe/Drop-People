@@ -52,7 +52,7 @@ namespace Managers
 
 		private IEnumerator Level1Tutorial()
 		{
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(0.5f);
 
 			var deckSlot = Deck.Instance.GetFirstGroupInDeck();
 			var cell = Grid.Instance.GetFirstEmptyCell();
@@ -73,7 +73,7 @@ namespace Managers
 
 		private IEnumerator WaitForSecondGroup()
 		{
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(0.5f);
 
 			var deckSlot = Deck.Instance.GetFirstGroupInDeck();
 			var cell = Grid.Instance.GetFirstEmptyCell();

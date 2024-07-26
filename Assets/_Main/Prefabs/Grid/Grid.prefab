@@ -44,11 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2284c29ad56e48509b9fcc12efaaeb62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 4, y: 5}
-  nodeSize: {x: 3.7, y: 3.7}
-  xSpacing: 0
-  ySpacing: 0
+  size: {x: 4, y: 6}
+  nodeSize: {x: 3.7, y: 2.35}
+  xSpacing: 0.1
+  ySpacing: 0.1
   cellPrefab: {fileID: 6668406274385430004, guid: bd7bf266d294d4baaacefbcf53858c71, type: 3}
   obstaclesSO: {fileID: 11400000, guid: 2b88a887ac79c4a09a26b3f5750b9b44, type: 2}
-  obstaclePrefab: {fileID: 9864868885673751, guid: 48c0b7d1c1bdc44869c50a9dccec665a, type: 3}
-  emptyObstaclePrefab: {fileID: 5224293398423498867, guid: 1640716f4de354fc5b06114a63c490ed, type: 3}
