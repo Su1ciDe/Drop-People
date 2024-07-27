@@ -14,20 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoltPacks:
   - PersonTypes:
-    - PersonType: 1
-    - PersonType: 1
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 5
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
   - PersonTypes:
-    - PersonType: 1
-    - PersonType: 1
-    - PersonType: 1
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 5
   - PersonTypes:
-    - PersonType: 6
-    - PersonType: 1
-    - PersonType: 1
-    - PersonType: 1
-    - PersonType: 1
+    - PersonType: 0
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 0
+    - PersonType: 0
   - PersonTypes:
     - PersonType: 6
     - PersonType: 6
@@ -44,41 +44,38 @@ MonoBehaviour:
     - PersonType: 0
     - PersonType: 0
   - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 5
+    - PersonType: 5
   - PersonTypes:
-    - PersonType: 1
-    - PersonType: 1
-    - PersonType: 1
+    - PersonType: 5
+    - PersonType: 5
   - PersonTypes:
-    - PersonType: 1
-    - PersonType: 1
-  - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 1
-    - PersonType: 1
-    - PersonType: 1
-    - PersonType: 1
-  - PersonTypes:
-    - PersonType: 0
+    - PersonType: 5
+    - PersonType: 6
     - PersonType: 5
     - PersonType: 1
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 6
     - PersonType: 6
   - PersonTypes:
-    - PersonType: 0
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 0
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
   - PersonTypes:
     - PersonType: 6
     - PersonType: 6
-    - PersonType: 5
+    - PersonType: 6
     - PersonType: 5
   - PersonTypes:
     - PersonType: 6
     - PersonType: 6
     - PersonType: 6
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
     - PersonType: 5
     - PersonType: 5
   - PersonTypes:
@@ -87,12 +84,11 @@ MonoBehaviour:
   - PersonTypes:
     - PersonType: 0
     - PersonType: 0
-    - PersonType: 0
     - PersonType: 1
     - PersonType: 1
   - PersonTypes:
-    - PersonType: 1
-    - PersonType: 1
+    - PersonType: 5
+    - PersonType: 5
     - PersonType: 1
     - PersonType: 1
   - PersonTypes:
@@ -113,10 +109,9 @@ MonoBehaviour:
     - PersonType: 5
     - PersonType: 6
   - PersonTypes:
-    - PersonType: 5
-    - PersonType: 5
-    - PersonType: 5
-    - PersonType: 5
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
   - PersonTypes:
     - PersonType: 0
     - PersonType: 0
@@ -131,13 +126,11 @@ MonoBehaviour:
   - PersonTypes:
     - PersonType: 5
     - PersonType: 5
-    - PersonType: 0
-    - PersonType: 0
   - PersonTypes:
     - PersonType: 5
     - PersonType: 5
-    - PersonType: 5
-    - PersonType: 5
+    - PersonType: 0
+    - PersonType: 0
   - PersonTypes:
     - PersonType: 1
     - PersonType: 1
@@ -182,14 +175,14 @@ MonoBehaviour:
     - PersonType: 5
     - PersonType: 5
   personCounts:
-  - PersonType: 1
-    Count: 40
-  - PersonType: 6
-    Count: 29
-  - PersonType: 0
-    Count: 33
   - PersonType: 5
+    Count: 40
+  - PersonType: 0
     Count: 31
+  - PersonType: 6
+    Count: 27
+  - PersonType: 1
+    Count: 28
   count: 12
   minPersonCount: 2
   maxPersonCount: 4
@@ -201,38 +194,28 @@ MonoBehaviour:
   GoalStages:
   - Goals:
     - GoalColor:
-        PersonType: 1
-      Count: 6
-    - GoalColor:
-        PersonType: 6
-      Count: 6
-    - GoalColor:
-        PersonType: 0
-      Count: 6
-  - Goals:
-    - GoalColor:
-        PersonType: 1
-      Count: 12
-    - GoalColor:
         PersonType: 0
       Count: 6
     - GoalColor:
         PersonType: 6
       Count: 6
-  - Goals:
     - GoalColor:
         PersonType: 5
-      Count: 6
-    - GoalColor:
-        PersonType: 1
-      Count: 6
-    - GoalColor:
-        PersonType: 0
       Count: 12
   - Goals:
     - GoalColor:
+        PersonType: 1
+      Count: 12
+    - GoalColor:
         PersonType: 6
+      Count: 12
+    - GoalColor:
+        PersonType: 0
       Count: 6
+  - Goals:
+    - GoalColor:
+        PersonType: 0
+      Count: 12
     - GoalColor:
         PersonType: 1
       Count: 6
@@ -243,9 +226,9 @@ MonoBehaviour:
     gridSize: {x: 4, y: 6}
     cellSize: {x: 100, y: 16}
     cells:
-    - row: 00000000000000000000000000000000
-    - row: 00000000000000000000000000000000
-    - row: 00000000000000000000000000000000
-    - row: 00000000000000000000000000000000
-    - row: 00000000000000000000000000000000
-    - row: 00000000000000000000000000000000
+    - row: 01000000000000000000000001000000
+    - row: 01000000000000000000000001000000
+    - row: 01000000000000000000000001000000
+    - row: 01000000000000000000000001000000
+    - row: 01000000000000000000000001000000
+    - row: 01000000000000000000000001000000
