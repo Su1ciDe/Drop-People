@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44048342, g: 0.4890861, b: 0.56940556, a: 1}
+  m_IndirectSpecularColor: {r: 0.44307324, g: 0.49227703, b: 0.57198924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1399,62 +1399,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelManager
       objectReference: {fileID: 0}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.size
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: e2ca17708d4fb1e46b31953fd3c77b83, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: e3030209119fee048b598fb01853c97c, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: ce279704f7c27a740ae5615f8109242d, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: dae8b858136dc6643a47c2c9549c52ad, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1d9c4c9e27dd4f04790cfc44b2cac121, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[5]
-      value: 
-      objectReference: {fileID: 11400000, guid: c6744fc9e2200754db50ab76e51560d0, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[6]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2cfd2439c475e10468a24654ff93b482, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[7]
-      value: 
-      objectReference: {fileID: 11400000, guid: ce21072da528c6d40a59b3fccb5aea7d, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[8]
-      value: 
-      objectReference: {fileID: 11400000, guid: b1126ece8a028624e9032c2a0f8f0c3b, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[9]
-      value: 
-      objectReference: {fileID: 11400000, guid: a7b42cfc09cc37e4f8904bddaf23b5cf, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[10]
-      value: 
-      objectReference: {fileID: 11400000, guid: df43b8984dd6dab41b1e781be2c3e18b, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[11]
-      value: 
-      objectReference: {fileID: 11400000, guid: 46e18d0d6a38dda428ab0d40c09080df, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[12]
-      value: 
-      objectReference: {fileID: 11400000, guid: d72fe02c33b9bbe4c8d40c2e1342e275, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
 --- !u!1001 &2451764767858516329
