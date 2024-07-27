@@ -44,7 +44,6 @@ MonoBehaviour:
     - PersonType: 6
     - PersonType: 6
     - PersonType: 6
-  - PersonTypes:
     - PersonType: 6
   - PersonTypes:
     - PersonType: 1
@@ -63,6 +62,7 @@ MonoBehaviour:
     - PersonType: 6
     - PersonType: 6
   - PersonTypes:
+    - PersonType: 1
     - PersonType: 1
   - PersonTypes:
     - PersonType: 5
@@ -71,6 +71,7 @@ MonoBehaviour:
     - PersonType: 5
     - PersonType: 1
     - PersonType: 5
+    - PersonType: 1
     - PersonType: 1
   - PersonTypes:
     - PersonType: 1
@@ -197,7 +198,7 @@ MonoBehaviour:
   - PersonType: 6
     Count: 47
   - PersonType: 1
-    Count: 35
+    Count: 37
   count: 12
   minPersonCount: 2
   maxPersonCount: 4
@@ -216,7 +217,7 @@ MonoBehaviour:
       Count: 6
     - GoalColor:
         PersonType: 5
-      Count: 6
+      Count: 18
   - Goals:
     - GoalColor:
         PersonType: 5

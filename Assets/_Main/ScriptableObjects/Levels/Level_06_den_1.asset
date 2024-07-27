@@ -152,7 +152,7 @@ MonoBehaviour:
     - PersonType: 6
     - PersonType: 3
     - PersonType: 3
-    - PersonType: 1
+    - PersonType: 6
   - PersonTypes:
     - PersonType: 3
     - PersonType: 3
@@ -187,11 +187,9 @@ MonoBehaviour:
   - PersonType: 3
     Count: 35
   - PersonType: 6
-    Count: 27
+    Count: 28
   - PersonType: 0
     Count: 29
-  - PersonType: 1
-    Count: 1
   count: 12
   minPersonCount: 2
   maxPersonCount: 4
