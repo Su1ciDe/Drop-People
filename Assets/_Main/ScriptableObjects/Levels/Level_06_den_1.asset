@@ -59,6 +59,7 @@ MonoBehaviour:
     - PersonType: 0
     - PersonType: 6
     - PersonType: 6
+    - PersonType: 0
   - PersonTypes:
     - PersonType: 0
     - PersonType: 0
@@ -96,6 +97,7 @@ MonoBehaviour:
     - PersonType: 2
     - PersonType: 2
     - PersonType: 0
+    - PersonType: 0
   - PersonTypes:
     - PersonType: 6
     - PersonType: 6
@@ -129,6 +131,7 @@ MonoBehaviour:
   - PersonTypes:
     - PersonType: 2
     - PersonType: 2
+    - PersonType: 3
     - PersonType: 3
     - PersonType: 3
   - PersonTypes:
@@ -182,11 +185,11 @@ MonoBehaviour:
   - PersonType: 2
     Count: 40
   - PersonType: 3
-    Count: 34
+    Count: 35
   - PersonType: 6
     Count: 27
   - PersonType: 0
-    Count: 27
+    Count: 29
   - PersonType: 1
     Count: 1
   count: 12
@@ -201,6 +204,16 @@ MonoBehaviour:
   - Goals:
     - GoalColor:
         PersonType: 3
+      Count: 12
+    - GoalColor:
+        PersonType: 0
+      Count: 6
+    - GoalColor:
+        PersonType: 2
+      Count: 12
+  - Goals:
+    - GoalColor:
+        PersonType: 2
       Count: 6
     - GoalColor:
         PersonType: 6
@@ -216,18 +229,8 @@ MonoBehaviour:
         PersonType: 6
       Count: 6
     - GoalColor:
-        PersonType: 2
-      Count: 6
-  - Goals:
-    - GoalColor:
         PersonType: 3
-      Count: 12
-    - GoalColor:
-        PersonType: 0
       Count: 6
-    - GoalColor:
-        PersonType: 3
-      Count: 12
   Obstacles:
     gridSize: {x: 4, y: 6}
     cellSize: {x: 100, y: 16}

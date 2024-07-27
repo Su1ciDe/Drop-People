@@ -15,41 +15,37 @@ MonoBehaviour:
   BoltPacks:
   - PersonTypes:
     - PersonType: 5
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
-    - PersonType: 0
     - PersonType: 5
     - PersonType: 5
     - PersonType: 5
   - PersonTypes:
-    - PersonType: 0
+    - PersonType: 3
     - PersonType: 5
     - PersonType: 5
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
     - PersonType: 6
     - PersonType: 6
     - PersonType: 6
   - PersonTypes:
-    - PersonType: 0
+    - PersonType: 3
     - PersonType: 6
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
-    - PersonType: 0
+    - PersonType: 3
     - PersonType: 6
     - PersonType: 6
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
     - PersonType: 5
     - PersonType: 5
-  - PersonTypes:
-    - PersonType: 1
-    - PersonType: 1
-    - PersonType: 6
   - PersonTypes:
     - PersonType: 5
     - PersonType: 5
@@ -61,28 +57,33 @@ MonoBehaviour:
   - PersonTypes:
     - PersonType: 1
     - PersonType: 1
+    - PersonType: 6
+    - PersonType: 6
+  - PersonTypes:
     - PersonType: 1
-  - PersonTypes:
-    - PersonType: 5
-    - PersonType: 5
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 5
+    - PersonType: 1
+    - PersonType: 1
   - PersonTypes:
     - PersonType: 6
     - PersonType: 6
     - PersonType: 6
     - PersonType: 5
   - PersonTypes:
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 5
+  - PersonTypes:
     - PersonType: 5
     - PersonType: 5
     - PersonType: 5
     - PersonType: 5
   - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 3
+    - PersonType: 3
     - PersonType: 1
     - PersonType: 1
   - PersonTypes:
@@ -97,73 +98,95 @@ MonoBehaviour:
     - PersonType: 1
   - PersonTypes:
     - PersonType: 6
-    - PersonType: 6
-    - PersonType: 5
-    - PersonType: 5
-  - PersonTypes:
-    - PersonType: 1
-    - PersonType: 1
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
-  - PersonTypes:
-    - PersonType: 5
-    - PersonType: 5
-  - PersonTypes:
     - PersonType: 6
     - PersonType: 6
     - PersonType: 5
     - PersonType: 5
   - PersonTypes:
     - PersonType: 6
+    - PersonType: 5
     - PersonType: 6
+    - PersonType: 5
+    - PersonType: 6
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 1
+    - PersonType: 3
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 3
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 1
     - PersonType: 1
     - PersonType: 1
   - PersonTypes:
     - PersonType: 6
-    - PersonType: 6
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
-    - PersonType: 6
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
-  - PersonTypes:
-    - PersonType: 1
-    - PersonType: 1
-    - PersonType: 0
-    - PersonType: 1
-    - PersonType: 1
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 3
   - PersonTypes:
     - PersonType: 6
     - PersonType: 6
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 3
     - PersonType: 1
+  - PersonTypes:
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 6
+    - PersonType: 6
+    - PersonType: 6
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 5
   - PersonTypes:
     - PersonType: 1
     - PersonType: 1
     - PersonType: 1
   - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
   - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 3
   personCounts:
   - PersonType: 5
-    Count: 30
-  - PersonType: 0
-    Count: 26
+    Count: 40
+  - PersonType: 3
+    Count: 34
   - PersonType: 6
-    Count: 31
+    Count: 27
   - PersonType: 1
-    Count: 24
+    Count: 28
   count: 12
   minPersonCount: 2
   maxPersonCount: 4
@@ -175,41 +198,41 @@ MonoBehaviour:
   GoalStages:
   - Goals:
     - GoalColor:
-        PersonType: 0
+        PersonType: 3
       Count: 6
     - GoalColor:
         PersonType: 6
-      Count: 12
+      Count: 6
+    - GoalColor:
+        PersonType: 1
+      Count: 6
+  - Goals:
     - GoalColor:
         PersonType: 5
-      Count: 18
+      Count: 6
+    - GoalColor:
+        PersonType: 6
+      Count: 6
+    - GoalColor:
+        PersonType: 5
+      Count: 6
   - Goals:
     - GoalColor:
-        PersonType: 1
+        PersonType: 3
       Count: 12
     - GoalColor:
-        PersonType: 6
-      Count: 6
-    - GoalColor:
-        PersonType: 0
-      Count: 6
-  - Goals:
-    - GoalColor:
-        PersonType: 0
-      Count: 18
-    - GoalColor:
         PersonType: 1
       Count: 6
     - GoalColor:
-        PersonType: 6
+        PersonType: 3
       Count: 12
   Obstacles:
     gridSize: {x: 4, y: 6}
     cellSize: {x: 100, y: 16}
     cells:
+    - row: 00000000010000000100000000000000
     - row: 00000000000000000000000000000000
+    - row: 01000000030000000000000001000000
+    - row: 01000000000000000300000001000000
     - row: 00000000000000000000000000000000
-    - row: 01000000000000000000000001000000
-    - row: 01000000000000000000000001000000
-    - row: 00000000000000000000000000000000
-    - row: 00000000000000000000000000000000
+    - row: 00000000010000000100000000000000

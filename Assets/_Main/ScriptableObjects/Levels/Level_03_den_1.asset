@@ -258,7 +258,7 @@ MonoBehaviour:
         PersonType: 6
       Count: 6
     - GoalColor:
-        PersonType: 6
+        PersonType: 3
       Count: 6
   Obstacles:
     gridSize: {x: 4, y: 6}
