@@ -16,31 +16,31 @@ MonoBehaviour:
   - PersonTypes:
     - PersonType: 1
     - PersonType: 1
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 2
+    - PersonType: 2
   - PersonTypes:
     - PersonType: 1
     - PersonType: 1
     - PersonType: 1
   - PersonTypes:
-    - PersonType: 6
+    - PersonType: 2
     - PersonType: 1
     - PersonType: 1
     - PersonType: 1
     - PersonType: 1
   - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
-  - PersonTypes:
-    - PersonType: 3
-    - PersonType: 6
-    - PersonType: 3
-    - PersonType: 3
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
   - PersonTypes:
     - PersonType: 3
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 2
+    - PersonType: 3
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 3
+    - PersonType: 2
+    - PersonType: 2
     - PersonType: 3
     - PersonType: 3
   - PersonTypes:
@@ -64,21 +64,21 @@ MonoBehaviour:
     - PersonType: 3
     - PersonType: 5
     - PersonType: 1
-    - PersonType: 6
+    - PersonType: 2
   - PersonTypes:
     - PersonType: 3
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 2
+    - PersonType: 2
     - PersonType: 3
   - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 2
+    - PersonType: 2
     - PersonType: 5
     - PersonType: 5
   - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
     - PersonType: 5
     - PersonType: 5
   - PersonTypes:
@@ -101,17 +101,17 @@ MonoBehaviour:
     - PersonType: 5
     - PersonType: 1
   - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
     - PersonType: 5
     - PersonType: 5
   - PersonTypes:
-    - PersonType: 6
+    - PersonType: 2
     - PersonType: 5
-    - PersonType: 6
+    - PersonType: 2
     - PersonType: 5
-    - PersonType: 6
+    - PersonType: 2
   - PersonTypes:
     - PersonType: 5
     - PersonType: 5
@@ -143,7 +143,7 @@ MonoBehaviour:
     - PersonType: 1
     - PersonType: 1
   - PersonTypes:
-    - PersonType: 6
+    - PersonType: 2
     - PersonType: 3
     - PersonType: 3
     - PersonType: 3
@@ -152,8 +152,8 @@ MonoBehaviour:
     - PersonType: 3
     - PersonType: 3
   - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 2
+    - PersonType: 2
     - PersonType: 3
     - PersonType: 3
     - PersonType: 1
@@ -162,9 +162,9 @@ MonoBehaviour:
     - PersonType: 3
     - PersonType: 3
   - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 2
+    - PersonType: 2
+    - PersonType: 2
   - PersonTypes:
     - PersonType: 5
     - PersonType: 5
@@ -184,7 +184,7 @@ MonoBehaviour:
   personCounts:
   - PersonType: 1
     Count: 40
-  - PersonType: 6
+  - PersonType: 2
     Count: 29
   - PersonType: 3
     Count: 33
@@ -204,7 +204,7 @@ MonoBehaviour:
         PersonType: 1
       Count: 6
     - GoalColor:
-        PersonType: 6
+        PersonType: 2
       Count: 6
     - GoalColor:
         PersonType: 3
@@ -212,12 +212,12 @@ MonoBehaviour:
   - Goals:
     - GoalColor:
         PersonType: 1
-      Count: 12
+      Count: 6
     - GoalColor:
         PersonType: 3
       Count: 6
     - GoalColor:
-        PersonType: 6
+        PersonType: 2
       Count: 6
   - Goals:
     - GoalColor:
@@ -231,7 +231,7 @@ MonoBehaviour:
       Count: 12
   - Goals:
     - GoalColor:
-        PersonType: 6
+        PersonType: 2
       Count: 6
     - GoalColor:
         PersonType: 1

@@ -206,14 +206,14 @@ MonoBehaviour:
       Count: 6
     - GoalColor:
         PersonType: 5
-      Count: 12
+      Count: 6
   - Goals:
     - GoalColor:
         PersonType: 1
-      Count: 12
+      Count: 6
     - GoalColor:
         PersonType: 0
-      Count: 12
+      Count: 6
     - GoalColor:
         PersonType: 6
       Count: 6

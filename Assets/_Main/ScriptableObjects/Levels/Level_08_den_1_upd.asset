@@ -14,157 +14,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoltPacks:
   - PersonTypes:
-    - PersonType: 0
-    - PersonType: 3
-    - PersonType: 0
-    - PersonType: 3
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
-  - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
-  - PersonTypes:
-    - PersonType: 3
-    - PersonType: 3
-    - PersonType: 3
+    - PersonType: 4
+    - PersonType: 4
     - PersonType: 3
   - PersonTypes:
-    - PersonType: 0
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 0
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 3
-    - PersonType: 3
     - PersonType: 3
   - PersonTypes:
     - PersonType: 3
     - PersonType: 3
-    - PersonType: 3
   - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 5
   - PersonTypes:
-    - PersonType: 0
-    - PersonType: 6
-    - PersonType: 0
-    - PersonType: 6
-    - PersonType: 0
-    - PersonType: 6
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 4
   - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
     - PersonType: 3
-    - PersonType: 3
-    - PersonType: 6
-    - PersonType: 6
     - PersonType: 3
   - PersonTypes:
     - PersonType: 0
     - PersonType: 0
-    - PersonType: 0
-  - PersonTypes:
-    - PersonType: 3
-    - PersonType: 3
-    - PersonType: 3
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 3
-    - PersonType: 3
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 0
-    - PersonType: 6
-    - PersonType: 6
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 5
   - PersonTypes:
     - PersonType: 3
     - PersonType: 3
   - PersonTypes:
     - PersonType: 0
     - PersonType: 0
-    - PersonType: 0
     - PersonType: 3
-  - PersonTypes:
-    - PersonType: 3
-    - PersonType: 3
-    - PersonType: 3
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 3
-    - PersonType: 3
-    - PersonType: 0
-    - PersonType: 0
-  - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 6
-    - PersonType: 6
-  - PersonTypes:
-    - PersonType: 0
-    - PersonType: 6
-    - PersonType: 6
-  - PersonTypes:
-    - PersonType: 3
-    - PersonType: 3
-    - PersonType: 3
-    - PersonType: 3
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 0
-    - PersonType: 0
-  - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
-  - PersonTypes:
-    - PersonType: 0
-    - PersonType: 0
-    - PersonType: 3
-    - PersonType: 3
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 3
-    - PersonType: 3
-    - PersonType: 3
-  - PersonTypes:
-    - PersonType: 3
-    - PersonType: 3
-    - PersonType: 3
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 3
-    - PersonType: 3
-    - PersonType: 0
-  - PersonTypes:
-    - PersonType: 3
-    - PersonType: 3
-    - PersonType: 3
-  - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
-  - PersonTypes:
     - PersonType: 3
     - PersonType: 3
     - PersonType: 3
@@ -172,93 +56,267 @@ MonoBehaviour:
     - PersonType: 0
     - PersonType: 0
     - PersonType: 0
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 4
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 4
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 4
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 3
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 4
   - PersonTypes:
     - PersonType: 0
-    - PersonType: 0
-    - PersonType: 0
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 4
   - PersonTypes:
-    - PersonType: 6
-    - PersonType: 6
-    - PersonType: 6
-  - PersonTypes:
-    - PersonType: 0
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 4
     - PersonType: 0
     - PersonType: 0
-    - PersonType: 6
   - PersonTypes:
     - PersonType: 0
     - PersonType: 3
     - PersonType: 3
-    - PersonType: 0
-    - PersonType: 0
-  - PersonTypes:
     - PersonType: 3
     - PersonType: 3
-    - PersonType: 3
-    - PersonType: 3
-    - PersonType: 0
   - PersonTypes:
     - PersonType: 0
     - PersonType: 0
-    - PersonType: 6
-    - PersonType: 6
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 5
+    - PersonType: 0
+    - PersonType: 5
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 5
+    - PersonType: 5
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 5
+    - PersonType: 3
+    - PersonType: 5
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 4
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 0
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 0
+    - PersonType: 1
+    - PersonType: 0
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 4
+  - PersonTypes:
+    - PersonType: 3
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 3
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 5
+    - PersonType: 5
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 4
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 5
+    - PersonType: 3
+    - PersonType: 3
+    - PersonType: 3
+  - PersonTypes:
+    - PersonType: 1
+    - PersonType: 1
+    - PersonType: 1
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 0
+    - PersonType: 3
+    - PersonType: 4
+    - PersonType: 3
+    - PersonType: 0
+  - PersonTypes:
+    - PersonType: 4
+    - PersonType: 4
+    - PersonType: 4
   personCounts:
-  - PersonType: 0
-    Count: 52
+  - PersonType: 4
+    Count: 38
   - PersonType: 3
-    Count: 54
-  - PersonType: 6
-    Count: 46
-  count: 12
-  minPersonCount: 2
-  maxPersonCount: 4
-  personTypes:
-  - PersonType: 6
+    Count: 31
+  - PersonType: 5
+    Count: 34
+  - PersonType: 0
+    Count: 44
   - PersonType: 1
+    Count: 41
+  count: 45
+  minPersonCount: 1
+  maxPersonCount: 5
+  personTypes:
   - PersonType: 5
-  - PersonType: 5
+  - PersonType: 0
+  - PersonType: 1
+  - PersonType: 3
+  - PersonType: 4
   GoalStages:
   - Goals:
     - GoalColor:
-        PersonType: 0
-      Count: 12
-    - GoalColor:
-        PersonType: 6
+        PersonType: 3
       Count: 6
     - GoalColor:
-        PersonType: 3
-      Count: 18
-  - Goals:
+        PersonType: 5
+      Count: 6
     - GoalColor:
-        PersonType: 3
-      Count: 12
-    - GoalColor:
-        PersonType: 6
-      Count: 12
-    - GoalColor:
-        PersonType: 0
+        PersonType: 4
       Count: 6
   - Goals:
     - GoalColor:
-        PersonType: 6
+        PersonType: 1
       Count: 12
     - GoalColor:
         PersonType: 0
-      Count: 18
+      Count: 6
     - GoalColor:
-        PersonType: 3
+        PersonType: 4
       Count: 12
   - Goals:
     - GoalColor:
+        PersonType: 5
+      Count: 6
+    - GoalColor:
+        PersonType: 3
+      Count: 6
+    - GoalColor:
         PersonType: 0
       Count: 6
+  - Goals:
     - GoalColor:
-        PersonType: 6
+        PersonType: 0
+      Count: 12
+    - GoalColor:
+        PersonType: 5
+      Count: 12
+    - GoalColor:
+        PersonType: 1
+      Count: 6
+  - Goals:
+    - GoalColor:
+        PersonType: 3
       Count: 6
     - GoalColor:
-        PersonType: 6
+        PersonType: 1
+      Count: 6
+    - GoalColor:
+        PersonType: 4
       Count: 6
   Obstacles:
     gridSize: {x: 4, y: 6}
@@ -266,7 +324,7 @@ MonoBehaviour:
     cells:
     - row: 02000000000000000000000002000000
     - row: 02000000000000000000000002000000
-    - row: 02000000000000000000000002000000
-    - row: 02000000000000000000000002000000
+    - row: 00000000000000000000000000000000
+    - row: 00000000000000000000000000000000
     - row: 02000000000000000000000002000000
     - row: 02000000000000000000000002000000
