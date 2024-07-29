@@ -48,6 +48,8 @@ namespace GridSystem
 			LevelManager.OnLevelLoad -= OnLevelLoaded;
 			GoalManager.OnGoal -= OnGoal;
 			GoalManager.OnNewGoal -= CheckCompletedPacks;
+
+			checkFailCoroutine = null;
 		}
 
 		private void Setup()
@@ -91,7 +93,13 @@ namespace GridSystem
 		private void OnPersonGroupPlaced(PersonGroup placedPersonGroup)
 		{
 			var connectedPersonGroups = SortGroups(placedPersonGroup);
-			if (connectedPersonGroups is null) return;
+			if (connectedPersonGroups is null)
+			{
+				StopFailCoroutine();
+				checkFailCoroutine = StartCoroutine(CheckFail(placedPersonGroup));
+
+				return;
+			}
 
 			var totalConnectedPersonGroups = new List<PersonGroup>(connectedPersonGroups);
 			// Sort the rest of the groups in connected groups 
@@ -115,13 +123,8 @@ namespace GridSystem
 				StartCoroutine(personGroup.MovePeople());
 			}
 
-			if (moveSequenceCoroutine is not null)
-			{
-				StopCoroutine(moveSequenceCoroutine);
-				moveSequenceCoroutine = null;
-			}
-
-			moveSequenceCoroutine = StartCoroutine(CheckFail(totalConnectedPersonGroups));
+			StopFailCoroutine();
+			checkFailCoroutine = StartCoroutine(CheckFail(totalConnectedPersonGroups.ToArray()));
 		}
 
 		private List<PersonGroup> SortGroups(PersonGroup placedPersonGroup)
@@ -152,13 +155,8 @@ namespace GridSystem
 
 			if (connectedPersonGroups.Count <= 1)
 			{
-				if (moveSequenceCoroutine is not null)
-				{
-					StopCoroutine(moveSequenceCoroutine);
-					moveSequenceCoroutine = null;
-				}
-
-				moveSequenceCoroutine = StartCoroutine(CheckFail(connectedPersonGroups));
+				StopFailCoroutine();
+				checkFailCoroutine = StartCoroutine(CheckFail(connectedPersonGroups.ToArray()));
 				return null;
 			}
 
@@ -273,27 +271,30 @@ namespace GridSystem
 			StopFailCoroutine();
 		}
 
-		private Coroutine moveSequenceCoroutine = null;
+		public static Coroutine checkFailCoroutine = null;
 
-		private void StopFailCoroutine()
+		public void StopFailCoroutine()
 		{
-			if (moveSequenceCoroutine is not null)
+			if (checkFailCoroutine is not null)
 			{
-				StopCoroutine(moveSequenceCoroutine);
-				moveSequenceCoroutine = null;
+				StopCoroutine(checkFailCoroutine);
+				checkFailCoroutine = null;
 			}
 		}
 
-		private IEnumerator CheckFail(List<PersonGroup> connectedPersonGroups)
+		public IEnumerator CheckFail(params PersonGroup[] connectedPersonGroups)
 		{
-			var people = connectedPersonGroups.SelectMany(x => x.PersonGroupSlots.Where(y => y.Person)).Select(z => z.Person);
-			yield return new WaitForSeconds(0.25f);
+			yield return new WaitForSeconds(0.2f);
+			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
+			yield return new WaitForSeconds(0.2f);
+
+			var people = connectedPersonGroups.SelectMany(x => x.PersonGroupSlots.Where(y => y.Person).Select(z => z.Person));
+			yield return null;
 			yield return new WaitUntil(() => !people.Any(x => x.IsMoving));
-			yield return new WaitForSeconds(0.25f);
+			yield return null;
 			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
 			yield return null;
-
-			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
+			yield return new WaitUntil(() => !GoalManager.Instance.CurrentGoalHolders.Any(x => x.IsCompleted));
 			yield return null;
 
 			int filledNodeCount = 0;
@@ -310,6 +311,8 @@ namespace GridSystem
 			{
 				LevelManager.Instance.Lose();
 			}
+
+			checkFailCoroutine = null;
 		}
 
 		public void CheckCompletedPacks(GoalHolder goalHolder)

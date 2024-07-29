@@ -170,11 +170,20 @@ namespace Managers
 			var goalHolder = GetCurrentGoalHolder(personType);
 			if (!goalHolder)
 			{
+				Grid.Instance.StopFailCoroutine();
+				Grid.checkFailCoroutine = Grid.Instance.StartCoroutine(Grid.Instance.CheckFail(personGroup));
+
 				personGroup.CloseCover();
 				return;
 			}
 
-			if (goalHolder.IsCompleted) return;
+			if (goalHolder.IsCompleted)
+			{
+				Grid.Instance.StopFailCoroutine();
+				Grid.checkFailCoroutine = Grid.Instance.StartCoroutine(Grid.Instance.CheckFail(personGroup));
+
+				return;
+			}
 
 			Grid.Instance.CheckObstacles(personGroup);
 
@@ -186,9 +195,12 @@ namespace Managers
 			IsGoalSequence = true;
 
 			yield return StartCoroutine(goalHolder.SetPeople(personGroup));
-
+			
 			IsGoalSequence = false;
 			OnGoal?.Invoke();
+			
+			Grid.Instance.StopFailCoroutine();
+			Grid.checkFailCoroutine = Grid.Instance.StartCoroutine(Grid.Instance.CheckFail(personGroup));
 		}
 
 		private GoalHolder SelectGoalHolderByCount(int count)
