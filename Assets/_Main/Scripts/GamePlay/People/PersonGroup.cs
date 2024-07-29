@@ -372,14 +372,15 @@ namespace GamePlay.People
 		{
 			if (triggeredNodes.Count.Equals(0)) return null;
 
+			var pos = transform.position + 2.5f * Vector3.forward;
 			GridCell nearestCell = null;
 			var shortestDistance = float.MaxValue;
 			for (int i = 0; i < triggeredNodes.Count; i++)
 			{
-				if ((transform.position - triggeredNodes[i].transform.position).sqrMagnitude < shortestDistance)
+				if ((pos - triggeredNodes[i].transform.position).sqrMagnitude < shortestDistance)
 				{
 					nearestCell = triggeredNodes[i];
-					shortestDistance = (transform.position - nearestCell.transform.position).sqrMagnitude;
+					shortestDistance = (pos - nearestCell.transform.position).sqrMagnitude;
 				}
 			}
 

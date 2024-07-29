@@ -42,7 +42,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.38, y: 1, z: 0.23}
+  m_Extents: {x: 0.25, y: 1, z: 0.2}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -90,7 +90,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.38, y: 1, z: 0.23}
+  m_Extents: {x: 0.25, y: 1, z: 0.2}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -342,6 +342,10 @@ PrefabInstance:
     - target: {fileID: 6435916002254279117, guid: 269ef0c972cc94cecbeafd7314a3f167, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625058639443788342, guid: 269ef0c972cc94cecbeafd7314a3f167, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8403299241892940225, guid: 269ef0c972cc94cecbeafd7314a3f167, type: 3}
       propertyPath: m_LocalPosition.x
