@@ -111,14 +111,15 @@ namespace GamePlay.People
 			IsMoving = true;
 
 			var movePosition = movementQueue.Dequeue();
+			agent.ResetPath();
 			agent.SetDestination(movePosition);
 			personAnimations.Run();
 
 			footPrintParticle.Play();
 			StartCoroutine(FootstepSound());
 
-			yield return null;
-			while (agent.remainingDistance - agent.stoppingDistance > .1f)
+			yield return new WaitUntil(() => agent.velocity.sqrMagnitude > 0);
+			while (agent.remainingDistance - agent.stoppingDistance > .05f)
 			{
 				UpdateRotation();
 				yield return null;

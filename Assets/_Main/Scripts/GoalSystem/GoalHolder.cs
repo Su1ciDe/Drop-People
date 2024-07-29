@@ -73,7 +73,8 @@ namespace GoalSystem
 			}
 
 			IsCompleted = CheckIfCompleted();
-
+			
+			yield return null;
 			for (var i = 0; i < peopleCount; i++)
 			{
 				yield return new WaitForSeconds(GoalManager.DELAY);
