@@ -16,11 +16,8 @@ namespace Fiber.AudioSystem
 		Pop1,
 		Pop2,
 		Pop3,
-		Pickup,
-		Place,
-		Person,
-		Goal,
 		Footstep,
 		Car,
+		CarEngine,
 	}
 }

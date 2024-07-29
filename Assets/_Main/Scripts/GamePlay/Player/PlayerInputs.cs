@@ -104,7 +104,6 @@ namespace GamePlay.Player
 			var ray = finger.GetRay(Helper.MainCamera);
 			if (Physics.Raycast(ray, out var hit, 100, inputPlaneLayer))
 			{
-				AudioManager.Instance.PlayAudio(AudioName.Place);
 				var position = hit.point + offset;
 				SelectedPersonGroup.OnRelease();
 				OnUp?.Invoke(position);
