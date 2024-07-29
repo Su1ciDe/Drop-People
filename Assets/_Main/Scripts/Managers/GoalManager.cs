@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Fiber.AudioSystem;
 using Fiber.Managers;
 using Fiber.Utilities;
 using GamePlay.People;
@@ -123,7 +124,9 @@ namespace Managers
 					count++;
 			}
 
+			AudioManager.Instance.PlayAudio(AudioName.Car);
 			yield return new WaitForSeconds(0.2f);
+			AudioManager.Instance.PlayAudio(AudioName.CarEngine);
 			yield return StartCoroutine(goalHolder.MoveToEndCoroutine(linePaths[index].path));
 
 			if (count <= 0)

@@ -73,7 +73,7 @@ namespace GoalSystem
 			}
 
 			IsCompleted = CheckIfCompleted();
-			
+
 			yield return null;
 			for (var i = 0; i < peopleCount; i++)
 			{
@@ -167,9 +167,6 @@ namespace GoalSystem
 
 		public IEnumerator MoveToEndCoroutine(VertexPath path)
 		{
-			AudioManager.Instance.PlayAudio(AudioName.Car);	
-			AudioManager.Instance.PlayAudio(AudioName.CarEngine);	
-
 			foreach (var navMeshObstacle in navMeshObstacles)
 				navMeshObstacle.enabled = false;
 
