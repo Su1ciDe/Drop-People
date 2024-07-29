@@ -364,31 +364,31 @@ namespace GridSystem
 					obstacle.OnGroupCompleteNear(personGroup);
 		}
 
-		public GridCell GetFirstEmptyCell(bool reversed = false)
+		public GridCell GetFirstEmptyCell()
 		{
-			if (!reversed)
+			for (int x = 0; x < size.x; x++)
 			{
-				for (int x = 0; x < size.x; x++)
+				for (int y = 0; y < size.y; y++)
 				{
-					for (int y = 0; y < size.y; y++)
+					if (gridCells[x, y].CurrentNode is null)
 					{
-						if (gridCells[x, y].CurrentNode is null)
-						{
-							return gridCells[x, y];
-						}
+						return gridCells[x, y];
 					}
 				}
 			}
-			else
+
+			return null;
+		}
+
+		public GridCell GetFirstEmptyCellReversed()
+		{
+			for (int y = size.y - 1; y >= 0; y--)
 			{
-				for (int y = size.y - 1; y >= 0; y--)
+				for (int x = 0; x < size.x; x++)
 				{
-					for (int x = 0; x < size.x; x++)
+					if (gridCells[x, y].CurrentNode is null)
 					{
-						if (gridCells[x, y].CurrentNode is null)
-						{
-							return gridCells[x, y];
-						}
+						return gridCells[x, y];
 					}
 				}
 			}

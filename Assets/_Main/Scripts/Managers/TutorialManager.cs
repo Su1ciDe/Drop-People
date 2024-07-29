@@ -113,7 +113,7 @@ namespace Managers
 			yield return new WaitForSeconds(0.5f);
 
 			var deckSlot = Deck.Instance.GetFirstGroupInDeck();
-			var cell = Grid.Instance.GetFirstEmptyCell(true);
+			var cell = Grid.Instance.GetFirstEmptyCellReversed();
 
 			tutorialUI.ShowSwipe(deckSlot.transform.position, cell.transform.position, Helper.MainCamera);
 			tutorialUI.ShowText("Make a match to break obstacles!");
@@ -135,7 +135,7 @@ namespace Managers
 			yield return new WaitForSeconds(0.5f);
 
 			var deckSlot = Deck.Instance.GetFirstGroupInDeck();
-			var cell = Grid.Instance.GetFirstEmptyCell(true);
+			var cell = Grid.Instance.GetFirstEmptyCellReversed();
 
 			tutorialUI.ShowSwipe(deckSlot.transform.position, cell.transform.position, Helper.MainCamera);
 
