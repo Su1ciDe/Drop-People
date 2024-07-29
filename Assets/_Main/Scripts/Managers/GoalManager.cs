@@ -145,7 +145,7 @@ namespace Managers
 
 		private IEnumerator LevelCompleteCoroutine()
 		{
-			yield return new WaitForSeconds(1);
+			yield return null;
 			yield return new WaitUntil(() => !IsGoalSequence);
 
 			LevelManager.Instance.Win();

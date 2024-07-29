@@ -142,7 +142,7 @@ namespace GamePlay.People
 			canMove = false;
 
 			transform.SetParent(placedCell.transform);
-			transform.DOLocalMove(Vector3.zero, .25f).SetEase(Ease.OutBack, 2.5f).OnComplete(() =>
+			transform.DOLocalMove(Vector3.zero, .2f).SetEase(Ease.OutBack, 2.5f).OnComplete(() =>
 			{
 				HapticManager.Instance.PlayHaptic(0.5f, 0.5f);
 				AudioManager.Instance.PlayAudio(AudioName.Plop2);
@@ -167,7 +167,7 @@ namespace GamePlay.People
 				currentNearestGridCell.HideHighlight();
 			currentNearestGridCell = null;
 
-			if (Physics.Raycast(transform.position, Vector3.down, out var hit ,100, LayerMask.GetMask("GridCell")))
+			if (Physics.Raycast(transform.position, Vector3.down, out var hit, 100, LayerMask.GetMask("GridCell")))
 			{
 				if (hit.rigidbody && hit.rigidbody.TryGetComponent(out GridCell cell))
 					cell.ShowRedHighlight();

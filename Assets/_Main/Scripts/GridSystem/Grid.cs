@@ -35,6 +35,7 @@ namespace GridSystem
 		private void OnEnable()
 		{
 			PersonGroup.OnPlace += OnPersonGroupPlaced;
+			PersonGroup.OnComplete += OnPersonGroupComplete;
 			LevelManager.OnLevelLoad += OnLevelLoaded;
 			GoalManager.OnGoal += OnGoal;
 			GoalManager.OnNewGoal += CheckCompletedPacks;
@@ -43,6 +44,7 @@ namespace GridSystem
 		private void OnDisable()
 		{
 			PersonGroup.OnPlace -= OnPersonGroupPlaced;
+			PersonGroup.OnComplete -= OnPersonGroupComplete;
 			LevelManager.OnLevelLoad -= OnLevelLoaded;
 			GoalManager.OnGoal -= OnGoal;
 			GoalManager.OnNewGoal -= CheckCompletedPacks;
@@ -119,7 +121,7 @@ namespace GridSystem
 				moveSequenceCoroutine = null;
 			}
 
-			moveSequenceCoroutine = StartCoroutine(MoveSequence(totalConnectedPersonGroups));
+			moveSequenceCoroutine = StartCoroutine(CheckFail(totalConnectedPersonGroups));
 		}
 
 		private List<PersonGroup> SortGroups(PersonGroup placedPersonGroup)
@@ -156,7 +158,7 @@ namespace GridSystem
 					moveSequenceCoroutine = null;
 				}
 
-				moveSequenceCoroutine = StartCoroutine(MoveSequence(connectedPersonGroups));
+				moveSequenceCoroutine = StartCoroutine(CheckFail(connectedPersonGroups));
 				return null;
 			}
 
@@ -263,6 +265,18 @@ namespace GridSystem
 
 		private void OnGoal()
 		{
+			StopFailCoroutine();
+		}
+
+		private void OnPersonGroupComplete(PersonGroup personGroup)
+		{
+			StopFailCoroutine();
+		}
+
+		private Coroutine moveSequenceCoroutine = null;
+
+		private void StopFailCoroutine()
+		{
 			if (moveSequenceCoroutine is not null)
 			{
 				StopCoroutine(moveSequenceCoroutine);
@@ -270,12 +284,10 @@ namespace GridSystem
 			}
 		}
 
-		private Coroutine moveSequenceCoroutine = null;
-
-		private IEnumerator MoveSequence(List<PersonGroup> connectedPersonGroups)
+		private IEnumerator CheckFail(List<PersonGroup> connectedPersonGroups)
 		{
 			var people = connectedPersonGroups.SelectMany(x => x.PersonGroupSlots.Where(y => y.Person)).Select(z => z.Person);
-			yield return null;
+			yield return new WaitForSeconds(0.25f);
 			yield return new WaitUntil(() => !people.Any(x => x.IsMoving));
 			yield return new WaitForSeconds(0.25f);
 			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);

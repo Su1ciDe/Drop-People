@@ -64,7 +64,7 @@ namespace Managers
 
 		private IEnumerator Level1Tutorial()
 		{
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(0.1f);
 
 			var deckSlot = Deck.Instance.GetFirstGroupInDeck();
 			var cell = Grid.Instance.GetFirstEmptyCell();
@@ -85,7 +85,7 @@ namespace Managers
 
 		private IEnumerator WaitForSecondGroup()
 		{
-			yield return new WaitForSeconds(0.5f);
+			yield return null;
 
 			var deckSlot = Deck.Instance.GetFirstGroupInDeck();
 			var cell = Grid.Instance.GetFirstEmptyCell();
@@ -110,7 +110,7 @@ namespace Managers
 
 		private IEnumerator BreakableTutorial()
 		{
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(0.1f);
 
 			var deckSlot = Deck.Instance.GetFirstGroupInDeck();
 			var cell = Grid.Instance.GetFirstEmptyCellReversed();
@@ -132,7 +132,7 @@ namespace Managers
 
 		private IEnumerator WaitForSecondGroup_BreakableTutorial()
 		{
-			yield return new WaitForSeconds(0.5f);
+			yield return null;
 
 			var deckSlot = Deck.Instance.GetFirstGroupInDeck();
 			var cell = Grid.Instance.GetFirstEmptyCellReversed();
