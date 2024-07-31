@@ -325,15 +325,21 @@ namespace GridSystem
 
 		public void CheckCompletedPacks(GoalHolder goalHolder)
 		{
+			StartCoroutine(CheckCompletedPacksCoroutine(goalHolder));
+		}
+
+		private IEnumerator CheckCompletedPacksCoroutine(GoalHolder goalHolder)
+		{
 			for (int x = 0; x < size.x; x++)
 			{
 				for (int y = 0; y < size.y; y++)
 				{
 					var grid = gridCells[x, y];
-					if (grid.CurrentPersonGroup && grid.CurrentPersonGroup.IsCompleted && !grid.CurrentPersonGroup.IsBusy &&  grid.CurrentPersonGroup.PersonGroupSlots[0].Person.PersonType == goalHolder.PersonType &&
-					    !goalHolder.IsCompleted && !grid.CurrentPersonGroup.IsMoving)
+					if (grid.CurrentPersonGroup && grid.CurrentPersonGroup.IsCompleted && !grid.CurrentPersonGroup.IsBusy &&
+					    grid.CurrentPersonGroup.PersonGroupSlots[0].Person.PersonType == goalHolder.PersonType && !goalHolder.IsCompleted && !grid.CurrentPersonGroup.IsMoving)
 					{
 						GoalManager.Instance.OnPersonGroupCompleted(grid.CurrentPersonGroup);
+						yield return new WaitForSeconds(GoalManager.DELAY);
 					}
 				}
 			}
