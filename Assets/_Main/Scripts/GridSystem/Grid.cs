@@ -292,10 +292,11 @@ namespace GridSystem
 			yield return null;
 			yield return new WaitUntil(() => !people.Any(x => x.IsMoving));
 			yield return null;
+			var tempGoalHolders = new List<GoalHolder>(GoalManager.Instance.CurrentGoalHolders);
 			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
 			yield return null;
-			yield return new WaitUntil(() => !GoalManager.Instance.CurrentGoalHolders.Any(x => x.IsCompleted));
-			yield return null;
+			yield return new WaitUntil(() => !tempGoalHolders.Any(x => x.IsCompleted));
+			yield return new WaitForSeconds(1);
 
 			int filledNodeCount = 0;
 			for (int x = 0; x < size.x; x++)
