@@ -292,7 +292,14 @@ namespace GridSystem
 			yield return null;
 			yield return new WaitUntil(() => !people.Any(x => x.IsMoving));
 			yield return null;
-			var tempGoalHolders = new List<GoalHolder>(GoalManager.Instance.CurrentGoalHolders);
+			var tempGoalHolders = new List<GoalHolder>();
+			for (int i = 0; i < GoalManager.Instance.CurrentGoalHolders.Count; i++)
+			{
+				if (GoalManager.Instance.CurrentGoalHolders[i])
+					tempGoalHolders.Add(GoalManager.Instance.CurrentGoalHolders[i]);
+			}
+
+			// var tempGoalHolders = new List<GoalHolder>(GoalManager.Instance.CurrentGoalHolders).Select(x => x);
 			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
 			yield return null;
 			yield return new WaitUntil(() => !tempGoalHolders.Any(x => x.IsCompleted));
@@ -308,6 +315,7 @@ namespace GridSystem
 				}
 			}
 
+			Debug.Log(filledNodeCount);
 			if (filledNodeCount.Equals(gridCells.Length))
 			{
 				LevelManager.Instance.Lose();
