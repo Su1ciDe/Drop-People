@@ -326,7 +326,6 @@ namespace GridSystem
 				}
 			}
 
-			Debug.Log(filledNodeCount);
 			if (filledNodeCount.Equals(gridCells.Length))
 			{
 				LevelManager.Instance.Lose();
