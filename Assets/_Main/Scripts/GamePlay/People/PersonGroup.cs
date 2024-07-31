@@ -13,6 +13,7 @@ using MoreMountains.Feedbacks;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Events;
+using Grid = GridSystem.Grid;
 
 namespace GamePlay.People
 {
@@ -136,6 +137,8 @@ namespace GamePlay.People
 
 		public void Place(GridCell placedCell)
 		{
+			Grid.Instance.StopFailCoroutine();
+
 			CurrentGridCell = placedCell;
 			CurrentGridCell.CurrentPersonGroup = this;
 			CurrentGridCell.CurrentNode = this;

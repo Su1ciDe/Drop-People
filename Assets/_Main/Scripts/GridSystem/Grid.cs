@@ -95,7 +95,6 @@ namespace GridSystem
 			var connectedPersonGroups = SortGroups(placedPersonGroup);
 			if (connectedPersonGroups is null)
 			{
-				StopFailCoroutine();
 				CheckFail(placedPersonGroup);
 
 				return;
@@ -326,9 +325,11 @@ namespace GridSystem
 				}
 			}
 
-			if (filledNodeCount.Equals(gridCells.Length))
+			if (filledNodeCount.Equals(gridCells.Length) && checkFailCoroutine is not null)
 			{
-				LevelManager.Instance.Lose();
+				yield return null;
+				if (checkFailCoroutine is not null)
+					LevelManager.Instance.Lose();
 			}
 
 			checkFailCoroutine = null;
