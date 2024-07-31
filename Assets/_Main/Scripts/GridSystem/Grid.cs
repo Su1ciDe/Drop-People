@@ -339,7 +339,8 @@ namespace GridSystem
 					    grid.CurrentPersonGroup.PersonGroupSlots[0].Person.PersonType == goalHolder.PersonType && !goalHolder.IsCompleted && !grid.CurrentPersonGroup.IsMoving)
 					{
 						GoalManager.Instance.OnPersonGroupCompleted(grid.CurrentPersonGroup);
-						yield return new WaitForSeconds(GoalManager.DELAY);
+						yield return new WaitForSeconds(GoalManager.DELAY * 6);
+						yield return null;
 					}
 				}
 			}

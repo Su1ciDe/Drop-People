@@ -173,7 +173,6 @@ namespace Managers
 				Grid.Instance.StopFailCoroutine();
 				Grid.checkFailCoroutine = Grid.Instance.StartCoroutine(Grid.Instance.CheckFail(personGroup));
 
-				personGroup.CloseCover();
 				return;
 			}
 

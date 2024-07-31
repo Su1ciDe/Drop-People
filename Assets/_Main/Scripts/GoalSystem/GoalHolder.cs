@@ -86,7 +86,8 @@ namespace GoalSystem
 				StartCoroutine(personGroup.RemovePack());
 
 			yield return null;
-			yield return new WaitUntil(() => !people.Any(x => x.IsMoving));
+			var currentPeople = goalSlots.Select(x => x.Person);
+			yield return new WaitUntil(() => !currentPeople.Any(x => x.IsMoving));
 			yield return null;
 
 			for (var i = 0; i < peopleCount; i++)
