@@ -118,7 +118,9 @@ namespace GamePlay.People
 			footPrintParticle.Play();
 			StartCoroutine(FootstepSound());
 
+			yield return null;
 			yield return new WaitUntil(() => agent.velocity.sqrMagnitude > 0);
+			yield return null;
 			while (agent.remainingDistance - agent.stoppingDistance > .05f)
 			{
 				UpdateRotation();

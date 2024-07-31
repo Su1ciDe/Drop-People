@@ -20,6 +20,8 @@ namespace GamePlay.People
 	public class PersonGroup : MonoBehaviour, INode
 	{
 		public bool IsCompleted { get; private set; }
+		public bool IsMoving { get; set; }
+
 		public bool IsBusy { get; private set; } = false;
 		public bool CanMove => currentDeckSlot && canMove;
 		private bool canMove = false;
@@ -461,6 +463,17 @@ namespace GamePlay.People
 			for (int i = 0; i < personGroupSlots.Length; i++)
 				if (personGroupSlots[i].Person?.PersonType == boltType)
 					return true;
+
+			return false;
+		}
+
+		public bool IsAnyPersonMoving()
+		{
+			for (int i = 0; i < personGroupSlots.Length; i++)
+			{
+				if (personGroupSlots[i].Person && personGroupSlots[i].Person.IsMoving)
+					return true;
+			}
 
 			return false;
 		}

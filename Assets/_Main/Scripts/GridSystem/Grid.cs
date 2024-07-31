@@ -315,7 +315,6 @@ namespace GridSystem
 				}
 			}
 
-			Debug.Log(filledNodeCount);
 			if (filledNodeCount.Equals(gridCells.Length))
 			{
 				LevelManager.Instance.Lose();
@@ -331,8 +330,8 @@ namespace GridSystem
 				for (int y = 0; y < size.y; y++)
 				{
 					var grid = gridCells[x, y];
-					if (grid.CurrentPersonGroup && grid.CurrentPersonGroup.IsCompleted && grid.CurrentPersonGroup.PersonGroupSlots[0].Person.PersonType == goalHolder.PersonType &&
-					    !goalHolder.IsCompleted)
+					if (grid.CurrentPersonGroup && grid.CurrentPersonGroup.IsCompleted && !grid.CurrentPersonGroup.IsBusy &&  grid.CurrentPersonGroup.PersonGroupSlots[0].Person.PersonType == goalHolder.PersonType &&
+					    !goalHolder.IsCompleted && !grid.CurrentPersonGroup.IsMoving)
 					{
 						GoalManager.Instance.OnPersonGroupCompleted(grid.CurrentPersonGroup);
 					}

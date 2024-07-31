@@ -193,10 +193,13 @@ namespace Managers
 		private IEnumerator GroupCompleteCoroutine(PersonGroup personGroup, GoalHolder goalHolder)
 		{
 			IsGoalSequence = true;
+			personGroup.IsMoving = true;
 
 			yield return StartCoroutine(goalHolder.SetPeople(personGroup));
 			
 			IsGoalSequence = false;
+			personGroup.IsMoving = false;
+
 			OnGoal?.Invoke();
 			
 			Grid.Instance.StopFailCoroutine();
