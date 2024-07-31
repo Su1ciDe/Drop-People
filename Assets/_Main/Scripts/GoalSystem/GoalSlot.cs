@@ -20,6 +20,7 @@ namespace GoalSystem
 			Person = person;
 			Person.CurrentSlot = this;
 			Person.transform.SetParent(transform);
+			Person.transform.localScale = Vector3.one;
 
 			if (setPosition)
 				Person.transform.localPosition = Vector3.zero;

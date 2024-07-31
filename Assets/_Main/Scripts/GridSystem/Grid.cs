@@ -96,7 +96,7 @@ namespace GridSystem
 			if (connectedPersonGroups is null)
 			{
 				StopFailCoroutine();
-				checkFailCoroutine = StartCoroutine(CheckFail(placedPersonGroup));
+				CheckFail(placedPersonGroup);
 
 				return;
 			}
@@ -124,7 +124,7 @@ namespace GridSystem
 			}
 
 			StopFailCoroutine();
-			checkFailCoroutine = StartCoroutine(CheckFail(totalConnectedPersonGroups.ToArray()));
+			CheckFail(totalConnectedPersonGroups.ToArray());
 		}
 
 		private List<PersonGroup> SortGroups(PersonGroup placedPersonGroup)
@@ -156,7 +156,7 @@ namespace GridSystem
 			if (connectedPersonGroups.Count <= 1)
 			{
 				StopFailCoroutine();
-				checkFailCoroutine = StartCoroutine(CheckFail(connectedPersonGroups.ToArray()));
+				CheckFail(connectedPersonGroups.ToArray());
 				return null;
 			}
 
@@ -264,14 +264,21 @@ namespace GridSystem
 		private void OnGoal()
 		{
 			StopFailCoroutine();
+			CheckFail();
 		}
 
 		private void OnPersonGroupComplete(PersonGroup personGroup)
 		{
 			StopFailCoroutine();
+			CheckFail(personGroup);
 		}
 
 		public static Coroutine checkFailCoroutine = null;
+
+		public void CheckFail(params PersonGroup[] connectedPersonGroups)
+		{
+			checkFailCoroutine = StartCoroutine(CheckFailCoroutine(connectedPersonGroups));
+		}
 
 		public void StopFailCoroutine()
 		{
@@ -282,15 +289,19 @@ namespace GridSystem
 			}
 		}
 
-		public IEnumerator CheckFail(params PersonGroup[] connectedPersonGroups)
+		private IEnumerator CheckFailCoroutine(params PersonGroup[] connectedPersonGroups)
 		{
 			yield return new WaitForSeconds(0.2f);
 			yield return new WaitUntil(() => !GoalManager.Instance.IsGoalSequence);
 			yield return new WaitForSeconds(0.2f);
 
-			var people = connectedPersonGroups.SelectMany(x => x.PersonGroupSlots.Where(y => y.Person).Select(z => z.Person));
-			yield return null;
-			yield return new WaitUntil(() => !people.Any(x => x.IsMoving));
+			if (connectedPersonGroups is not null)
+			{
+				var people = connectedPersonGroups.SelectMany(x => x.PersonGroupSlots.Where(y => y.Person).Select(z => z.Person));
+				yield return null;
+				yield return new WaitUntil(() => !people.Any(x => x.IsMoving));
+			}
+
 			yield return null;
 			var tempGoalHolders = new List<GoalHolder>();
 			for (int i = 0; i < GoalManager.Instance.CurrentGoalHolders.Count; i++)
@@ -315,6 +326,7 @@ namespace GridSystem
 				}
 			}
 
+			Debug.Log(filledNodeCount);
 			if (filledNodeCount.Equals(gridCells.Length))
 			{
 				LevelManager.Instance.Lose();

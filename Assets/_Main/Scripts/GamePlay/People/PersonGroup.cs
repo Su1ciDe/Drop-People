@@ -305,7 +305,7 @@ namespace GamePlay.People
 
 			IsBusy = false;
 
-			if (isCompleted)
+			if (isCompleted && feedback)
 				feedback.PlayFeedbacks();
 
 			yield return new WaitForSeconds(0.2f);

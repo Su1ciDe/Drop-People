@@ -86,8 +86,7 @@ namespace GoalSystem
 				StartCoroutine(personGroup.RemovePack());
 
 			yield return null;
-			var currentPeople = goalSlots.Select(x => x.Person);
-			yield return new WaitUntil(() => !currentPeople.Any(x => x.IsMoving));
+			yield return new WaitUntil(() => !IsAnyPersonMoving());
 			yield return null;
 
 			for (var i = 0; i < peopleCount; i++)
@@ -113,7 +112,6 @@ namespace GoalSystem
 			holderMeshRenderer.transform.DOComplete();
 			holderMeshRenderer.transform.DOScale(1.1f * Vector3.one, .1f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutExpo);
 
-			// AudioManager.Instance.PlayAudio(AudioName.Goal).SetPitch(1 + .1f * index);
 			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(1 + .1f * index);
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
 
@@ -193,6 +191,17 @@ namespace GoalSystem
 			}
 
 			return null;
+		}
+		
+		public bool IsAnyPersonMoving()
+		{
+			for (int i = 0; i < goalSlots.Length; i++)
+			{
+				if (goalSlots[i].Person && goalSlots[i].Person.IsMoving)
+					return true;
+			}
+
+			return false;
 		}
 	}
 }
